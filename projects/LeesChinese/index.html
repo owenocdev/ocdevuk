@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lee's Chinese</title>
+  <style>
+    :root {
+      --red: #b32020;
+      --gold: #f2c94c;
+      --dark: #2b2b2b;
+      --light: #ffffff;
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--dark);
+      background: #fafafa;
+    }
+
+    header {
+      background: var(--gold);
+      border-bottom: 8px solid var(--red);
+      padding: 20px 10px;
+      text-align: center;
+    }
+
+    header img {
+      max-width: 320px;
+      width: 90%;
+      height: auto;
+    }
+
+    nav {
+      background: var(--red);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .call-btn {
+      background: white;
+      color: var(--red);
+      padding: 8px 18px;
+      border-radius: 20px;
+    }
+
+    .info-bar {
+      background: #fff;
+      padding: 20px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .info-grid {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .info-card h4 {
+      color: var(--red);
+      margin-top: 0;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    .search-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    #menuSearch {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid var(--gold);
+      border-radius: 25px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .hero {
+      padding: 40px 20px;
+      text-align: center;
+      background: var(--gold);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 10px 15px 30px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .filters button {
+      border: none;
+      padding: 8px 14px;
+      border-radius: 16px;
+      background: var(--red);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .filters button.active {
+      background: var(--gold);
+      color: var(--red);
+    }
+
+    .menu-section {
+      margin-bottom: 40px;
+    }
+
+    .menu-section h3 {
+      background: var(--red);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 1.4rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .item-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .menu-item span.price {
+      font-weight: bold;
+      color: var(--red);
+      white-space: nowrap;
+    }
+
+    .description {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--red);
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      cursor: pointer;
+      display: none;
+      font-size: 20px;
+      z-index: 1000;
+    }
+
+    footer {
+      background: var(--red);
+      color: white;
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    @media (max-width: 600px) {
+      .nav-inner { flex-direction: column; gap: 10px; }
+    }
+
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            font-size: 15vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.04); 
+            white-space: nowrap;
+            pointer-events: none; 
+            z-index: 100; 
+            user-select: none;
+        }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="assets/logo.png" alt="Lee's Chinese Logo">
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#menu">Menu</a>
+    <a class="call-btn" href="tel:01382776183">Call 01382 776183</a>
+  </div>
+</nav>
+
+<section class="search-container">
+  <input type="text" id="menuSearch" onkeyup="searchMenu()" placeholder="Search menu for dishes...">
+</section>
+
+<section id="menu" class="container">
+
+  <div class="filters">
+    <button class="active" onclick="filterMenu('all', this)">All</button>
+    <button onclick="filterMenu('appetisers', this)">Appetisers</button>
+    <button onclick="filterMenu('special', this)">Chef Specials</button>
+    <button onclick="filterMenu('peking', this)">Peking</button>
+    <button onclick="filterMenu('szechuan', this)">Szechuan</button>
+    <button onclick="filterMenu('vegetarian', this)">Vegetarian</button>
+    <button onclick="filterMenu('seafood', this)">Seafood</button>
+    <button onclick="filterMenu('duck', this)">Duck</button>
+    <button onclick="filterMenu('chicken', this)">Chicken</button>
+    <button onclick="filterMenu('beef', this)">Beef</button>
+    <button onclick="filterMenu('pork', this)">Pork</button>
+    <button onclick="filterMenu('blackbean', this)">Black Bean</button>
+    <button onclick="filterMenu('sweet', this)">Sweet & Sour</button>
+    <button onclick="filterMenu('curry', this)">Curry</button>
+    <button onclick="filterMenu('chop', this)">Chop Suey</button>
+    <button onclick="filterMenu('fooyung', this)">Foo Yung</button>
+    <button onclick="filterMenu('noodles', this)">Noodles</button>
+    <button onclick="filterMenu('rice', this)">Rice</button>
+    <button onclick="filterMenu('european', this)">European</button>
+    <button onclick="filterMenu('extras', this)">Extras</button>
+    <button onclick="filterMenu('setmeals', this)">Set Meals</button>
+  </div>
+
+  <div class="menu-section" data-category="appetisers">
+    <h3>Appetisers</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Sesame Prawn Toast <span class="price">£4.60</span></div></div>
+      <div class="menu-item"><div class="item-main">Crispy Pancake Roll <span class="price">£3.80</span></div></div>
+      <div class="menu-item"><div class="item-main">Mini Vegetable Spring Rolls (10) <span class="price">£3.80</span></div></div>
+      <div class="menu-item"><div class="item-main">Barbecued Spare Ribs <span class="price">£5.80</span></div></div>
+      <div class="menu-item"><div class="item-main">Spare Ribs in Peking Sauce <span class="price">£6.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Salt & Pepper Spare Ribs <span class="price">£6.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Deep Fried Chicken Wings <span class="price">£4.80</span></div></div>
+      <div class="menu-item"><div class="item-main">Salt & Pepper Chicken Wings <span class="price">£5.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Won Ton Soup <span class="price">£4.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Hot & Sour Soup <span class="price">£4.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Noodle Soup <span class="price">£3.30</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Sweetcorn Soup <span class="price">£3.30</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken & Mushroom Soup <span class="price">£3.30</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="special">
+    <h3>Chef Special Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Singapore Rice Noodles <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Deep Fried Shredded Beef in Sweet Chilli Sauce <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Deep Fried Shredded Chicken in Sweet Chilli Sauce <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Crispy Chicken in Hot & Spicy Sauce <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Kung Po Chicken <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Lemon Chicken <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Salt & Pepper Chicken <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Salt & Pepper King Prawns <span class="price">£9.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Crispy Aromatic Chicken <span class="price">£8.50</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="peking">
+    <h3>Peking Sauce Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">King Prawn in Peking Sauce <span class="price">£9.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken in Peking Sauce <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef in Peking Sauce <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Pork in Peking Sauce <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui in Peking Sauce <span class="price">£8.60</span></div></div>
+      <div class="menu-item"><div class="item-main">Shrimp in Peking Sauce <span class="price">£8.60</span></div></div>
+      <div class="menu-item"><div class="item-main">Deep Fried Shredded Beef in Peking Sauce <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Deep Fried Shredded Chicken in Peking Sauce <span class="price">£8.50</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="szechuan">
+    <h3>Szechuan Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">King Prawn Szechuan <span class="price">£9.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Szechuan <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef Szechuan <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Pork Szechuan <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui Szechuan <span class="price">£8.60</span></div></div>
+      <div class="menu-item"><div class="item-main">Shrimp Szechuan <span class="price">£8.60</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="vegetarian">
+    <h3>Vegetarian Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Mixed Vegetable Curry <span class="price">£7.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Mixed Vegetables in Satay Sauce <span class="price">£7.60</span></div></div>
+      <div class="menu-item"><div class="item-main">Mixed Vegetables & Tofu in Oyster Sauce <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Mixed Vegetables & Tofu in Black Bean Sauce <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Mixed Vegetables & Cashew Nuts <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Mixed Vegetable Chow Mein <span class="price">£7.80</span></div></div>
+      <div class="menu-item"><div class="item-main">Mixed Vegetables & Sweet & Sour Sauce  <span class="price">£7.50</span></div></div>
+    </div>
+  </div>
+
+    <div class="menu-section" data-category="seafood">
+    <h3>Seafood Dishes</h3>
+    <div class="menu-grid">
+        <div class="menu-item"><div class="item-main">King Prawn in Satay Sauce <span class="price">£9.40</span></div></div>
+        <div class="menu-item"><div class="item-main">King Prawn with Ginger and Spring Onion <span class="price">£9.40</span></div></div>
+        <div class="menu-item"><div class="item-main">King Prawn with Cashew Nuts <span class="price">£9.60</span></div></div>
+        <div class="menu-item"><div class="item-main">King Prawn with Sweetcorn <span class="price">£9.40</span></div></div>
+        <div class="menu-item"><div class="item-main">King Prawn with Mushrooms <span class="price">£9.40</span></div></div>
+        <div class="menu-item"><div class="item-main">King Prawn with Pineapple <span class="price">£9.40</span></div></div>
+        
+        <div class="menu-item"><div class="item-main">Shrimp with Cashew Nuts <span class="price">£8.40</span></div></div>
+        <div class="menu-item"><div class="item-main">Shrimp with Sweetcorn <span class="price">£8.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Shrimp in Satay Sauce <span class="price">£8.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Shrimp with Mushrooms <span class="price">£8.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Shrimp with Pineapple <span class="price">£8.20</span></div></div>
+    </div>
+    </div>
+
+    <div class="menu-section" data-category="duck">
+    <h3>Roast Duck Dishes</h3>
+    <div class="menu-grid">
+        <div class="menu-item"><div class="item-main">Roast Duck with Green Peppers and Black Bean Sauce <span class="price">£9.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Roast Duck with Orange or Lemon Sauce <span class="price">£9.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Roast Duck with Pineapple <span class="price">£9.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Roast Duck with Mushrooms <span class="price">£9.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Roast Duck and Char Sui with Bean Sprouts <span class="price">£9.20</span></div></div>
+    </div>
+    </div>
+
+  <div class="menu-section" data-category="chicken">
+    <h3>Chicken Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Chicken in Satay Sauce <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken with Ginger & Spring Onion <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken with Cashew Nuts <span class="price">£8.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken with Mushrooms <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken with Sweetcorn <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken with Pineapple <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken with Bean Sprouts <span class="price">£8.00</span></div></div>
+    </div>
+  </div>
+
+    <div class="menu-section" data-category="beef">
+    <h3>Beef Dishes</h3>
+    <div class="menu-grid">
+        <div class="menu-item"><div class="item-main">Beef in Satay Sauce <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Beef with Ginger and Spring Onion <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Beef with Cashew Nuts <span class="price">£8.40</span></div></div>
+        <div class="menu-item"><div class="item-main">Beef with Mushrooms <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Beef with Sweetcorn <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Beef with Pineapple <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Beef with Tomato <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Beef in Oyster Sauce <span class="price">£8.00</span></div></div>
+    </div>
+    </div>
+
+    <div class="menu-section" data-category="pork">
+    <h3>Pork Dishes</h3>
+    <div class="menu-grid">
+        <div class="menu-item"><div class="item-main">Pork in Satay Sauce <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Pork with Ginger and Spring Onion <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Pork with Cashew Nuts <span class="price">£8.40</span></div></div>
+        <div class="menu-item"><div class="item-main">Pork with Mushrooms <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Pork with Sweetcorn <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Pork with Pineapple <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Char Sui with Bean Sprouts <span class="price">£8.40</span></div></div>
+        <div class="menu-item"><div class="item-main">Char Sui with Cashew Nuts <span class="price">£8.60</span></div></div>
+        <div class="menu-item"><div class="item-main">Char Sui with Mushrooms <span class="price">£8.40</span></div></div>
+    </div>
+    </div>
+
+  <div class="menu-section" data-category="blackbean">
+    <h3>Black Bean Sauce Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">King Prawn w/ Green Peppers & BB <span class="price">£9.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken w/ Green Peppers & BB <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef w/ Green Peppers & BB <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui w/ Green Peppers & BB <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Pork w/ Green Peppers & BB <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Shrimp w/ Green Peppers & BB <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">King Prawn w/ Mushrooms & BB <span class="price">£9.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken w/ Mushrooms & BB <span class="price">£8.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef w/ Mushrooms & BB <span class="price">£8.10</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="sweet">
+    <h3>Sweet and Sour Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Sweet and Sour King Prawn in Batter <span class="price">£9.20</span></div></div>
+      <div class="menu-item"><div class="item-main">Sweet and Sour Chicken in Batter <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">S&S King Prawn Cantonese Style <span class="price">£9.40</span></div></div>
+      <div class="menu-item"><div class="item-main">S&S Chicken Cantonese Style <span class="price">£8.20</span></div></div>
+      <div class="menu-item"><div class="item-main">S&S Pork Cantonese Style <span class="price">£8.20</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="curry">
+    <h3>Curry Dishes</h3>
+    <p><small>(mushrooms 50p extra)</small></p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Special Curry <span class="price">£9.10</span></div></div>
+      <div class="menu-item"><div class="item-main">King Prawn Curry <span class="price">£9.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Shrimp Curry <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Curry <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef Curry <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui Curry <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Pork Curry <span class="price">£8.00</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="chop">
+    <h3>Chop Suey Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Special Chop Suey <span class="price">£9.10</span></div></div>
+      <div class="menu-item"><div class="item-main">King Prawn Chop Suey <span class="price">£9.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Shrimp Chop Suey <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Chop Suey <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef Chop Suey <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Pork Chop Suey <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui Chop Suey <span class="price">£8.50</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="fooyung">
+    <h3>Egg Foo Yung Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Special Foo Yung <span class="price">£9.10</span></div></div>
+      <div class="menu-item"><div class="item-main">King Prawn Foo Yung <span class="price">£9.10</span></div></div>
+      <div class="menu-item"><div class="item-main">Shrimp Foo Yung <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Foo Yung <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Ham Foo Yung <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui Foo Yung <span class="price">£8.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Mushroom Foo Yung <span class="price">£7.70</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="noodles">
+    <h3>Noodles (Chow Mein)</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Special Chow Mein <span class="price">£9.20</span></div></div>
+      <div class="menu-item"><div class="item-main">King Prawn Chow Mein <span class="price">£9.20</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Chow Mein <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef Chow Mein <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui Chow Mein <span class="price">£8.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef Chow Mein <span class="price">£8.00</span></div></div>
+      <div class="menu-item" style="grid-column: 1 / -1; background: #eee; padding: 5px 10px;"><strong>Crispy Thin Noodles</strong></div>
+      <div class="menu-item"><div class="item-main">Special Crispy Noodles <span class="price">£9.90</span></div></div>
+      <div class="menu-item"><div class="item-main">King Prawn Crispy Noodles <span class="price">£9.90</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Crispy Noodles <span class="price">£9.30</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef Crispy Noodles <span class="price">£9.30</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui Crispy Noodles <span class="price">£9.50</span></div></div>
+      <div class="menu-item"><div class="item-main">Beef Crispy Noodles <span class="price">£9.30</span></div></div>
+    </div>
+  </div>
+
+  <div class="menu-section" data-category="rice">
+    <h3>Fried Rice Dishes</h3>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-main">Special Fried Rice <span class="price">£9.20</span></div></div>
+      <div class="menu-item"><div class="item-main">King Prawn Fried Rice <span class="price">£9.20</span></div></div>
+      <div class="menu-item"><div class="item-main">Shrimp Fried Rice <span class="price">£8.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Yeung Chow Fried Rice <span class="price">£8.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Chicken Fried Rice <span class="price">£8.00</span></div></div>
+      <div class="menu-item"><div class="item-main">Char Sui Fried Rice <span class="price">£8.40</span></div></div>
+      <div class="menu-item"><div class="item-main">Ham Fried Rice <span class="price">£8.00</span></div></div>
+    </div>
+  </div>
+
+    <div class="menu-section" data-category="european">
+    <h3>European Dishes <span class="note">(chips included)</span></h3>
+    <div class="menu-grid">
+        <div class="menu-item"><div class="item-main">Chicken in Breadcrumbs <span class="price">£8.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Chicken Maryland <span class="price">£9.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Roast Chicken <span class="price">£8.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Chicken Omelette <span class="price">£8.50</span></div></div>
+        <div class="menu-item"><div class="item-main">Ham Omelette <span class="price">£8.50</span></div></div>
+        <div class="menu-item"><div class="item-main">Shrimp Omelette <span class="price">£8.90</span></div></div>
+        <div class="menu-item"><div class="item-main">Mushroom Omelette <span class="price">£8.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Spanish Omelette <span class="price">£8.70</span></div></div>
+    </div>
+    </div>
+
+    <div class="menu-section" data-category="extras">
+    <h3>Extra Portions</h3>
+    <div class="menu-grid">
+        <div class="menu-item"><div class="item-main">Salt & Pepper Chips <span class="price">£4.80</span></div></div>
+        <div class="menu-item"><div class="item-main">Plain Chow Mein <span class="price">£4.80</span></div></div>
+        <div class="menu-item"><div class="item-main">Mushrooms <span class="price">£4.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Bean Sprouts <span class="price">£4.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Egg Fried Rice <span class="price">£3.50</span></div></div>
+        <div class="menu-item"><div class="item-main">Boiled Rice <span class="price">£3.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Prawn Crackers <span class="price">£3.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Chips <span class="price">£3.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Onion Rings in Batter <span class="price">£4.00</span></div></div>
+        <div class="menu-item"><div class="item-main">Sweet and Sour Sauce <span class="price">£3.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Curry Sauce <span class="price">£3.20</span></div></div>
+        <div class="menu-item"><div class="item-main">Gravy <span class="price">£3.20</span></div></div>
+        <div class="menu-item">
+        <div class="item-main">Chips, Fried Rice and Curry Sauce (large) <span class="price">£5.30</span></div>
+        <div class="item-sub">with mushrooms or onions 50p extra</div>
+        </div>
+        <div class="menu-item">
+        <div class="item-main">Chips and Curry Sauce <span class="price">small £4.50 / large £5.00</span></div>
+        <div class="item-sub">with mushrooms or onions 50p extra</div>
+        </div>
+        <div class="menu-item">
+        <div class="item-main">Fried Rice and Curry Sauce <span class="price">small £4.50 / large £5.00</span></div>
+        <div class="item-sub">with mushrooms or onions 50p extra</div>
+        </div>
+        <div class="menu-item"><div class="item-main">Banana or Pineapple Fritter <span class="price">£3.50</span></div></div>
+    </div>
+    </div>
+
+    <div class="menu-section" data-category="sets">
+    <h3>Special Set Meals</h3>
+    <div class="menu-grid">
+        <div class="menu-item">
+        <div class="item-main">Special Set Meal (A) - Set Dinner for Two <span class="price">£31.50</span></div>
+        <div class="item-sub">Chicken and Sweetcorn Soup (2), Sweet and Sour Chicken Cantonese Style, Beef with Green Pepper and Black Bean Sauce, Mixed Vegetables, Egg Fried Rice (2), Banana Fritter (2)</div>
+        </div>
+        <div class="menu-item">
+        <div class="item-main">Special Set Meal (B) - Set Dinner for Three <span class="price">£45.50</span></div>
+        <div class="item-sub">Crispy Pancake Roll (3), King Prawn in Satay Sauce, Beef with Ginger and Spring Onion, Lemon Chicken, Mixed Vegetables, Egg Fried Rice (3), Banana Fritter (3)</div>
+        </div>
+        <div class="menu-item">
+        <div class="item-main">Special Set Meal (C) - Set Dinner for Four <span class="price">£55.50</span></div>
+        <div class="item-sub">Barbecued Spare Ribs, Sesame Prawn Toast, Roast Duck in Orange Sauce, King Prawn with Cashew Nuts, Beef in Oyster Sauce, Crispy Chicken in Hot and Spicy Sauce, Mixed Vegetables, Egg Fried Rice (4), Banana Fritter (4)</div>
+        </div>
+    </div>
+    </div>
+
+<div class="menu-section" style="margin-top: 50px;">
+    <div style="background-color: var(--red); color: white; padding: 20px; border-radius: 8px; text-align: center; line-height: 1.6;">
+      <p style="margin: 0; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+        Some of our dishes contain CELERY, CEREALS CONTAINING GLUTEN, CRUSTACEANS, EGG, FISH, LUPIN, MILK, MOLLUSCS, MUSTARD, NUTS, PEANUTS, SESAME SEEDS, SOYA, SULPHUR DIOXIDE which some people may have a reaction to. Please inform our staff before ordering if you suffer from any food allergies. We will do our best to advise you.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<button id="backToTop" onclick="window.scrollTo(0,0)" title="Back to Top">↑</button>
+
+<footer>
+  <p><strong>Lee's Chinese Takeaway</strong></p>
+  <p><a href="tel:01382776183" style="color:white; text-decoration:none;">Telephone your order: 01382 776183</a></p>
+</footer>
+
+<script>
+  function filterMenu(category, btn) {
+    document.getElementById('menuSearch').value = ''; 
+    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.menu-section').forEach(section => {
+      section.style.display = (category === 'all' || section.dataset.category === category) ? 'block' : 'none';
+      section.querySelectorAll('.menu-item').forEach(item => item.style.display = 'flex');
+    });
+  }
+
+  function searchMenu() {
+    let input = document.getElementById('menuSearch').value.toLowerCase();
+    let sections = document.querySelectorAll('.menu-section');
+    sections.forEach(section => {
+      let items = section.querySelectorAll('.menu-item');
+      let sectionHasMatch = false;
+      items.forEach(item => {
+        let text = item.innerText.toLowerCase();
+        if (text.includes(input)) {
+          item.style.display = 'flex';
+          sectionHasMatch = true;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      // Keep allergy warning visible or hide based on search
+      if (section.dataset.category) {
+          section.style.display = sectionHasMatch ? 'block' : 'none';
+      }
+    });
+  }
+
+  window.onscroll = function() {
+    let btn = document.getElementById("backToTop");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  };
+</script>
+
+</body>
+</html>

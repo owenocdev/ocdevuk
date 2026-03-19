@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Studio Pro</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'/><polyline points='14 2 14 8 20 8'/><line x1='16' y1='13' x2='8' y2='13'/><line x1='16' y1='17' x2='8' y2='17'/><line x1='10' y1='9' x2='8' y2='9'/></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+    
+
+
+<nav class="navbar">
+    <div class="nav-brand"><i data-lucide="file-text"></i><span>CV STUDIO PRO</span></div>
+    <div class="nav-actions">
+        <button class="nav-btn" onclick="window.location.reload()"><i data-lucide="rotate-ccw"></i> Reset</button>
+        <button class="nav-btn primary" onclick="downloadPDF()"><i data-lucide="download"></i> Download PDF</button>
+    </div>
+</nav>
+
+<div class="main-layout">
+    <div class="input-panel">
+        <div class="input-group">
+            <label>Master Layout</label>
+            <div class="toggle-group">
+                <button id="btn-sidebar" class="toggle-btn active" onclick="setLayout('sidebar')">SIDEBAR</button>
+                <button id="btn-top" class="toggle-btn" onclick="setLayout('top')">TOP HEADER</button>
+            </div>
+            <label>Section Order (Drag to Move)</label>
+            <div id="drag-list">
+                <div class="drag-item" data-id="work"><i data-lucide="grip-vertical"></i> Employment</div>
+                <div class="drag-item" data-id="edu"><i data-lucide="grip-vertical"></i> Education</div>
+                <div class="drag-item" data-id="skills"><i data-lucide="grip-vertical"></i> Skills</div>
+                <div class="drag-item" data-id="achieve"><i data-lucide="grip-vertical"></i> Achievements</div>
+                <div class="drag-item" data-id="extra"><i data-lucide="grip-vertical"></i> Additional Info</div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Profile & Contact</label>
+            <input type="text" id="inName" placeholder="Full Name" oninput="update()">
+            <input type="text" id="inRole" placeholder="Job Title" oninput="update()">
+            <input type="text" id="inEmail" placeholder="Email Address" oninput="update()">
+            <input type="text" id="inPhone" placeholder="Phone Number" oninput="update()">
+            <input type="text" id="inLoc" placeholder="Location" oninput="update()">
+            <textarea id="inSummary" rows="3" placeholder="Summary" oninput="update()"></textarea>
+        </div>
+
+        <div class="input-group"><label>Employment</label><div id="work-inputs"></div><button class="add-btn" onclick="addItem('work')">+ Experience</button></div>
+        <div class="input-group"><label>Education</label><div id="edu-inputs"></div><button class="add-btn" onclick="addItem('edu')">+ Education Centre</button></div>
+        <div class="input-group"><label>Skills</label><div id="skills-inputs"></div><button class="add-btn" onclick="addItem('skills')">+ Skill Set</button></div>
+        <div class="input-group"><label>Achievements</label><div id="achieve-inputs"></div><button class="add-btn" onclick="addItem('achieve')">+ Achievement</button></div>
+        <div class="input-group"><label>Additional Info</label><textarea id="inExtra" rows="2" placeholder="" oninput="update()"></textarea></div>
+    </div>
+
+    <div class="preview-zone">
+        <div class="page-indicator-wrap no-pdf">
+            <div class="page-break-line"></div>
+            <div class="page-label">PAGE 1 END</div>
+        </div>
+        
+        <div id="cv-canvas" class="layout-sidebar">
+            <div class="cv-header-area">
+                <h1 id="outName">NAME</h1>
+                <p id="outRole" style="font-weight:600; color:var(--accent); margin-top:5px; margin-bottom:0;">ROLE</p>
+                <div id="contact-info" style="margin-top:10px; font-size:0.8rem;">
+                    <div id="outEmail"></div><div id="outPhone"></div><div id="outLoc"></div>
+                </div>
+            </div>
+            <div class="cv-main">
+                <p id="outSummary" style="font-style: italic; color:#333; margin-bottom:15px; border-left: 3px solid var(--accent); padding-left:12px;"></p>
+                <div id="section-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

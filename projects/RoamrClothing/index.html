@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROAMR | No Fixed Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f0f0f; 
+            color: white; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        .logo-font { letter-spacing: 0.2em; font-weight: 900; }
+        h1 { word-break: keep-all; }
+
+        /* THE TOP-LAYER WATERMARK */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            font-size: 15vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.04); 
+            white-space: nowrap;
+            pointer-events: none; 
+            z-index: 100; 
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+
+    <nav class="flex justify-between items-center p-4 md:p-6 bg-black border-b border-white/10 sticky top-0 z-50">
+        <a href="index.html" class="text-xl md:text-2xl logo-font uppercase italic hover:text-gray-300 transition shrink-0">
+            RØAMR
+        </a>
+        
+        <div class="hidden lg:flex space-x-8 text-[11px] uppercase tracking-widest items-center">
+            <a href="index.html" class="hover:text-white transition text-gray-400">Home</a>
+            <a href="#" class="hover:text-gray-400 transition text-gray-400">Shop</a>
+            <a href="#" class="hover:text-gray-400 transition text-gray-400">Expeditions</a>
+            
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <div class="text-[10px] md:text-sm border border-white px-3 py-1.5 md:px-4 md:py-2 hover:bg-white hover:text-black transition cursor-pointer uppercase tracking-widest font-bold">
+                Cart (0)
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+        <img src="assets/splash.png" class="absolute inset-0 w-full h-full object-cover" alt="Adventure">
+        <div class="relative z-20 text-center px-6">
+            <h1 class="text-5xl md:text-8xl font-black uppercase mb-4 tracking-tighter italic leading-none">NO FIXED PATH.</h1>
+            <p class="text-sm md:text-xl tracking-[0.2em] text-gray-200 mb-8 uppercase font-medium">Purpose-built clothing.</p>
+            <button class="bg-white text-black font-bold px-8 py-3 md:px-10 md:py-4 text-xs md:text-base uppercase tracking-widest hover:bg-gray-200 transition active:scale-95">
+                Shop the Collection
+            </button>
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto py-12 md:py-20 px-4 md:px-6">
+        <h2 class="text-xl md:text-3xl font-bold mb-8 md:mb-12 uppercase tracking-widest border-l-4 border-white pl-4">First Drop</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+            
+            <a href="example.html" class="group block cursor-pointer">
+                <div class="bg-gray-900 aspect-[4/5] overflow-hidden mb-4 rounded-sm relative">
+                    <img src="assets/Products/Oversized_Hoodie/Black_Oversized_Hoodie_Box_F.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90 md:opacity-80 group-hover:opacity-100">
+                </div>
+                <h3 class="font-bold text-base md:text-lg uppercase tracking-tight">Minimal Oversized Box Fit Hoodie</h3>
+                <p class="text-gray-400 text-sm md:text-base">£60.00</p>
+            </a>
+
+            <a href="typography-tee.html" class="group block cursor-pointer">
+                <div class="bg-gray-900 aspect-[4/5] overflow-hidden mb-4 rounded-sm relative">
+                    <img src="assets/Products/Maroon_Typograpy_Tee.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90 md:opacity-80 group-hover:opacity-100">
+                </div>
+                <h3 class="font-bold text-base md:text-lg uppercase tracking-tight">Typography Tees</h3>
+                <p class="text-gray-400 text-sm md:text-base">£30.00</p>
+            </a>
+
+        </div>
+    </section>
+
+    <footer class="bg-black py-16 px-6 border-t border-white/10 text-center">
+        <div class="text-3xl logo-font mb-6">RØAMR</div>
+        <p class="text-gray-500 text-[10px] md:text-sm max-w-md mx-auto mb-8 uppercase tracking-widest leading-relaxed">
+            Designed by <a href="https://owencummings.tech" class="text-sky-400 hover:underline">Owen Cummings</a><br>
+        </p>
+        <div class="flex justify-center space-x-6 text-gray-400 uppercase text-[10px] tracking-[0.2em]">
+            <a href="index.html" class="hover:text-white">Home</a>
+            <a href="https://www.instagram.com/roamrclothing/" class="hover:text-white">Instagram</a>
+        </div>
+    </footer>
+
+</body>
+</html>
