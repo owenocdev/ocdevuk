@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Yoga with Susan | Dundee</title>
+    <!-- Google Fonts for elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        :root {
+            --forest-green: #2d493d;    /* Primary brand color from the logo foliage */
+            --soft-gold: #E5C387;       /* Accent color from the sound waves */
+            --warm-cream: #faf7f0;      /* Background tone for a premium, organic feel */
+            --white: #FFFFFF;
+            --charcoal: #2B2B2B;        /* Accessible, high-contrast text color */
+            --light-grey: #EAE5D9;
+        }
+
+        /* --- BASE STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--forest-green);
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .text-center {
+            text-center: center;
+            text-align: center;
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--forest-green);
+            color: var(--warm-cream);
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 2px solid var(--forest-green);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--forest-green);
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background-color: var(--warm-cream);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+
+        /* Placeholder style for the generated logo image */
+        .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            background-color: var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--soft-gold);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul a:hover {
+            color: var(--soft-gold);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(250, 247, 240, 0.85), rgba(250, 247, 240, 0.85)), 
+                        url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            color: #4a4a4a;
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(45, 74, 62, 0.1);
+            color: var(--forest-green);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- PILLARS FEATURE SECTION --- */
+        .features {
+            background-color: var(--white);
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2.5rem 2rem;
+            background-color: var(--warm-cream);
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- TABLES (CLASSES) SECTION --- */
+        .classes h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        th {
+            background-color: var(--forest-green);
+            color: var(--warm-cream);
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(245, 240, 230, 0.3);
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact {
+            background-color: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 2rem;
+        }
+
+        .info-details p {
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        form label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--forest-green);
+        }
+
+        form input, form textarea {
+            padding: 0.75rem;
+            border: 1px solid var(--light-grey);
+            background-color: var(--warm-cream);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: var(--forest-green);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--forest-green);
+            color: var(--warm-cream);
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            nav ul {
+                display: none; /* Simple fallback for mobile spacing without JS */
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="container nav-container">
+            <nav>
+                <div class="logo-area">
+                    <!-- Swap this placeholder div with <img src="15191189663092787308.jpeg" alt="Sound Yoga Logo"> once live -->
+                    <div class="logo-placeholder">LOGO</div>
+                    <span>Sound Yoga with Susan</span>
+                </div>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">The Experience</a></li>
+                    <li><a href="#classes">Classes</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Find Your Inner Resonance</h1>
+            <p>Experience the deeply restorative fusion of classical yoga movement and intentional therapeutic sound healing based right here in Dundee.</p>
+            <a href="#contact" class="btn">Book Your First Class</a>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <!-- Standard high-quality placeholder image representing nature & meditation -->
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Susan teaching meditation outside">
+                </div>
+                <div class="about-text">
+                    <span class="badge">Fully Certified & Insured</span>
+                    <h2>Meet Your Instructor</h2>
+                    <p>Hello, I’m Susan. My journey is rooted in helping individuals rediscover internal balance, inner peace, and physical vitality through the profound combination of mindful movement and acoustic therapy.</p>
+                    <p>As a <strong>fully qualified yoga instructor</strong> with advanced credentials in acoustic immersion therapy, I carefully curate environments that blend traditional physical postures with therapeutic frequencies. Utilizing beautifully crafted singing bowls, deep gongs, and delicate crystal chimes, my sessions offer a safe, grounding oasis to quiet the mind and rejuvenate the body.</p>
+                    <a href="#classes" class="btn">Explore Sessions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE EXPERIENCE FEATURE PILLARS -->
+    <section id="experience" class="features">
+        <div class="container">
+            <h2 class="text-center">What is Sound Yoga?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Mindful Movement</h3>
+                    <p>Gentle, structural alignment flows designed to deliberately unblock tension, lengthen tight muscular fibers, and physically prepare your body for immersive stillness.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Vibrational Harmony</h3>
+                    <p>Live, organic soundscapes targeting your sensory systems. These therapeutic resonance tools naturally soothe the nervous system and help lower sustained stress states.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Extended Savasana</h3>
+                    <p>Every class culminates in a prolonged, immersive sound bath relaxation. Rest completely while waves of soothing frequencies carry you into effortless cellular recovery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLASS SCHEDULE TABLE -->
+    <section id="classes" class="classes">
+        <div class="container">
+            <h2 class="text-center">Our Current Offerings</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class Session</th>
+                            <th>Focus & Experience</th>
+                            <th>Duration</th>
+                            <th>Investment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Introduction to Sound Yoga</strong></td>
+                            <td>An accessible, welcoming foundation. Light structural stretching shifting smoothly into a deeply peaceful acoustic wash.</td>
+                            <td>60 Minutes</td>
+                            <td>£12</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deep Resonance Flow</strong></td>
+                            <td>A fluid, slightly more physical sequence aimed at releasing mental exhaustion, shifting directly into prolonged sound meditations.</td>
+                            <td>75 Minutes</td>
+                            <td>£15</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Private 1:1 Sound Journey</strong></td>
+                            <td>A fully customized wellness profile session targeted meticulously around your individual mental and energetic recovery goals.</td>
+                            <td>90 Minutes</td>
+                            <td>£50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & BOOKING FORM -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Begin Your Journey</h2>
+                    <p>Have questions about sound tracking, specific injury adaptions, or looking to book a dedicated corporate/group private session? Get in touch today.</p>
+                    <div class="info-details">
+                        <p><strong>Location:</strong> Dedicated Studio Spaces, Dundee, Scotland</p>
+                        <p><strong>Email:</strong> info@soundyogawithsusan.co.uk</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you for reaching out! Susan will get back to you shortly.');">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" required placeholder="e.g. Jane Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">How can Susan help you?</label>
+                            <textarea id="message" rows="5" required placeholder="Tell us about your yoga goals or any class inquiries..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Sound Yoga with Susan. All Rights Reserved.</p>
+            <p style="font-size: 0.8rem;">Proudly delivering professional wellness instruction across Dundee and Tayside.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

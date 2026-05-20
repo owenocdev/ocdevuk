@@ -1,698 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ocdev.uk — Web Development & Digital Solutions</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --navy-deep:   #050d1a;
-    --navy:        #0a1628;
-    --navy-mid:    #0f2040;
-    --navy-light:  #162952;
-    --blue:        #1d7aff;
-    --blue-bright: #4d9fff;
-    --blue-line:   rgba(29,122,255,0.28);
-    --white:       #eef2ff;
-    --white-dim:   rgba(238,242,255,0.62);
-    --white-faint: rgba(238,242,255,0.22);
-    --white-ghost: rgba(238,242,255,0.06);
-    --border:      rgba(29,122,255,0.16);
-    --sans:        'Outfit', sans-serif;
-    --mono:        'JetBrains Mono', monospace;
-  }
-
-  html { scroll-behavior: smooth; }
-  body { background: var(--navy-deep); color: var(--white); font-family: var(--sans); font-size: 15px; line-height: 1.6; cursor: none; overflow-x: hidden; }
-
-  /* CURSOR */
-  #cur { position:fixed; width:8px; height:8px; background:var(--blue); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
-  #cur-ring { position:fixed; width:34px; height:34px; border:1px solid rgba(29,122,255,0.6); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .3s,height .3s,opacity .3s; opacity:.45; }
-  body:has(a:hover) #cur, body:has(button:hover) #cur { width:14px; height:14px; }
-  body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring { width:50px; height:50px; opacity:.15; }
-
-  /* NAV */
-  nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:1.2rem 3.5rem; background:rgba(5,13,26,0.82); backdrop-filter:blur(18px); border-bottom:1px solid var(--border); }
-  .logo { font-family:var(--mono); font-size:.95rem; text-decoration:none; color:var(--white); display:flex; align-items:center; gap:1px; }
-  .logo-dev { color:var(--blue); }
-  .logo-tld { color:var(--white-dim); }
-  .blink { display:inline-block; width:2px; height:.9em; background:var(--blue); margin-left:2px; vertical-align:middle; animation:blink 1s step-end infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-  .nav-links { display:flex; gap:2.5rem; list-style:none; align-items:center; }
-  .nav-links a { text-decoration:none; color:var(--white-dim); font-size:13.5px; font-weight:400; transition:color .2s; }
-  .nav-links a:hover { color:var(--white); }
-  .nav-cta { background:var(--blue) !important; color:#fff !important; padding:.55rem 1.4rem !important; border-radius:5px; font-weight:600 !important; box-shadow:0 0 22px rgba(29,122,255,.4); transition:background .2s, box-shadow .2s !important; }
-  .nav-cta:hover { background:var(--blue-bright) !important; box-shadow:0 0 34px rgba(29,122,255,.6) !important; }
-
-  /* STARTUP BANNER */
-  .startup-bar { background: rgba(29,122,255,0.08); border-bottom: 1px solid var(--border); padding: .65rem 3.5rem; display:flex; align-items:center; justify-content:center; gap:.8rem; margin-top: 61px; }
-  .startup-bar span { font-size:12px; color:var(--white-dim); letter-spacing:.03em; }
-  .startup-bar strong { color:var(--blue-bright); font-weight:600; }
-  .startup-pill { background:rgba(29,122,255,0.15); border:1px solid var(--blue-line); color:var(--blue-bright); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:2px 10px; border-radius:100px; }
-
-  /* HERO */
-  .hero { min-height:calc(100vh - 96px); display:flex; flex-direction:column; justify-content:center; padding:5rem 3.5rem; position:relative; overflow:hidden; }
-  .h-bg { position:absolute; inset:0; z-index:0; background: radial-gradient(ellipse 75% 65% at 85% 45%,rgba(29,122,255,.09) 0%,transparent 65%), radial-gradient(ellipse 45% 50% at 15% 85%,rgba(29,122,255,.055) 0%,transparent 60%); }
-  .h-grid { position:absolute; inset:0; z-index:0; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:60px 60px; mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 30%,transparent 100%); }
-  .orb { position:absolute; border-radius:50%; pointer-events:none; }
-  .orb1 { width:320px;height:320px; background:radial-gradient(circle,rgba(29,122,255,.11),transparent 70%); top:12%;right:10%; animation:fl 9s ease-in-out infinite; }
-  .orb2 { width:200px;height:200px; background:radial-gradient(circle,rgba(29,122,255,.07),transparent 70%); bottom:22%;left:4%; animation:fl 7s ease-in-out infinite reverse; animation-delay:-3s; }
-  @keyframes fl { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-22px)} }
-
-  .hero-inner { position:relative; z-index:2; max-width:880px; }
-  .avail-badge { display:inline-flex; align-items:center; gap:.6rem; background:var(--white-ghost); border:1px solid var(--border); padding:.38rem 1rem; border-radius:100px; font-size:12px; font-weight:500; color:var(--blue-bright); letter-spacing:.04em; margin-bottom:2.5rem; backdrop-filter:blur(10px); }
-  .dot { width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px var(--blue); animation:glow 2s ease infinite; }
-  @keyframes glow { 0%,100%{box-shadow:0 0 5px var(--blue)} 50%{box-shadow:0 0 14px var(--blue)} }
-
-  h1 { font-size:clamp(3rem,5.8vw,6rem); font-weight:800; line-height:1.0; letter-spacing:-.035em; margin-bottom:1.8rem; }
-  .hl { color:transparent; background:linear-gradient(92deg,var(--blue) 0%,#6ab0ff 100%); -webkit-background-clip:text; background-clip:text; }
-  .hero-sub { font-size:1.05rem; font-weight:300; color:var(--white-dim); max-width:540px; line-height:1.8; margin-bottom:2.8rem; }
-  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:4rem; }
-
-  .btn-p { display:inline-flex; align-items:center; gap:.5rem; background:var(--blue); color:#fff; padding:.85rem 2rem; border-radius:6px; font-size:14px; font-weight:600; text-decoration:none; border:none; cursor:none; box-shadow:0 4px 28px rgba(29,122,255,.42); transition:background .2s,transform .15s,box-shadow .2s; }
-  .btn-p:hover { background:var(--blue-bright); transform:translateY(-2px); box-shadow:0 8px 38px rgba(29,122,255,.55); }
-  .btn-g { display:inline-flex; align-items:center; gap:.5rem; background:transparent; color:var(--white-dim); padding:.85rem 2rem; border-radius:6px; font-size:14px; font-weight:500; text-decoration:none; border:1px solid var(--border); cursor:none; transition:border-color .2s,color .2s,background .2s; }
-  .btn-g:hover { border-color:var(--blue); color:var(--white); background:var(--white-ghost); }
-
-  .metrics { display:flex; gap:3.5rem; padding-top:2.5rem; border-top:1px solid var(--border); max-width:460px; }
-  .m-val { font-size:2rem; font-weight:800; color:var(--white); display:block; letter-spacing:-.03em; }
-  .m-val em { font-style:normal; color:var(--blue); }
-  .m-lbl { font-size:11px; color:var(--white-faint); text-transform:uppercase; letter-spacing:.08em; }
-
-  /* TICKER */
-  .ticker { border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:.8rem 0; overflow:hidden; background:var(--navy); }
-  .tk-track { display:flex; gap:2.5rem; animation:tk 30s linear infinite; white-space:nowrap; }
-  .tk-track span { font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--white-faint); flex-shrink:0; }
-  .tk-track span.a { color:var(--blue); }
-  @keyframes tk { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-  /* SECTION SCAFFOLDING */
-  section { padding:7rem 3.5rem; }
-  .s-lbl { display:inline-flex; align-items:center; gap:.6rem; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:.8rem; }
-  .s-lbl::before { content:''; display:block; width:16px;height:1px;background:var(--blue); }
-  h2 { font-size:clamp(2rem,3.5vw,3.2rem); font-weight:800; letter-spacing:-.03em; line-height:1.05; margin-bottom:1rem; }
-  .s-body { color:var(--white-dim); max-width:430px; line-height:1.78; font-size:14px; }
-
-  /* ABOUT BANNER */
-  .about-banner { background:var(--navy); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-  .about-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
-  .about-tag { font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:.8rem; display:flex; align-items:center; gap:.6rem; }
-  .about-tag::before { content:''; display:block; width:16px;height:1px;background:var(--blue); }
-  .about-left h2 { margin-bottom:1.2rem; }
-  .about-left p { color:var(--white-dim); font-size:14px; line-height:1.85; margin-bottom:1rem; }
-  .about-left p strong { color:var(--white); font-weight:600; }
-  .about-chips { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
-  .chip { font-size:11px; font-weight:500; padding:5px 12px; border:1px solid var(--border); color:var(--white-dim); border-radius:100px; background:var(--white-ghost); }
-  .chip.blue { border-color:var(--blue-line); color:var(--blue-bright); background:rgba(29,122,255,.07); }
-
-  .about-right { display:flex; flex-direction:column; gap:1.2rem; }
-  .fact-card { padding:1.4rem 1.6rem; background:var(--navy-mid); border:1px solid var(--border); border-radius:8px; display:flex; align-items:flex-start; gap:1rem; }
-  .fact-ico { font-size:1.4rem; flex-shrink:0; }
-  .fact-title { font-size:13px; font-weight:700; color:var(--white); margin-bottom:.25rem; }
-  .fact-body { font-size:12.5px; color:var(--white-dim); line-height:1.65; }
-
-  /* SERVICES */
-  .services { border-top:1px solid var(--border); }
-  .svc-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:3.5rem; flex-wrap:wrap; gap:2rem; }
-  .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-  .svc { background:var(--navy-mid); border:1px solid var(--border); padding:2.5rem; position:relative; overflow:hidden; cursor:none; transition:background .3s,border-color .3s,transform .3s; }
-  .svc::before { content:''; position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0;transition:opacity .3s; }
-  .svc:hover { background:var(--navy-light); border-color:rgba(29,122,255,.4); transform:translateY(-4px); }
-  .svc:hover::before { opacity:1; }
-  .svc-n { font-family:var(--mono); font-size:10px; color:var(--blue); letter-spacing:.1em; margin-bottom:1.4rem; display:block; }
-  .svc-ico { font-size:1.8rem; margin-bottom:1.1rem; display:block; }
-  .svc-t { font-size:1.15rem; font-weight:700; margin-bottom:.65rem; }
-  .svc-d { font-size:13px; color:var(--white-dim); line-height:1.75; }
-  .tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.4rem; }
-  .tag { font-size:10px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; padding:3px 10px; border:1px solid var(--blue-line); color:var(--blue-bright); border-radius:100px; background:rgba(29,122,255,.07); }
-
-  /* SKILLS */
-  .skills { background:var(--navy); border-top:1px solid var(--border); }
-  .sk-layout { display:grid; grid-template-columns:1fr 2fr; gap:7rem; align-items:start; margin-top:4rem; }
-  .sk-aside p { color:var(--white-dim); font-size:13.5px; line-height:1.8; margin-bottom:1.5rem; }
-  .avail-box { padding:1.5rem; background:var(--white-ghost); border:1px solid var(--border); border-radius:8px; font-size:13px; }
-  .avail-box .ab-label { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--white-faint); margin-bottom:.8rem; }
-  .avail-box div { color:var(--white-dim); line-height:2; }
-  .sk-row { display:grid; grid-template-columns:140px 1fr 44px; align-items:center; gap:1.4rem; margin-bottom:1.4rem; }
-  .sk-n { font-size:12.5px; font-weight:500; color:var(--white-dim); }
-  .sk-track { height:3px; background:var(--white-ghost); border-radius:10px; overflow:hidden; }
-  .sk-fill { height:100%; border-radius:10px; background:linear-gradient(90deg,var(--blue),var(--blue-bright)); box-shadow:0 0 10px rgba(29,122,255,.55); transform:scaleX(0); transform-origin:left; transition:transform 1.3s cubic-bezier(.16,1,.3,1); }
-  .sk-pct { font-family:var(--mono); font-size:11px; color:var(--blue-bright); text-align:right; }
-
-  /* PORTFOLIO */
-  .portfolio { border-top:1px solid var(--border); }
-  .port-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:3.5rem; flex-wrap:wrap; gap:2rem; }
-  .port-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; }
-  .proj { position:relative; overflow:hidden; aspect-ratio:16/10; background:var(--navy-mid); border:1px solid var(--border); cursor:none; display:block; text-decoration:none; }
-  .proj-in { position:absolute;inset:0; display:flex;flex-direction:column;justify-content:flex-end; padding:2rem; transition:transform .5s cubic-bezier(.16,1,.3,1); }
-  .proj:hover .proj-in { transform:scale(1.03); }
-  .proj-img { position:absolute;inset:0; width:100%;height:100%; object-fit:cover; object-position:top; display:block; transition:transform .5s cubic-bezier(.16,1,.3,1), filter .4s; filter:brightness(0.55) saturate(0.8); }
-  .proj:hover .proj-img { transform:scale(1.05); filter:brightness(0.4) saturate(0.7); }
-  .pg { position:absolute;inset:0; transition:opacity .4s; pointer-events:none; }
-  .pg1 { background:linear-gradient(to top, rgba(5,13,26,0.98) 0%, rgba(5,13,26,0.5) 50%, rgba(29,122,255,0.08) 100%); }
-  .pg2 { background:linear-gradient(to top, rgba(5,13,26,0.98) 0%, rgba(5,13,26,0.5) 50%, rgba(14,165,233,0.08) 100%); }
-  .pg3 { background:linear-gradient(to top, rgba(5,13,26,0.98) 0%, rgba(5,13,26,0.5) 50%, rgba(59,130,246,0.08) 100%); }
-  .pg4 { background:linear-gradient(to top, rgba(5,13,26,0.98) 0%, rgba(5,13,26,0.5) 50%, rgba(96,165,250,0.08) 100%); }
-  .pg-fallback { position:absolute;inset:0; opacity:.18; transition:opacity .4s; }
-  .proj:hover .pg-fallback { opacity:.28; }
-  .fb1 { background:linear-gradient(135deg,#1d7aff,#050d1a); }
-  .fb2 { background:linear-gradient(225deg,#0ea5e9,#050d1a); }
-  .fb3 { background:linear-gradient(45deg,#3b82f6,#050d1a); }
-  .fb4 { background:linear-gradient(315deg,#60a5fa,#050d1a); }
-  .proj-arr { position:absolute;top:1.5rem;right:1.5rem; width:34px;height:34px;border-radius:50%; background:rgba(29,122,255,.2);border:1px solid var(--blue-line); display:flex;align-items:center;justify-content:center; color:var(--blue-bright);font-size:13px; opacity:0;transform:translateY(6px) rotate(-45deg); transition:opacity .3s,transform .3s; }
-  .proj:hover .proj-arr { opacity:1;transform:translateY(0) rotate(0); }
-  .proj-num { position:absolute;top:1.5rem;left:1.5rem;font-family:var(--mono);font-size:10px;color:var(--white-faint); }
-  .proj-cat { font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:.35rem; }
-  .proj-t { font-size:1.25rem;font-weight:700;color:var(--white);line-height:1.15;margin-bottom:.35rem; }
-  .proj-d { font-size:12px;color:var(--white-faint); margin-bottom:.5rem; }
-  .proposal-badge { display:inline-flex; align-items:center; gap:.35rem; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,180,50,0.85); background:rgba(255,180,50,0.1); border:1px solid rgba(255,180,50,0.25); padding:2px 8px; border-radius:100px; }
-  .port-note { margin-top:1.5rem;border:1px dashed var(--border);padding:1.4rem;text-align:center;font-size:13px;color:var(--white-faint);border-radius:4px; }
-  .port-note a { color:var(--blue-bright);text-decoration:none; }
-
-  /* PROCESS */
-  .process { background:var(--navy); border-top:1px solid var(--border); }
-  .proc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:4rem; }
-  .proc { padding:2.5rem 2rem; background:var(--white-ghost); border:1px solid var(--border); position:relative; overflow:hidden; transition:background .3s; }
-  .proc:hover { background:rgba(29,122,255,.05); }
-  .proc::after { content:''; position:absolute;top:0;left:0;width:2px;height:100%;background:var(--blue);opacity:0;transition:opacity .3s; }
-  .proc:hover::after { opacity:1; }
-  .proc-bg { position:absolute;bottom:-12px;right:8px;font-size:5rem;font-weight:800;color:rgba(29,122,255,.04);line-height:1;pointer-events:none; }
-  .proc-n { font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:.1em;margin-bottom:1.2rem;display:block; }
-  .proc-t { font-size:1.05rem;font-weight:700;margin-bottom:.6rem; }
-  .proc-d { font-size:12.5px;color:var(--white-dim);line-height:1.75; }
-
-  /* TESTIMONIALS */
-  .testi { border-top:1px solid var(--border); }
-  .testi-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:4rem; }
-  .tc { padding:2.5rem;background:var(--navy-mid);border:1px solid var(--border);transition:border-color .3s; }
-  .tc:hover { border-color:rgba(29,122,255,.4); }
-  .tc-q { font-size:3rem;line-height:1;color:var(--blue);opacity:.4;display:block;margin-bottom:.3rem;font-family:serif; }
-  .stars { color:var(--blue-bright);font-size:12px;margin-bottom:.9rem;letter-spacing:.1em; }
-  .tc-text { font-size:14px;font-weight:300;color:var(--white-dim);line-height:1.8;margin-bottom:1.5rem; }
-  .tc-auth { display:flex;align-items:center;gap:.85rem; }
-  .tc-av { width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--navy-light));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0;border:1px solid var(--blue-line); }
-  .tc-n { font-size:13px;font-weight:600; }
-  .tc-r { font-size:11px;color:var(--white-faint); }
-
-  /* CONTACT */
-  .contact { background:var(--navy); border-top:1px solid var(--border); }
-  .c-layout { display:grid;grid-template-columns:1fr 1.3fr;gap:7rem;align-items:start;margin-top:4rem; }
-  .ci h3 { font-size:1.4rem;font-weight:700;margin-bottom:1rem; }
-  .ci p { font-size:13.5px;color:var(--white-dim);line-height:1.8;margin-bottom:2rem; }
-  .cd { display:flex;align-items:center;gap:.85rem;margin-bottom:.8rem;font-size:13px; }
-  .cd-ico { width:32px;height:32px;border-radius:6px;background:var(--white-ghost);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px; }
-  .cd-text { color:var(--white-dim); }
-  .cd-text strong { display:block;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--white-faint);text-transform:uppercase; }
-  .cf { display:flex;flex-direction:column;gap:1.1rem; }
-  .f-row { display:grid;grid-template-columns:1fr 1fr;gap:1.1rem; }
-  .ff { display:flex;flex-direction:column;gap:.4rem; }
-  .ff label { font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--white-faint); }
-  .ff input,.ff select,.ff textarea { background:var(--white-ghost);border:1px solid var(--border);border-radius:6px;padding:.8rem 1rem;font-family:var(--sans);font-size:14px;color:var(--white);outline:none;resize:none;cursor:none;transition:border-color .2s,background .2s;-webkit-appearance:none; }
-  .ff select option { background:var(--navy-mid); }
-  .ff input:focus,.ff select:focus,.ff textarea:focus { border-color:var(--blue);background:rgba(29,122,255,.06); }
-  .ff input::placeholder,.ff textarea::placeholder { color:var(--white-faint); }
-  .sub-btn { display:inline-flex;align-items:center;gap:.6rem;background:var(--blue);color:#fff;padding:.9rem 2.2rem;border:none;border-radius:6px;font-family:var(--sans);font-size:14px;font-weight:600;cursor:none;align-self:flex-start;box-shadow:0 4px 24px rgba(29,122,255,.38);transition:background .2s,transform .15s,box-shadow .2s; }
-  .sub-btn:hover { background:var(--blue-bright);transform:translateY(-2px);box-shadow:0 8px 36px rgba(29,122,255,.52); }
-
-  /* Form status message */
-  .form-status { display:none; padding:.9rem 1.2rem; border-radius:6px; font-size:13px; font-weight:500; margin-bottom:.2rem; }
-
-  /* CTA */
-  .cta-band { padding:6rem 3.5rem;background:var(--navy-deep);border-top:1px solid var(--border);text-align:center;position:relative;overflow:hidden; }
-  .cta-band::before { content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(29,122,255,.07),transparent 70%); }
-  .cta-band h2 { position:relative;z-index:1;margin-bottom:1rem; }
-  .cta-band p { position:relative;z-index:1;color:var(--white-dim);max-width:400px;margin:0 auto 2.5rem;font-size:14px; }
-  .cta-link { position:relative;z-index:1;font-size:1.5rem;font-weight:700;color:var(--blue-bright);text-decoration:none;border-bottom:1px solid rgba(29,122,255,.3);padding-bottom:3px;transition:color .2s,border-color .2s; }
-  .cta-link:hover { color:var(--white);border-color:rgba(238,242,255,.4); }
-
-  /* FOOTER */
-  footer { border-top:1px solid var(--border);padding:1.8rem 3.5rem;display:flex;justify-content:space-between;align-items:center;background:var(--navy-deep); }
-  .f-logo { font-family:var(--mono);font-size:13px;color:var(--white-dim); }
-  .f-logo span { color:var(--blue); }
-  .f-links { display:flex;gap:2rem; }
-  .f-links a { font-size:12px;color:var(--white-faint);text-decoration:none;transition:color .2s; }
-  .f-links a:hover { color:var(--white); }
-  .f-copy { font-size:12px;color:var(--white-faint); }
-
-  /* REVEAL */
-  .r { opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s cubic-bezier(.16,1,.3,1); }
-  .r.in { opacity:1;transform:translateY(0); }
-  .d1{transition-delay:.09s}.d2{transition-delay:.17s}.d3{transition-delay:.25s}.d4{transition-delay:.33s}
-
-  @media(max-width:900px){
-    nav{padding:1rem 1.5rem;} .nav-links{display:none;}
-    .startup-bar{padding:.65rem 1.5rem;flex-wrap:wrap;justify-content:flex-start;gap:.5rem;}
-    section{padding:4.5rem 1.5rem;} .hero{padding:4rem 1.5rem;}
-    .svc-grid,.proc-grid{grid-template-columns:1fr;}
-    .testi-grid,.port-grid,.c-layout,.sk-layout,.about-inner{grid-template-columns:1fr;gap:2.5rem;}
-    .f-row{grid-template-columns:1fr;}
-    footer{flex-direction:column;gap:1rem;text-align:center;}
-    body{cursor:auto;} #cur,#cur-ring{display:none;} h1{font-size:2.6rem;}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ocdev.uk | Web Development Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-ring"></div>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="logo">oc<span class="logo-dev">dev</span><span class="logo-tld">.uk</span><span class="blink"></span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
-  </ul>
-</nav>
-
-<!-- STARTUP BANNER -->
-<div class="startup-bar">
-  <span class="startup-pill">🚀 Startup</span>
-  <span>ocdev.uk is a <strong>new, independent freelance studio</strong> — early-stage, honest, and hungry to build great things.</span>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="h-bg"></div>
-  <div class="h-grid"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="hero-inner">
-    <div class="avail-badge r"><span class="dot"></span> Open to new projects — 2026</div>
-    <h1 class="r d1">Fresh Eyes.<br><span class="hl">Real Results.</span><br>Great Websites.</h1>
-    <p class="hero-sub r d2">
-      Hi, I'm Owen — a 17-year-old developer just starting out, building clean and purposeful websites for businesses that want something done properly. No fluff, no bloated agencies, just honest work at fair prices.
-    </p>
-    <div class="hero-btns r d3">
-      <a href="#work" class="btn-p">View My Work →</a>
-      <a href="#contact" class="btn-g">Start a Project</a>
-    </div>
-    <div class="metrics r d4">
-      <div><span class="m-val">3<em>+</em></span><span class="m-lbl">Projects Built</span></div>
-      <div><span class="m-val">5<em>★</em></span><span class="m-lbl">Client Rating</span></div>
-      <div><span class="m-val">1<em>yr</em></span><span class="m-lbl">In the Industry</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- TICKER -->
-<div class="ticker">
-  <div class="tk-track">
-    <span>Web Development</span><span class="a">◆</span><span>UI/UX Design</span><span class="a">◆</span><span>HTML &amp; JavaScript</span><span class="a">◆</span><span>Figma</span><span class="a">◆</span><span>E-Commerce</span><span class="a">◆</span><span>Shopify</span><span class="a">◆</span><span>WordPress</span><span class="a">◆</span><span>Squarespace</span><span class="a">◆</span>
-    <span>Web Development</span><span class="a">◆</span><span>UI/UX Design</span><span class="a">◆</span><span>HTML &amp; JavaScript</span><span class="a">◆</span><span>Figma</span><span class="a">◆</span><span>E-Commerce</span><span class="a">◆</span><span>Shopify</span><span class="a">◆</span><span>WordPress</span><span class="a">◆</span><span>Squarespace</span><span class="a">◆</span>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section class="about-banner" id="about">
-  <div class="about-inner">
-    <div class="about-left r">
-      <div class="about-tag">Who I Am</div>
-      <h2>A 17-Year-Old<br>Dev on a Mission</h2>
-      <p>I'm Owen, the founder of <strong>ocdev.uk</strong> — a one-person freelance studio based in the UK. I'm 17, self-taught, and actively working to break into the web industry by doing what I love: building websites.</p>
-      <p>I'm not a big agency with a team of 20 — and that's the point. When you work with me, you get <strong>direct communication, genuine care</strong>, and someone who puts real effort into every project because your work matters to my reputation too.</p>
-      <p>I'm early in my career and I'm upfront about that. What I can offer is <strong>hunger, attention to detail</strong>, and competitive rates that established studios simply can't match.</p>
-      <div class="about-chips">
-        <span class="chip blue">HTML</span>
-        <span class="chip blue">JavaScript</span>
-        <span class="chip blue">Figma</span>
-        <span class="chip blue">WordPress</span>
-        <span class="chip blue">Shopify</span>
-        <span class="chip blue">Squarespace</span>
-        <span class="chip">Wix</span>
-        <span class="chip">Webflow</span>
-        <span class="chip">CSS</span>
-      </div>
-    </div>
-    <div class="about-right r d2">
-      <div class="fact-card">
-        <div class="fact-ico">🎯</div>
-        <div>
-          <div class="fact-title">Direct &amp; Honest</div>
-          <div class="fact-body">No account managers or middlemen. You talk to me directly, get real answers, and always know where your project stands.</div>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="#" class="logo-link">
+                <img src="ocdevuk.png" alt="ocdev.uk Logo" class="nav-logo">
+            </a>
+            <nav class="main-nav">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#work">Work</a>
+                <a href="#contact" class="btn btn-secondary">Hire Me</a>
+            </nav>
         </div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-ico">💡</div>
-        <div>
-          <div class="fact-title">Self-Taught &amp; Driven</div>
-          <div class="fact-body">I've taught myself everything I know through building real things. I'm constantly learning and I bring fresh ideas to every project.</div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container hero-container">
+            <span class="badge">🚀 Open for Requests</span>
+            <h1>Fresh Eyes.<br>Real Results.<br><span class="text-gradient">Great Websites.</span></h1>
+            <p class="hero-lead">Hi, I'm Owen — a 17-year-old developer just starting out, building clean and purposeful websites for businesses that want something done properly. No fluff, no bloated agencies, just honest work at fair prices.</p>
+            <div class="hero-cta">
+                <a href="#work" class="btn btn-primary">View My Work &rarr;</a>
+                <a href="#contact" class="btn btn-outline">Start a Project</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item"><strong>3+</strong> <span>Projects Built</span></div>
+                <div class="stat-item"><strong>5★</strong> <span>Client Rating</span></div>
+                <div class="stat-item"><strong>5 months</strong> <span>In the Industry</span></div>
+            </div>
         </div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-ico">💷</div>
-        <div>
-          <div class="fact-title">Startup-Friendly Rates</div>
-          <div class="fact-body">Because I'm just starting out, my rates are genuinely competitive. You get professional quality without the agency price tag.</div>
+    </section>
+
+    <section id="about" class="about-section section-padding">
+        <div class="container grid-2">
+            <div>
+                <span class="section-tag">Who I Am</span>
+                <h2 class="section-title">A 17-Year-Old Dev on a Mission</h2>
+                <p>I'm Owen, the founder of ocdev.uk — a one-person freelance studio based in the UK. I'm 17, self-taught, and actively working to break into the web industry by doing what I love: building websites.</p>
+                <p>I'm not a big agency with a team of 20 — and that's the point. When you work with me, you get direct communication, genuine care, and someone who puts real effort into every project because your work matters to my reputation too.</p>
+                <p>I'm early in my career and I'm upfront about that. What I can offer is hunger, attention to detail, and competitive rates that established studios simply can't match.</p>
+            </div>
+            <div class="about-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Direct & Honest</h3>
+                    <p>No account managers or middlemen. You talk to me directly, get real answers, and always know where your project stands.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Self-Taught & Driven</h3>
+                    <p>I've taught myself everything I know through building real things. I'm constantly learning and I bring fresh ideas to every project.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💷</div>
+                    <h3>Startup-Friendly Rates</h3>
+                    <p>Because I'm just starting out, my rates are genuinely competitive. You get professional quality without the agency price tag.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Platform Flexible</h3>
+                    <p>Shopify, WordPress, Squarespace, Wix, or hand-coded — I'll build on whatever suits your needs and your budget best.</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="fact-card">
-        <div class="fact-ico">🌐</div>
-        <div>
-          <div class="fact-title">Platform Flexible</div>
-          <div class="fact-body">Shopify, WordPress, Squarespace, Wix, or hand-coded — I'll build on whatever suits your needs and your budget best.</div>
+    </section>
+
+    <section id="services" class="services-section section-padding bg-light">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-tag">What I Offer</span>
+                <h2 class="section-title">Services I Provide</h2>
+                <p class="section-subtitle">Three core areas I focus on. All built with care and tailored to what you actually need — not what's easiest to sell.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-num">01</div>
+                    <h3>⚡ Web Development</h3>
+                    <p>Hand-coded websites and platform builds that are fast, mobile-friendly, and actually easy to use. Built in HTML/JS or on your preferred platform.</p>
+                    <div class="service-tags">
+                        <span>HTML</span><span>JavaScript</span><span>WordPress</span><span>Squarespace</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">02</div>
+                    <h3>🎨 UI/UX Design</h3>
+                    <p>Clean, user-friendly interface design in Figma. I'll wireframe your idea, prototype the flow, and make sure it looks great before we build anything.</p>
+                    <div class="service-tags">
+                        <span>Figma</span><span>Wireframes</span><span>Prototypes</span><span>UI Design</span>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-num">03</div>
+                    <h3>🛒 E-Commerce Stores</h3>
+                    <p>Online shops built on Shopify or other platforms — product pages, payment setup, and everything you need to start selling online straight away.</p>
+                    <div class="service-tags">
+                        <span>Shopify</span><span>WooCommerce</span><span>Payments</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="svc-head r">
-    <div><div class="s-lbl">What I Offer</div><h2>Services I Provide</h2></div>
-    <p class="s-body">Three core areas I focus on. All built with care and tailored to what you actually need — not what's easiest to sell.</p>
-  </div>
-  <div class="svc-grid">
-    <div class="svc r d1">
-      <span class="svc-n">01 — Development</span>
-      <span class="svc-ico">⚡</span>
-      <div class="svc-t">Web Development</div>
-      <p class="svc-d">Hand-coded websites and platform builds that are fast, mobile-friendly, and actually easy to use. Built in HTML/JS or on your preferred platform.</p>
-      <div class="tags"><span class="tag">HTML</span><span class="tag">JavaScript</span><span class="tag">WordPress</span><span class="tag">Squarespace</span></div>
-    </div>
-    <div class="svc r d2">
-      <span class="svc-n">02 — Design</span>
-      <span class="svc-ico">🎨</span>
-      <div class="svc-t">UI/UX Design</div>
-      <p class="svc-d">Clean, user-friendly interface design in Figma. I'll wireframe your idea, prototype the flow, and make sure it looks great before we build anything.</p>
-      <div class="tags"><span class="tag">Figma</span><span class="tag">Wireframes</span><span class="tag">Prototypes</span><span class="tag">UI Design</span></div>
-    </div>
-    <div class="svc r d3">
-      <span class="svc-n">03 — E-Commerce</span>
-      <span class="svc-ico">🛒</span>
-      <div class="svc-t">E-Commerce Stores</div>
-      <p class="svc-d">Online shops built on Shopify or other platforms — product pages, payment setup, and everything you need to start selling online straight away.</p>
-      <div class="tags"><span class="tag">Shopify</span><span class="tag">WooCommerce</span><span class="tag">Payments</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section class="skills" id="skills">
-  <div class="s-lbl r">What I Know</div>
-  <h2 class="r">My Toolkit</h2>
-  <div class="sk-layout">
-    <div class="sk-aside r">
-      <p>These are the tools and platforms I'm familiar with. I'm always learning more — but these are what I can put to work for you right now.</p>
-      <div class="avail-box">
-        <div class="ab-label">Currently taking on</div>
-        <div>✓ &nbsp;New website builds<br>✓ &nbsp;Redesigns &amp; refreshes<br>✓ &nbsp;E-commerce setups</div>
-      </div>
-    </div>
-    <div class="r d1">
-      <div class="sk-row"><span class="sk-n">HTML / CSS</span><div class="sk-track"><div class="sk-fill" data-w=".88"></div></div><span class="sk-pct">88%</span></div>
-      <div class="sk-row"><span class="sk-n">JavaScript</span><div class="sk-track"><div class="sk-fill" data-w=".72"></div></div><span class="sk-pct">72%</span></div>
-      <div class="sk-row"><span class="sk-n">Figma / Design</span><div class="sk-track"><div class="sk-fill" data-w=".80"></div></div><span class="sk-pct">80%</span></div>
-      <div class="sk-row"><span class="sk-n">WordPress</span><div class="sk-track"><div class="sk-fill" data-w=".82"></div></div><span class="sk-pct">82%</span></div>
-      <div class="sk-row"><span class="sk-n">Shopify</span><div class="sk-track"><div class="sk-fill" data-w=".78"></div></div><span class="sk-pct">78%</span></div>
-      <div class="sk-row"><span class="sk-n">Squarespace</span><div class="sk-track"><div class="sk-fill" data-w=".85"></div></div><span class="sk-pct">85%</span></div>
-      <div class="sk-row"><span class="sk-n">Wix / Webflow</span><div class="sk-track"><div class="sk-fill" data-w=".70"></div></div><span class="sk-pct">70%</span></div>
-      <div class="sk-row"><span class="sk-n">UI/UX Principles</span><div class="sk-track"><div class="sk-fill" data-w=".76"></div></div><span class="sk-pct">76%</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO -->
-<section class="portfolio" id="work">
-  <div class="port-head r">
-    <div><div class="s-lbl">My Work</div><h2>Selected Projects</h2></div>
-    <p class="s-body" style="max-width:300px;font-size:13px;">A mix of proposal concepts and real builds. Each one made with genuine effort — proposal or not.</p>
-  </div>
-  <div class="port-grid">
-
-    <a class="proj r" href="projects/CVStudioPro/index.html" target="_blank" rel="noopener">
-      <img class="proj-img" src="projects/Images/CVStudioPro.png" alt="CV Studio Pro screenshot" onerror="this.style.display='none'">
-      <div class="proj-in">
-        <div class="pg pg1"></div>
-        <div class="pg-fallback fb1"></div>
-        <span class="proj-num">01</span>
-        <div class="proj-arr">↗</div>
-        <div class="proj-cat">Career Tools</div>
-        <div class="proj-t">CV Studio Pro</div>
-        <p class="proj-d">A clean CV builder and portfolio platform concept designed for job seekers.</p>
-        <span class="proposal-badge">📋 Proposal Concept</span>
-      </div>
-    </a>
-
-    <a class="proj r d1" href="projects/LeesChinese/index.html" target="_blank" rel="noopener">
-      <img class="proj-img" src="projects/Images/LeesChinese.png" alt="Lee's Chinese screenshot" onerror="this.style.display='none'">
-      <div class="proj-in">
-        <div class="pg pg2"></div>
-        <div class="pg-fallback fb2"></div>
-        <span class="proj-num">02</span>
-        <div class="proj-arr">↗</div>
-        <div class="proj-cat">Food &amp; Hospitality</div>
-        <div class="proj-t">Lee's Chinese</div>
-        <p class="proj-d">Restaurant website proposal with menu, opening hours.</p>
-        <span class="proposal-badge">📋 Proposal Concept</span>
-      </div>
-    </a>
-
-    <a class="proj r d2" href="projects/RoamrClothing/index.html" target="_blank" rel="noopener">
-      <img class="proj-img" src="projects/Images/RoamrClothing.png" alt="Romar Clothing screenshot" onerror="this.style.display='none'">
-      <div class="proj-in">
-        <div class="pg pg3"></div>
-        <div class="pg-fallback fb3"></div>
-        <span class="proj-num">03</span>
-        <div class="proj-arr">↗</div>
-        <div class="proj-cat">Fashion &amp; Clothing</div>
-        <div class="proj-t">Romar Clothing</div>
-        <p class="proj-d">E-commerce storefront proposal for an independent clothing brand on Shopify.</p>
-        <span class="proposal-badge">📋 Proposal Concept</span>
-      </div>
-    </a>
-
-    <a class="proj r d3" href="#contact">
-      <div class="proj-in">
-        <div class="pg pg4"></div>
-        <div class="pg-fallback fb4"></div>
-        <span class="proj-num">04</span>
-        <div class="proj-arr">↗</div>
-        <div class="proj-cat">Your Project Here</div>
-        <div class="proj-t">Let's Build<br>Something Real</div>
-        <p class="proj-d">Ready to take on live client projects. Get in touch and let's make it happen.</p>
-      </div>
-    </a>
-
-  </div>
-
-  <div class="port-note r">
-    📋 &nbsp;Projects marked <strong style="color:rgba(255,180,50,0.85)">Proposal Concept</strong> were designed as unsolicited proposals and have not been used by the named businesses. &nbsp;<a href="#contact">Interested in a real build? Let's talk.</a>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process">
-  <div class="s-lbl r">How I Work</div>
-  <h2 class="r">My Simple Process</h2>
-  <div class="proc-grid">
-    <div class="proc r d1">
-      <div class="proc-bg">01</div>
-      <span class="proc-n">Step 01</span>
-      <div class="proc-t">Discovery &amp; Wireframe</div>
-      <p class="proc-d">We talk through what you need, who it's for, and what you want it to feel like. I'll then sketch out a wireframe so we're aligned before anything is designed or built.</p>
-    </div>
-    <div class="proc r d2">
-      <div class="proc-bg">02</div>
-      <span class="proc-n">Step 02</span>
-      <div class="proc-t">First Draft Design</div>
-      <p class="proc-d">I'll put together a first full design in Figma for your review. You tell me what you love, what to tweak, and we refine it together until it's right.</p>
-    </div>
-    <div class="proc r d3">
-      <div class="proc-bg">03</div>
-      <span class="proc-n">Step 03</span>
-      <div class="proc-t">Refinement &amp; Launch</div>
-      <p class="proc-d">Once the design is approved I build it out, test it across devices, and hand it over — with everything set up and ready for you to use from day one.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testi">
-  <div class="s-lbl r">Reviews</div>
-  <h2 class="r">What People Say</h2>
-  <div class="testi-grid">
-    <div class="tc r d1">
-      <span class="tc-q">"</span>
-      <div class="stars">★★★★★</div>
-      <p class="tc-text">Owen was brilliant to work with — responsive, creative, and genuinely cared about getting it right. The site came out better than I imagined and he was patient throughout.</p>
-      <div class="tc-auth">
-        <div class="tc-av">AJ</div>
-        <div><div class="tc-n">— Add your review here</div><div class="tc-r">Your Name, Your Business</div></div>
-      </div>
-    </div>
-    <div class="tc r d2">
-      <span class="tc-q">"</span>
-      <div class="stars">★★★★★</div>
-      <p class="tc-text">Really impressed for someone just starting out. He listened carefully, delivered exactly what we discussed, and the final result was clean, fast, and easy to manage.</p>
-      <div class="tc-auth">
-        <div class="tc-av">AJ</div>
-        <div><div class="tc-n">— Add your review here</div><div class="tc-r">Your Name, Your Business</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="s-lbl r">Get In Touch</div>
-  <h2 class="r">Let's Work<br>Together</h2>
-  <div class="c-layout">
-    <div class="ci r">
-      <h3>Got a project in mind?</h3>
-      <p>Whether it's a full new website or just a quick quote — drop me a message and I'll get back to you within 24 hours. No pressure, no sales pitch.</p>
-      <div class="cd"><div class="cd-ico">📧</div><div class="cd-text"><strong>Email</strong>owen@ocdev.uk</div></div>
-      <div class="cd"><div class="cd-ico">📍</div><div class="cd-text"><strong>Location</strong>United Kingdom</div></div>
-      <div class="cd"><div class="cd-ico">🕐</div><div class="cd-text"><strong>Response Time</strong>Within 24 hours</div></div>
-      <div class="cd"><div class="cd-ico">🚀</div><div class="cd-text"><strong>Status</strong>Open to new projects</div></div>
-    </div>
-
-    <form class="cf r d1" id="contactForm" onsubmit="handleSubmit(event)" novalidate>
-      <div class="f-row">
-        <div class="ff">
-          <label>Your Name</label>
-          <input type="text" id="f-name" placeholder="Jane Smith" required>
+    <section class="skills-section section-padding">
+        <div class="container grid-2">
+            <div>
+                <span class="section-tag">What I Know</span>
+                <h2 class="section-title">My Toolkit</h2>
+                <p>These are the tools and platforms I'm familiar with. I'm always learning more — but these are what I can put to work for you right now.</p>
+                <div class="availability-box">
+                    <h4>Currently taking on:</h4>
+                    <ul>
+                        <li>✓ New website builds</li>
+                        <li>✓ Redesigns & refreshes</li>
+                        <li>✓ E-commerce setups</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="skills-bars">
+                <div class="skill-item">
+                    <div class="skill-info"><span>HTML / CSS</span><span>88%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 88%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>JavaScript</span><span>72%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 72%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Figma / Design</span><span>80%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>WordPress</span><span>82%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 82%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Shopify</span><span>78%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 78%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span>Squarespace</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                </div>
+            </div>
         </div>
-        <div class="ff">
-          <label>Email Address</label>
-          <input type="email" id="f-email" placeholder="jane@company.com" required>
+    </section>
+
+    <section id="reviews" class="reviews-section section-padding bg-light">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-tag">Reviews</span>
+                <h2 class="section-title">What People Say</h2>
+                <p class="section-subtitle">Real feedback from clients and professionals who have worked with me on early concepts and builds.</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Owen supported the development of my Squarespace website from the very start. He was always professional and very responsive to any questions. I found his technical expertise invaluable with troubleshooting. I really appreciated his patience and would recommend him to anyone who is looking to take their first steps in developing a new website."</p>
+                    <div class="review-author">
+                        <strong>Maralyn Boyle</strong>
+                        <span> PartnershipBee April 2026</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="ff">
-        <label>Project Type</label>
-        <select id="f-type">
-          <option>Website / Landing Page</option>
-          <option>E-Commerce Store</option>
-          <option>UI/UX Design</option>
-          <option>Redesign / Refresh</option>
-          <option>Shopify Setup</option>
-          <option>WordPress Build</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="ff">
-        <label>Budget Range</label>
-        <select id="f-budget">
-          <option>Under £200</option>
-          <option>£200 – £500</option>
-          <option>£500 – £1,500</option>
-          <option>£1,500+</option>
-          <option>Not sure yet</option>
-        </select>
-      </div>
-      <div class="ff">
-        <label>Tell Me About Your Project</label>
-        <textarea id="f-message" rows="5" placeholder="What do you need, and when do you need it?" required></textarea>
-      </div>
+    </section>
 
-      <div class="form-status" id="formStatus"></div>
+    <section id="work" class="portfolio-section section-padding">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-tag">My Work</span>
+                <h2 class="section-title">Selected Projects</h2>
+                <p class="section-subtitle">A mix of proposal concepts and real builds. Each one made with genuine effort — proposal or not.</p>
+            </div>
+            <div class="portfolio-grid">
+                <a href="projects/CVStudioPro/index.html" class="project-card">
+                    <div class="project-meta"><span>01</span><span class="proj-link">&nearr;</span></div>
+                    <h3>CV Studio Pro</h3>
+                    <p>A clean CV builder and portfolio platform concept designed for job seekers.</p>
+                    <span class="proposal-badge">📋 Proposal Concept</span>
+                </a>
+                
+                <a href="projects/LeesChinese/index.html" class="project-card">
+                    <div class="project-meta"><span>02</span><span class="proj-link">&nearr;</span></div>
+                    <h3>Lee's Chinese</h3>
+                    <p>Restaurant website proposal with menu, opening hours.</p>
+                    <span class="proposal-badge">📋 Proposal Concept</span>
+                </a>
+                
+                <a href="https://www.partnershipbee.co.uk/" class="project-card">
+                    <div class="project-meta"><span>03</span><span class="proj-link">&nearr;</span></div>
+                    <h3>PartnershipBee</h3>
+                    <p>PartnershipBee is a consultancy website dedicated to helping charities build impactful, mutually beneficial corporate partnerships. On Squarespace.</p>
+                    <span class="real-badge">Offical Site</span>
+                </a>
+                
+                <div class="project-card join-card">
+                    <div class="project-meta"><span>04</span></div>
+                    <h3>Your Project Here</h3>
+                    <p>Ready to take on live client projects. Get in touch and let's make it happen.</p>
+                    <a href="#contact" class="btn btn-secondary btn-sm">Let's Build Something Real</a>
+                </div>
+            </div>
+            <p class="portfolio-disclaimer">📋 Projects marked Proposal Concept were designed as unsolicited proposals and have not been used by the named businesses. Interested in a real build? Let's talk.</p>
+        </div>
+    </section>
 
-      <button class="sub-btn" type="submit" id="submitBtn">Send Message →</button>
-    </form>
-  </div>
-</section>
+    <section id="contact" class="contact-section section-padding">
+        <div class="container grid-2">
+            <div>
+                <span class="section-tag">Get In Touch</span>
+                <h2 class="section-title">Let's Work Together</h2>
+                <p>Got a project in mind? Whether it's a full new website or just a quick quote — drop me a message and I'll get back to you within 24 hours. No pressure, no sales pitch.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="icon">📧</span>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:owen@ocdev.uk">owen@ocdev.uk</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">📍</span>
+                        <div>
+                            <h4>Location</h4>
+                            <p>United Kingdom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <div class="form-wrapper">
+            <form id="contact-form" class="contact-form" action="https://formspree.io/f/mbdbggvb" method="POST">
+                
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="project-type">Project Type</label>
+                    <select id="project-type" name="projectType">
+                        <option>Website / Landing Page</option>
+                        <option>E-Commerce Store</option>
+                        <option>UI/UX Design</option>
+                        <option>Redesign / Refresh</option>
+                        <option>Shopify Setup</option>
+                        <option>WordPress Build</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Tell Me About Your Project</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Brief details about what you want to build..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Send Message &rarr;</button>
+            </form>
+        </div>
+        </div>
+    </section>
 
-<!-- CTA BAND -->
-<div class="cta-band">
-  <h2>Got an idea? Let's talk.</h2>
-  <p>I'm just starting out and I'd love to build something great with you. Reach out — it's always free to chat.</p>
-  <a href="mailto:owen@ocdev.uk" class="cta-link">owen@ocdev.uk</a>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="f-logo">oc<span>dev</span>.uk</div>
-  <div class="f-links"><a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#contact">Contact</a></div>
-  <div class="f-copy">© 2026 ocdev.uk — Owen, Lead Developer</div>
-</footer>
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <img src="ocdevuk.png" alt="ocdev.uk Logo" class="footer-logo">
+                <p>Got an idea? Let's talk. I'm just starting out and I'd love to build something great with you. Reach out — it's always free to chat.</p>
+                <p><a href="mailto:owen@ocdev.uk" class="footer-email">owen@ocdev.uk</a></p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="#">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#work">Work</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 ocdev.uk — Owen, Lead Developer</p>
+        </div>
+    </footer>
 
 <script>
-  // ── Google Apps Script endpoint ──────────────────────────
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby1eK1xa_ZX2eb7OIk2R0FVEbb42dUPlG6x1v0UXoQV8XL_4hhrDBUUaqMt1O6P7HCj/exec';
-
-  // ── Custom cursor ────────────────────────────────────────
-  const cur = document.getElementById('cur');
-  const ring = document.getElementById('cur-ring');
-  let mx=0, my=0, rx=0, ry=0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  (function loop() {
-    cur.style.left  = mx + 'px'; cur.style.top  = my + 'px';
-    rx += (mx - rx) * .1;        ry += (my - ry) * .1;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(loop);
-  })();
-
-  // ── Scroll reveal + skill bars ───────────────────────────
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('in');
-      e.target.querySelectorAll('.sk-fill').forEach((b, i) => {
-        setTimeout(() => { b.style.transform = `scaleX(${b.dataset.w})`; }, 150 + i * 80);
-      });
-    });
-  }, { threshold: .12 });
-  document.querySelectorAll('.r').forEach(el => io.observe(el));
-
-  // ── Contact form → Google Apps Script ───────────────────
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const btn     = document.getElementById('submitBtn');
-    const status  = document.getElementById('formStatus');
-
-    const name    = document.getElementById('f-name').value.trim();
-    const email   = document.getElementById('f-email').value.trim();
-    const type    = document.getElementById('f-type').value;
-    const budget  = document.getElementById('f-budget').value;
-    const message = document.getElementById('f-message').value.trim();
-
-    if (!name || !email || !message) {
-      showStatus('Please fill in your name, email and message.', 'error');
-      return;
-    }
-
-    btn.innerHTML     = 'Sending…';
-    btn.disabled      = true;
-    btn.style.opacity = '0.65';
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode:   'no-cors',          // required for Google Apps Script
-      body:   JSON.stringify({ name, email, project_type: type, budget, message })
-    })
-    .then(() => {
-      // no-cors means we can't read the response body — if fetch didn't throw, treat as success
-      showStatus('✓ Message sent! I\'ll get back to you within 24 hours.', 'success');
-      document.getElementById('contactForm').reset();
-    })
-    .catch(() => {
-      showStatus('Something went wrong — please email me directly at owen@ocdev.uk', 'error');
-    })
-    .finally(() => {
-      btn.innerHTML     = 'Send Message →';
-      btn.disabled      = false;
-      btn.style.opacity = '';
-    });
-  }
-
-  function showStatus(msg, type) {
-    const el        = document.getElementById('formStatus');
-    el.textContent  = msg;
-    el.style.display   = 'block';
-    el.style.background = type === 'success' ? 'rgba(21,128,61,0.15)'  : 'rgba(220,38,38,0.15)';
-    el.style.border     = type === 'success' ? '1px solid rgba(21,128,61,0.4)' : '1px solid rgba(220,38,38,0.4)';
-    el.style.color      = type === 'success' ? '#4ade80' : '#f87171';
-    setTimeout(() => { el.style.display = 'none'; }, 6000);
-  }
-</script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stops the page from redirecting
+            
+            const form = this;
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Set button to a loading state
+            btn.disabled = true;
+            btn.innerHTML = 'Sending...';
+            
+            // Collect form data
+            const formData = new FormData(form);
+            
+            // Send data to your Google Apps Script Web App URL
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // 🚀 THIS IS THE FIX: Bypasses the browser's security block
+            })
+            .then(response => {
+                // Change button to the successful state
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-success');
+                btn.innerHTML = 'Message Sent Successfully! ✓';
+                
+                // Reset the form inputs
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                btn.disabled = false;
+                btn.innerHTML = 'Error. Try Again &rarr;';
+            });
+        });
+    </script>
 </body>
 </html>
