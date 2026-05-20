@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ice & Embers | Wood Fired Sauna</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F9F6F0; /* Soft oatmeal texture color */
+            color: #2B2521; /* Rich charcoal/ember brown from logo */
+        }
+        .font-serif {
+            font-family: 'Cinzel', serif;
+        }
+        /* Custom smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#2B2521] selection:text-white">
+
+<header class="fixed w-full top-0 z-50 bg-[#F9F6F0]/90 backdrop-blur-md border-b border-[#2B2521]/10">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            
+            <a href="#" class="block h-12 md:h-16">
+                <img src="logo-round.png" alt="Ice & Embers Logo" class="h-full w-auto object-contain h-12 md:h-16" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="hidden font-serif text-xl tracking-wider font-bold leading-none">ICE & EMBERS</span>
+            </a>
+
+            <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide uppercase">
+                <a href="#experience" class="hover:opacity-60 transition">The Experience</a>
+                <a href="#book" class="hover:opacity-60 transition">Book Now</a>
+                <a href="#benefits" class="hover:opacity-60 transition">Benefits</a>
+                <a href="#location" class="hover:opacity-60 transition">Find Us</a>
+            </nav>
+            
+            <a href="#book" class="bg-[#2B2521] text-[#F9F6F0] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded shadow hover:bg-opacity-90 transition">
+                Book Session
+            </a>
+        </div>
+    </header>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#2B2521] text-[#F9F6F0]">
+        <div class="absolute inset-0 bg-[url('https://www.saunaplace.com/cdn/shop/files/heritage-6-person-sauna-trailer-686f30ad93381.webp?v=1752117517')] bg-cover bg-center opacity-20 mix-blend-luminosity"></div>
+        
+        <div class="relative max-w-4xl mx-auto text-center px-6 py-12 flex flex-col items-center">
+            <div class="mb-6 opacity-80 text-2xl">❄</div>
+            
+            <h1 class="font-serif text-5xl md:text-7xl tracking-widest font-bold mb-3">ICE & EMBERS</h1>
+            <p class="font-serif text-lg md:text-2xl tracking-widest uppercase opacity-80 mb-8 border-b border-[#F9F6F0]/20 pb-4 w-48 mx-auto">Wood Fired Sauna</p>
+            
+            <div class="flex items-center space-x-4 md:space-x-8 my-6 text-sm md:text-lg font-serif tracking-widest uppercase text-[#F9F6F0]/90">
+                <span>Slow Down</span>
+                <span class="opacity-30">|</span>
+                <span>Be Present</span>
+                <span class="opacity-30">|</span>
+                <span>Reset</span>
+            </div>
+
+            <div class="mt-2 mb-10 text-2xl text-orange-400 opacity-90">🔥</div>
+
+            <a href="#book" class="bg-[#F9F6F0] text-[#2B2521] px-8 py-4 font-semibold uppercase tracking-wider text-sm rounded shadow-lg hover:bg-opacity-90 transition transform hover:-translate-y-0.5">
+                Reserve Your Bench
+            </a>
+        </div>
+    </section>
+
+    <section id="experience" class="py-24 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+            <span class="text-xs font-semibold uppercase tracking-widest opacity-60 block mb-2">Contrast Therapy</span>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">Where the heat meets the chill.</h2>
+            <p class="leading-relaxed opacity-80 mb-4">
+                Ice & Embers is a traditional, wood-fired sauna experience designed to pull you away from the noise of daily life. Rooted in Nordic wellness traditions, we pair the intense, comforting heat of a real timber sauna with the grounding clarity of cold exposure.
+            </p>
+            <p class="leading-relaxed opacity-80">
+                Whether you are joining our community public slots to connect with like-minded souls or booking out the entire space for a private escape, you'll leave feeling completely recalibrated.
+            </p>
+        </div>
+        <div class="bg-stone-200 aspect-square rounded-lg shadow-inner overflow-hidden border border-[#2B2521]/10">
+            <img src="https://www.saunaplace.com/cdn/shop/files/heritage-6-person-sauna-trailer-686f30ad93381.webp?v=1752117517" alt="Wood-fired sauna experience" class="w-full h-full object-cover mix-blend-multiply opacity-90">
+        </div>
+    </section>
+
+    <section id="book" class="py-20 bg-[#2B2521] text-[#F9F6F0]">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Select Your Session</h2>
+            <p class="opacity-70 max-w-xl mx-auto mb-12 text-sm">
+                Choose a communal slot to share the warmth, or book a private group session. Bookings are handled securely via Bookwhen.
+            </p>
+
+            <div class="bg-[#F9F6F0] text-[#2B2521] rounded-xl p-8 min-h-[400px] flex flex-col items-center justify-center shadow-2xl border border-white/10">
+                <p class="text-sm font-semibold tracking-wide uppercase opacity-50 mb-2">Bookwhen Live Schedule</p>
+                <p class="text-xs opacity-70 max-w-sm mb-6">Your Bookwhen calendar widget will load seamlessly right here.</p>
+                
+                <a href="https://bookwhen.com" target="_blank" class="border border-[#2B2521] px-6 py-3 rounded text-sm font-semibold uppercase tracking-wider hover:bg-[#2B2521] hover:text-[#F9F6F0] transition">
+                    Configure Bookwhen Widget
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits" class="py-24 bg-stone-100 border-y border-[#2B2521]/5">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="font-serif text-3xl font-bold mb-4">Why We Sauna</h2>
+                <p class="opacity-70 text-sm">The profound physical and mental benefits of regular thermal contrast therapy.</p>
+            </div>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-[#F9F6F0] p-6 rounded shadow-sm border border-[#2B2521]/5">
+                    <div class="text-xl mb-3">🫀</div>
+                    <h3 class="font-serif font-bold text-lg mb-2">Cardiovascular Health</h3>
+                    <p class="text-sm opacity-70 leading-relaxed">The deep heat mimics moderate exercise, improving circulation, blood flow, and overall heart function.</p>
+                </div>
+                <div class="bg-[#F9F6F0] p-6 rounded shadow-sm border border-[#2B2521]/5">
+                    <div class="text-xl mb-3">🧘</div>
+                    <h3 class="font-serif font-bold text-lg mb-2">Deep Nervous Reset</h3>
+                    <p class="text-sm opacity-70 leading-relaxed">Shifting from hot to cold forces your mind into the absolute present, drastically lowering cortisol and stress levels.</p>
+                </div>
+                <div class="bg-[#F9F6F0] p-6 rounded shadow-sm border border-[#2B2521]/5">
+                    <div class="text-xl mb-3">💪</div>
+                    <h3 class="font-serif font-bold text-lg mb-2">Muscle Recovery</h3>
+                    <p class="text-sm opacity-70 leading-relaxed">Perfect for athletes. Flushes out metabolic waste and relaxes tight joints and muscles instantly.</p>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-[#2B2521] text-[#F9F6F0] p-8 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h4 class="font-serif text-xl font-bold mb-2">First time visiting Ice & Embers?</h4>
+                    <p class="text-sm opacity-70 max-w-xl">Remember to bring a large towel to sit on, swimwear, a water bottle to stay hydrated, and a warm change of clothes for afterwards.</p>
+                </div>
+                <div class="text-xs uppercase font-semibold tracking-widest shrink-0 border border-white/20 px-4 py-2 rounded">
+                    🌿 Leave no trace
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="location" class="py-24 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+        <div>
+            <h2 class="font-serif text-3xl font-bold mb-4">Find the Embers</h2>
+            <p class="opacity-70 mb-6 text-sm">We are parked up in nature, ready to welcome you. Check your booking confirmation email for specific seasonal parking details.</p>
+            
+            <div class="space-y-4 text-sm">
+                <p class="flex items-center gap-3">
+                    <span class="opacity-50">📍</span> 
+                    <strong>Location:</strong> Dundee, Scotland 
+                </p>
+                <p class="flex items-center gap-3">
+                    <span class="opacity-50">✉️</span> 
+                    <strong>Contact:</strong> hello@iceandemberssauna.co.uk
+                </p>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-[#2B2521]/10">
+                <p class="text-xs font-semibold uppercase tracking-widest opacity-60 mb-4">Join the Community</p>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" class="bg-[#2B2521] text-[#F9F6F0] px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded hover:opacity-80 transition">
+                        Instagram
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="bg-[#2B2521] text-[#F9F6F0] px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded hover:opacity-80 transition">
+                        Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-stone-200 rounded-lg shadow-inner h-64 md:h-auto min-h-[250px] relative overflow-hidden border border-[#2B2521]/10">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1000')] opacity-10 bg-cover"></div>
+            <div class="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-widest font-semibold text-[#2B2521]/50">
+                [ Google Map Embed Area ]
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#2B2521] text-[#F9F6F0]/60 text-xs py-8 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Ice & Embers Wood Fired Sauna. All rights reserved.</p>
+            <div class="flex gap-6 uppercase tracking-wider text-[10px]">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
