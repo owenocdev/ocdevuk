@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Studio Pro</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'/><polyline points='14 2 14 8 20 8'/><line x1='16' y1='13' x2='8' y2='13'/><line x1='16' y1='17' x2='8' y2='17'/><line x1='10' y1='9' x2='8' y2='9'/></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:wght@400;600&family=Oswald:wght@500;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+    
+<nav class="navbar">
+    <div class="nav-brand"><i data-lucide="file-text"></i><span>CV STUDIO PRO</span></div>
+    <div class="nav-actions">
+        <button class="nav-btn" onclick="clearData()"><i data-lucide="rotate-ccw"></i> Clear CV</button>
+        <button class="nav-btn primary" onclick="downloadPDF()"><i data-lucide="download"></i> Download PDF</button>
+    </div>
+</nav>
+
+<div class="main-layout">
+    <div class="input-panel">
+        <div class="input-group">
+            <label>1. Design & Typography</label>
+            <label>Template Layout</label>
+            <select id="layoutSelect" onchange="changeLayout()" style="margin-bottom: 10px;">
+                <option value="standard">Refined Standard</option>
+                <option value="sidebar">Classic Sidebar</option>
+                <option value="minimalist">Minimalist</option>
+                <option value="executive">Executive</option>
+                <option value="creative">Creative (2-Column)</option>
+                <option value="functional">Functional (Grid)</option>
+                <option value="chronological">Chronological</option>
+                <option value="developer">Developer (Mono)</option>
+                <option value="nordic">Nordic Frost</option>
+                <option value="magazine">Editorial Magazine</option>
+                <option value="architect">Architect Blueprint</option>
+                <option value="academic">Academic Scholar</option>
+                <option value="bold">Bold Impact</option>
+            </select>
+            <label>Color Theme</label>
+            <select id="themeSelect" onchange="changeTheme()" style="margin-bottom: 10px;">
+                <option value="classic">Classic Blue</option>
+                <option value="forest">Forest Green</option>
+                <option value="crimson">Crimson Red</option>
+                <option value="slate">Modern Slate</option>
+                <option value="nordic">Nordic Ice</option>
+                <option value="gold">Luxe Gold</option>
+                <option value="midnight">Midnight Navy</option>
+                <option value="terra">Terracotta Earth</option>
+            </select>
+            <label>Base Font</label>
+            <select id="fontSelect" onchange="changeFont()">
+                <option value="'Inter', sans-serif">Inter (Modern Sans)</option>
+                <option value="'Lora', serif">Lora (Classic Serif)</option>
+                <option value="'Roboto Mono', monospace">Roboto Mono (Technical)</option>
+                <option value="'Oswald', sans-serif">Oswald (Bold Headers)</option>
+                <option value="'Lato', sans-serif">Lato (Friendly Sans)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>2. Manage Sections (Drag to Move)</label>
+            <div id="drag-list">
+                <div class="drag-item" data-id="work"><i data-lucide="grip-vertical"></i> Employment</div>
+                <div class="drag-item" data-id="edu"><i data-lucide="grip-vertical"></i> Education</div>
+                <div class="drag-item" data-id="skills"><i data-lucide="grip-vertical"></i> Skills</div>
+                <div class="drag-item" data-id="achieve"><i data-lucide="grip-vertical"></i> Achievements</div>
+                <div class="drag-item" data-id="extra"><i data-lucide="grip-vertical"></i> Additional Info</div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>3. Personal Details</label>
+            <label style="margin-top: 8px;">Profile Photo</label>
+            <div class="photo-upload-wrapper">
+                <input type="file" id="inPhoto" accept="image/*" onchange="loadPhoto(event)">
+                <label for="inPhoto" class="photo-upload-label">
+                    <i data-lucide="camera"></i>
+                    <span id="photoUploadText">Choose Photo</span>
+                </label>
+                <button class="photo-remove-btn" id="photoRemoveBtn" onclick="removePhoto()" style="display:none;">
+                    <i data-lucide="x"></i> Remove
+                </button>
+            </div>
+            
+            <input type="text" id="inName" placeholder="Full Name" oninput="update()">
+            <input type="text" id="inRole" placeholder="Job Title" oninput="update()">
+            <input type="text" id="inEmail" placeholder="Email Address" oninput="update()">
+            <input type="text" id="inPhone" placeholder="Phone Number" oninput="update()">
+            <input type="text" id="inLoc" placeholder="Location" oninput="update()">
+            <textarea id="inSummary" rows="4" placeholder="Professional Summary..." oninput="update()"></textarea>
+        </div>
+
+        <div class="input-group"><label>4. Employment</label><div id="work-inputs"></div><button class="add-btn" onclick="addItem('work')">+ Experience</button></div>
+        <div class="input-group"><label>5. Education</label><div id="edu-inputs"></div><button class="add-btn" onclick="addItem('edu')">+ Education Centre</button></div>
+        <div class="input-group"><label>6. Skills</label><div id="skills-inputs"></div><button class="add-btn" onclick="addItem('skills')">+ Skill Set</button></div>
+        <div class="input-group"><label>7. Achievements</label><div id="achieve-inputs"></div><button class="add-btn" onclick="addItem('achieve')">+ Achievement</button></div>
+        <div class="input-group"><label>8. Additional Info</label><textarea id="inExtra" rows="2" placeholder="Full UK Driving Licence, etc..." oninput="update()"></textarea></div>
+        
+        <div id="dynamic-input-groups"></div>
+        <div class="input-group" style="border: 1px dashed var(--accent); background: rgba(0,0,0,0.02)">
+            <button class="add-btn" style="background: transparent; color: var(--accent); font-weight: 700;" onclick="openModal()">+ Add Custom Category</button>
+        </div>
+    </div>
+
+    <div class="preview-zone">
+        <div class="page-indicator-wrap no-pdf">
+            <div class="page-break-line"></div>
+            <div class="page-label">PAGE 1 END</div>
+        </div>
+        
+        <div id="cv-canvas" class="layout-standard">
+            <div class="cv-header-area">
+                <div class="name-title-container">
+                    <h1 id="outName"></h1>
+                    <p id="outRole" class="role-style"></p>
+                </div>
+                <div id="contact-info" class="contact-info-container">
+                    <img id="outPhoto" class="profile-img" src="" alt="Profile Photo">
+                    <div id="outEmail"></div><div id="outPhone"></div><div id="outLoc"></div>
+                </div>
+            </div>
+            <div class="cv-main">
+                <p id="outSummary" class="summary-style"></p>
+                <div id="section-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="customCatModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">Create Custom Category</div>
+        <input type="text" id="modalCatInput" class="modal-input" placeholder="e.g., Certifications, Languages">
+        <div class="modal-actions">
+            <button class="modal-btn cancel" onclick="closeModal()">Cancel</button>
+            <button class="modal-btn primary" onclick="submitCustomCategory()">Add Category</button>
+        </div>
+    </div>
+</div>
+
+<div id="mobile-warning" class="mobile-warning-overlay">
+    <div class="warning-content">
+        <i data-lucide="monitor-x" style="width: 48px; height: 48px; margin-bottom: 15px; color: #004085;"></i>
+        <h2>Screen Too Small</h2>
+        <p>Apologies! The team at <strong>ocdev.uk</strong> are currently working on a way to make this editor fully functional on mobile devices.</p>
+        <p>For the best experience, please use a <strong>laptop, computer, or turn your tablet to landscape mode</strong>.</p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

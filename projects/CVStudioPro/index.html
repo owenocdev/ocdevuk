@@ -3,85 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Studio Pro</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'/><polyline points='14 2 14 8 20 8'/><line x1='16' y1='13' x2='8' y2='13'/><line x1='16' y1='17' x2='8' y2='17'/><line x1='10' y1='9' x2='8' y2='9'/></svg>">
-    
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>CV Studio Pro | Stand out to employers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        :root {
+            --primary: #004085;
+            --bg: #f8f9fa;
+            --text: #1a1a1a;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        /* Navigation & Header */
+        header {
+            background: white;
+            padding: 20px 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .dev-logo {
+            height: 40px;
+            width: auto;
+        }
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        /* Template Grid */
+        .templates-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+        .section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .card-img-placeholder {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: top; /* This forces the image to anchor to the top */
+            border-bottom: 1px solid #eee;
+        }
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            color: var(--primary);
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    
 
-
-<nav class="navbar">
-    <div class="nav-brand"><i data-lucide="file-text"></i><span>CV STUDIO PRO</span></div>
-    <div class="nav-actions">
-        <button class="nav-btn" onclick="window.location.reload()"><i data-lucide="rotate-ccw"></i> Reset</button>
-        <button class="nav-btn primary" onclick="downloadPDF()"><i data-lucide="download"></i> Download PDF</button>
-    </div>
-</nav>
-
-<div class="main-layout">
-    <div class="input-panel">
-        <div class="input-group">
-            <label>Master Layout</label>
-            <div class="toggle-group">
-                <button id="btn-sidebar" class="toggle-btn active" onclick="setLayout('sidebar')">SIDEBAR</button>
-                <button id="btn-top" class="toggle-btn" onclick="setLayout('top')">TOP HEADER</button>
-            </div>
-            <label>Section Order (Drag to Move)</label>
-            <div id="drag-list">
-                <div class="drag-item" data-id="work"><i data-lucide="grip-vertical"></i> Employment</div>
-                <div class="drag-item" data-id="edu"><i data-lucide="grip-vertical"></i> Education</div>
-                <div class="drag-item" data-id="skills"><i data-lucide="grip-vertical"></i> Skills</div>
-                <div class="drag-item" data-id="achieve"><i data-lucide="grip-vertical"></i> Achievements</div>
-                <div class="drag-item" data-id="extra"><i data-lucide="grip-vertical"></i> Additional Info</div>
-            </div>
+    <header>
+        <div class="logo-area">
+            <i data-lucide="file-text" style="color: var(--primary); width: 32px; height: 32px;"></i>
+            <h2 style="margin: 0; color: var(--primary); font-weight: 800;">CV STUDIO PRO</h2>
         </div>
-
-        <div class="input-group">
-            <label>Profile & Contact</label>
-            <input type="text" id="inName" placeholder="Full Name" oninput="update()">
-            <input type="text" id="inRole" placeholder="Job Title" oninput="update()">
-            <input type="text" id="inEmail" placeholder="Email Address" oninput="update()">
-            <input type="text" id="inPhone" placeholder="Phone Number" oninput="update()">
-            <input type="text" id="inLoc" placeholder="Location" oninput="update()">
-            <textarea id="inSummary" rows="3" placeholder="Summary" oninput="update()"></textarea>
+        <div class="logo-area">
+            <span style="font-size: 0.85rem; color: #666; font-weight: 600;">Developed by</span>
+            <img src="ocdevuk.png" alt="ocdev.uk Logo" class="dev-logo">
         </div>
+    </header>
 
-        <div class="input-group"><label>Employment</label><div id="work-inputs"></div><button class="add-btn" onclick="addItem('work')">+ Experience</button></div>
-        <div class="input-group"><label>Education</label><div id="edu-inputs"></div><button class="add-btn" onclick="addItem('edu')">+ Education Centre</button></div>
-        <div class="input-group"><label>Skills</label><div id="skills-inputs"></div><button class="add-btn" onclick="addItem('skills')">+ Skill Set</button></div>
-        <div class="input-group"><label>Achievements</label><div id="achieve-inputs"></div><button class="add-btn" onclick="addItem('achieve')">+ Achievement</button></div>
-        <div class="input-group"><label>Additional Info</label><textarea id="inExtra" rows="2" placeholder="" oninput="update()"></textarea></div>
+    <div class="hero">
+        <h1>Your Career Starts Here.</h1>
+        <p>CV Studio Pro is designed specifically to help young people, and school-leavers step into the job market with confidence. We take the stress out of formatting so you can focus on what matters: showing employers exactly what makes you great.</p>
+        <p>Choose a professional template below and build a stunning CV in minutes.</p>
     </div>
 
-    <div class="preview-zone">
-        <div class="page-indicator-wrap no-pdf">
-            <div class="page-break-line"></div>
-            <div class="page-label">PAGE 1 END</div>
-        </div>
-        
-        <div id="cv-canvas" class="layout-sidebar">
-            <div class="cv-header-area">
-                <h1 id="outName">NAME</h1>
-                <p id="outRole" style="font-weight:600; color:var(--accent); margin-top:5px; margin-bottom:0;">ROLE</p>
-                <div id="contact-info" style="margin-top:10px; font-size:0.8rem;">
-                    <div id="outEmail"></div><div id="outPhone"></div><div id="outLoc"></div>
+    <div class="templates-container">
+        <h2 class="section-title">Select a Template to Begin</h2>
+        <p class="section">All Colours & Fonts are chanagebale </p>
+        <div class="grid" id="templateGrid">
+            </div>
+    </div>
+
+    <footer>
+        <p>CV Studio Pro. Developed with purpose by <strong>ocdev.uk</strong> to support the next generation of professionals.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Template Data linking to editor.html with a URL parameter
+        const templates = [
+            { id: 'standard', name: 'Refined Standard', desc: 'A clean, traditional layout that appeals to all corporate employers.' },
+            { id: 'sidebar', name: 'Classic Sidebar', desc: 'Keeps contact details neatly tucked away on the left for easy reading.' },
+            { id: 'minimalist', name: 'Minimalist', desc: 'No clutter. Pure focus on your skills and experience.' },
+            { id: 'executive', name: 'Executive', desc: 'A bold, authoritative layout for management and leadership roles.' },
+            { id: 'creative', name: 'Creative', desc: 'Perfect for design, marketing, and media roles. Stands out instantly.' },
+            { id: 'functional', name: 'Functional Grid', desc: 'A modern, grid-based approach to structure your achievements.' },
+            { id: 'chronological', name: 'Chronological', desc: 'Highlights your career timeline and progression perfectly.' },
+            { id: 'developer', name: 'Developer (Mono)', desc: 'Code-inspired aesthetic tailored for IT and software engineering.' },
+            { id: 'nordic', name: 'Nordic Frost', desc: 'Scandinavian-inspired split design. Clean, icy, and highly readable.' },
+            { id: 'magazine', name: 'Editorial Magazine', desc: 'High-impact top band mimicking an editorial layout. Very striking.' },
+            { id: 'architect', name: 'Architect Blueprint', desc: 'Dark top header with a highly structured, geometric data flow.' },
+            { id: 'academic', name: 'Academic Scholar', desc: 'Authoritative, institution-ready layout suited for education or research.' },
+            { id: 'bold', name: 'Bold Impact', desc: 'Confident, large typography designed to grab attention immediately.' }
+        ];
+
+        const grid = document.getElementById('templateGrid');
+
+        templates.forEach(t => {
+            // Using a placehold.co image for previews. 
+            // You can replace the src later with actual screenshots of your layouts (e.g., 'images/preview-standard.jpg')
+            const imgUrl = `images/preview-${t.id}.jpeg`;
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <img src="${imgUrl}" alt="${t.name} Preview" class="card-img-placeholder">
+                <div class="card-content">
+                    <h3 class="card-title">${t.name}</h3>
+                    <p class="card-desc">${t.desc}</p>
+                    <a href="editor.html?layout=${t.id}" class="btn">
+                        <i data-lucide="edit-3"></i> Use this template
+                    </a>
                 </div>
-            </div>
-            <div class="cv-main">
-                <p id="outSummary" style="font-style: italic; color:#333; margin-bottom:15px; border-left: 3px solid var(--accent); padding-left:12px;"></p>
-                <div id="section-container"></div>
-            </div>
-        </div>
-    </div>
-</div>
+            `;
+            grid.appendChild(card);
+        });
 
-<script src="script.js"></script>
+        // Re-initialize icons for newly injected HTML
+        lucide.createIcons();
+    </script>
 </body>
 </html>
