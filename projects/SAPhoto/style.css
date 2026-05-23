@@ -1,0 +1,199 @@
+:root {
+    --bg-color: #050505;
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --accent: #ffffff;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5%;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+}
+
+/* Automated Hero Slider */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active { opacity: 1; }
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    font-weight: 400;
+}
+
+.hero-content p {
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+/* Category Filters */
+.portfolio-section { padding: 6rem 5%; }
+
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding-bottom: 5px;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--text-primary);
+}
+
+/* Dynamic Masonry Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 350px;
+    gap: 20px;
+    transition: all 0.5s ease;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.gallery-item.hide {
+    display: none; /* JS handles the filtering */
+}
+
+.gallery-item.tall { grid-row: span 2; }
+.gallery-item.wide { grid-column: span 2; }
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.05); }
+
+/* Fullscreen Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-img {
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 30px; right: 40px;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover { color: var(--text-secondary); }
+
+@media (max-width: 768px) {
+    .gallery-item.wide, .gallery-item.tall { grid-column: span 1; grid-row: span 1; }
+    .hero-content h1 { font-size: 3.5rem; }
+}
