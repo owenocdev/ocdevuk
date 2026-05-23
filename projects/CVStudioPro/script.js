@@ -303,3 +303,122 @@ document.addEventListener('DOMContentLoaded', () => {
     changeFont();
     update();
 });
+
+function saveCVJSON() {
+    // 1. Compile the exact current environment configuration mapping
+    const data = {
+        design: {
+            layout: document.getElementById('layoutSelect').value,
+            theme: document.getElementById('themeSelect').value,
+            font: document.getElementById('fontSelect').value
+        },
+        personal: {
+            name: document.getElementById('inName').value,
+            role: document.getElementById('inRole').value,
+            email: document.getElementById('inEmail').value,
+            phone: document.getElementById('inPhone').value,
+            loc: document.getElementById('inLoc').value,
+            summary: document.getElementById('inSummary').value,
+            extra: document.getElementById('inExtra').value,
+            photo: document.getElementById('outPhoto').src || ''
+        },
+        // Back up all user state variables currently mapped into localStorage
+        localStorageBackup: { ...localStorage }
+    };
+
+    try {
+        // 2. Transform the state object into an aligned string layout
+        const jsonString = JSON.stringify(data, null, 2);
+        
+        // 3. Assemble binary blob container payload to override data-size constraints
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        
+        // 4. Compute unique filename scheme
+        const rawName = document.getElementById('inName').value;
+        const fileName = (rawName ? rawName.replace(/\s+/g, '_') : 'CV_Studio_Pro') + '_backup.json';
+        
+        // 5. Build dynamic injection downloader bridge
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.href = url;
+        downloadAnchor.download = fileName;
+        
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        
+        // 6. Memory lifecycle destruction
+        document.body.removeChild(downloadAnchor);
+        URL.revokeObjectURL(url);
+        
+    } catch (error) {
+        alert("Persistence Engine Exception: Check logs for details.");
+        console.error("Export Error Stack:", error);
+    }
+}
+
+function loadCVJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            
+            // 1. Sync global cache layers back into localStorage context
+            if (data.localStorageBackup) {
+                Object.keys(data.localStorageBackup).forEach(key => {
+                    localStorage.setItem(key, data.localStorageBackup[key]);
+                });
+            }
+
+            // 2. Re-assign dropdown select values
+            if (data.design) {
+                document.getElementById('layoutSelect').value = data.design.layout;
+                document.getElementById('themeSelect').value = data.design.theme;
+                document.getElementById('fontSelect').value = data.design.font;
+            }
+
+            // 3. Populate standard detail text fields
+            if (data.personal) {
+                document.getElementById('inName').value = data.personal.name || '';
+                document.getElementById('inRole').value = data.personal.role || '';
+                document.getElementById('inEmail').value = data.personal.email || '';
+                document.getElementById('inPhone').value = data.personal.phone || '';
+                document.getElementById('inLoc').value = data.personal.loc || '';
+                document.getElementById('inSummary').value = data.personal.summary || '';
+                document.getElementById('inExtra').value = data.personal.extra || '';
+                
+                // Mount photo references securely if structure matches
+                if (data.personal.photo && data.personal.photo.startsWith('data:image')) {
+                    document.getElementById('outPhoto').src = data.personal.photo;
+                    document.getElementById('outPhoto').style.display = 'block';
+                    document.getElementById('photoRemoveBtn').style.display = 'inline-flex';
+                    document.getElementById('photoUploadText').innerText = 'Change Photo';
+                }
+            }
+
+            // 4. Force global app listeners to re-render layouts dynamically
+            if (typeof changeLayout === "function") changeLayout();
+            if (typeof changeTheme === "function") changeTheme();
+            if (typeof changeFont === "function") changeFont();
+            
+            // If you have a specific storage loop processor inside your main build (e.g. loadFromStorage) execute it here:
+            // if (typeof loadLocalStorage === "function") loadLocalStorage();
+            
+            if (typeof update === "function") update();
+            
+            // Re-render raw layout components with lucide icons
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            
+            alert("CV Configuration File Loaded Successfully!");
+            
+            // Reset input so that uploading the same file back-to-back works seamlessly
+            event.target.value = '';
+        } catch (err) {
+            alert("Parsing Error: Invalid template configuration structure.");
+            console.error("Import Error Stack:", err);
+        }
+    };
+    reader.readAsText(file);
+}
