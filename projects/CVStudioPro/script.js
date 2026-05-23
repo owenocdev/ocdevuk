@@ -273,26 +273,25 @@ function downloadPDF() {
 
 function downloadDOCX() {
     const canvas = document.getElementById('cv-canvas');
-    const computedFont = getComputedStyle(document.documentElement).getPropertyValue('--font-family');
-    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#004085';
     
-    // Formulate a native clean Word layout wrapper structure 
+    // Get inline styling variables to export structural styles safely to Word
+    const computedFont = getComputedStyle(document.documentElement).getPropertyValue('--font-family');
+    
+    // Wrap canvas content in a clean MSO XML/HTML structure that Microsoft Word reads natively as a .docx document
     const htmlContent = `
     <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
     <head>
         <title>CV Export</title>
         <style>
-            body { font-family: ${computedFont.replace(/"/g, "'") || 'Arial'}, sans-serif; line-height: 1.4; color: #1a1a1a; padding: 20px; }
-            h1 { font-size: 24pt; color: ${accentColor}; margin-bottom: 2pt; font-weight: 800; }
-            .role-style { font-size: 13pt; font-weight: 600; color: ${accentColor}; margin-bottom: 12pt; }
-            h3 { font-size: 11pt; text-transform: uppercase; border-bottom: 2px solid ${accentColor}; padding-bottom: 4px; color: ${accentColor}; margin-top: 18pt; margin-bottom: 8pt; letter-spacing: 1px; }
-            .cv-entry { margin-bottom: 10pt; }
-            .entry-header { font-weight: bold; font-size: 11pt; }
-            .date-text { float: right; font-weight: normal; color: #666; font-size: 9.5pt; }
-            .desc-text { margin-top: 4pt; font-size: 10pt; color: #333; white-space: pre-wrap; }
-            .qual-row { margin-top: 3pt; font-size: 10pt; border-bottom: 1px dashed #eee; padding-bottom: 2px; }
-            .summary-style { font-style: italic; margin-bottom: 14pt; font-size: 10.5pt; color: #222; }
-            .contact-info-container { font-size: 10pt; color: #444; margin-bottom: 15pt; }
+            body { font-family: ${computedFont || 'Arial'}, sans-serif; line-height: 1.4; color: #1a1a1a; }
+            h1 { font-size: 24pt; color: #004085; margin-bottom: 2pt; }
+            .role-style { font-size: 14pt; font-weight: bold; color: #555; }
+            h3 { font-size: 12pt; text-transform: uppercase; border-bottom: 2px solid #004085; padding-bottom: 3px; color: #004085; margin-top: 15pt; }
+            .entry-header { font-weight: bold; display: flex; justify-content: space-between; }
+            .date-text { float: right; font-weight: normal; color: #666; font-size: 10pt; }
+            .desc-text { margin-top: 4pt; font-size: 11pt; color: #333; white-space: pre-wrap; }
+            .qual-row { margin-top: 2pt; font-size: 11pt; }
+            .summary-style { font-style: italic; margin-bottom: 12pt; }
         </style>
     </head>
     <body>
@@ -300,7 +299,12 @@ function downloadDOCX() {
     </body>
     </html>`;
 
-    const blob = new Blob(['\ufeff' + htmlContent], { type: 'application/msword' });
+    // Create a Blob specifically targeted as a Word Application Document
+    const blob = new Blob(['\ufeff' + htmlContent], {
+        type: 'application/msword'
+    });
+    
+    // Generate an anchor dynamic download link
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -308,6 +312,7 @@ function downloadDOCX() {
     document.body.appendChild(a);
     a.click();
     
+    // Clean up memory
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }

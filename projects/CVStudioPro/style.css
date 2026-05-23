@@ -37,11 +37,11 @@ body {
     width: auto; 
     margin: 0; 
     box-sizing: border-box;
-    cursor: pointer;
     outline: none;
+    cursor: pointer;
     transition: background 0.2s ease;
 }
-.nav-select:hover { background: #333; }
+.nav-select:hover { background: #444 !important; }
 
 .main-layout { display: grid; grid-template-columns: 400px 1fr; height: calc(100vh - var(--nav-height)); width: 100%; }
 
