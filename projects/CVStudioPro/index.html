@@ -96,7 +96,7 @@
             width: 100%;
             height: 350px;
             object-fit: cover;
-            object-position: top; /* This forces the image to anchor to the top */
+            object-position: top;
             border-bottom: 1px solid #eee;
         }
         .card-content {
@@ -129,9 +129,44 @@
             border-radius: 6px;
             font-weight: 600;
             transition: opacity 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
         .btn:hover {
             opacity: 0.9;
+        }
+        /* Feedback Form */
+        .feedback-container {
+            max-width: 600px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .feedback-form input:focus,
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 64, 133, 0.1);
         }
         /* Footer */
         footer {
@@ -164,9 +199,22 @@
 
     <div class="templates-container">
         <h2 class="section-title">Select a Template to Begin</h2>
-        <p class="section">All Colours & Fonts are chanagebale </p>
+        <p class="section">All Colours & Fonts are changeable</p>
         <div class="grid" id="templateGrid">
             </div>
+    </div>
+
+    <div class="feedback-container">
+        <h2 class="section-title">We Value Your Feedback</h2>
+        <p class="section">Have a suggestion or spotted a bug? Let us know below.</p>
+        <form action="https://formspree.io/f/mpqnlweg" method="POST" class="feedback-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email address" required>
+            <textarea name="message" rows="5" placeholder="How can we improve CV Studio Pro?" required></textarea>
+            <button type="submit" class="btn">
+                <i data-lucide="send"></i> Send Feedback
+            </button>
+        </form>
     </div>
 
     <footer>
@@ -174,9 +222,10 @@
     </footer>
 
     <script>
+        // Initialize static icons first
         lucide.createIcons();
 
-        // Template Data linking to editor.html with a URL parameter
+        // Template Data
         const templates = [
             { id: 'standard', name: 'Refined Standard', desc: 'A clean, traditional layout that appeals to all corporate employers.' },
             { id: 'sidebar', name: 'Classic Sidebar', desc: 'Keeps contact details neatly tucked away on the left for easy reading.' },
@@ -196,8 +245,6 @@
         const grid = document.getElementById('templateGrid');
 
         templates.forEach(t => {
-            // Using a placehold.co image for previews. 
-            // You can replace the src later with actual screenshots of your layouts (e.g., 'images/preview-standard.jpg')
             const imgUrl = `images/preview-${t.id}.jpeg`;
             
             const card = document.createElement('div');
@@ -215,7 +262,7 @@
             grid.appendChild(card);
         });
 
-        // Re-initialize icons for newly injected HTML
+        // Re-initialize icons for newly injected HTML (including the form's send icon)
         lucide.createIcons();
     </script>
 </body>
