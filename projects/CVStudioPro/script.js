@@ -246,16 +246,6 @@ function clearData() {
     update();
 }
 
-// --- Download Routing Switchboard ---
-function handleDownload() {
-    const format = document.getElementById('exportFormat').value;
-    if (format === 'pdf') {
-        downloadPDF();
-    } else if (format === 'docx') {
-        downloadDOCX();
-    }
-}
-
 function downloadPDF() {
     const canvas = document.getElementById('cv-canvas');
     const indicators = document.querySelectorAll('.no-pdf');
@@ -269,52 +259,6 @@ function downloadPDF() {
     }).save().then(() => {
         indicators.forEach(el => el.style.display = 'block');
     });
-}
-
-function downloadDOCX() {
-    const canvas = document.getElementById('cv-canvas');
-    
-    // Get inline styling variables to export structural styles safely to Word
-    const computedFont = getComputedStyle(document.documentElement).getPropertyValue('--font-family');
-    
-    // Wrap canvas content in a clean MSO XML/HTML structure that Microsoft Word reads natively as a .docx document
-    const htmlContent = `
-    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-    <head>
-        <title>CV Export</title>
-        <style>
-            body { font-family: ${computedFont || 'Arial'}, sans-serif; line-height: 1.4; color: #1a1a1a; }
-            h1 { font-size: 24pt; color: #004085; margin-bottom: 2pt; }
-            .role-style { font-size: 14pt; font-weight: bold; color: #555; }
-            h3 { font-size: 12pt; text-transform: uppercase; border-bottom: 2px solid #004085; padding-bottom: 3px; color: #004085; margin-top: 15pt; }
-            .entry-header { font-weight: bold; display: flex; justify-content: space-between; }
-            .date-text { float: right; font-weight: normal; color: #666; font-size: 10pt; }
-            .desc-text { margin-top: 4pt; font-size: 11pt; color: #333; white-space: pre-wrap; }
-            .qual-row { margin-top: 2pt; font-size: 11pt; }
-            .summary-style { font-style: italic; margin-bottom: 12pt; }
-        </style>
-    </head>
-    <body>
-        ${canvas.innerHTML}
-    </body>
-    </html>`;
-
-    // Create a Blob specifically targeted as a Word Application Document
-    const blob = new Blob(['\ufeff' + htmlContent], {
-        type: 'application/msword'
-    });
-    
-    // Generate an anchor dynamic download link
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Your_CV_Studio_Export.docx';
-    document.body.appendChild(a);
-    a.click();
-    
-    // Clean up memory
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
 }
 
 const themes = {
