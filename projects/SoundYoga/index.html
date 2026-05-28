@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sound Yoga with Susan | Dundee</title>
-    <!-- Google Fonts for elegant typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <link rel="icon" type="image/x-icon" href="/images/logo.ico">    
+  
     <style>
         /* --- DESIGN SYSTEM & CSS VARIABLES --- */
         :root {
-            --forest-green: #2d493d;    /* Primary brand color from the logo foliage */
-            --soft-gold: #E5C387;       /* Accent color from the sound waves */
-            --warm-cream: #faf7f0;      /* Background tone for a premium, organic feel */
+            --sunset-dark: #b84030;      /* Deep terracotta/sunset red */
+            --sunset-orange: #e5723b;    /* Bright sunset orange */
+            --sunset-light: #fff5eb;     /* Soft peach/warm background */
             --white: #FFFFFF;
-            --charcoal: #2B2B2B;        /* Accessible, high-contrast text color */
-            --light-grey: #EAE5D9;
+            --charcoal: #2B2B2B;         
+            --light-peach: #f9deb7;      /* Borders and subtle highlights */
         }
 
         /* --- BASE STYLES --- */
@@ -33,14 +33,14 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--warm-cream);
+            background-color: var(--sunset-light);
             color: var(--charcoal);
             line-height: 1.6;
         }
 
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
-            color: var(--forest-green);
+            color: var(--sunset-dark);
             font-weight: 600;
         }
 
@@ -62,66 +62,53 @@
         }
 
         .text-center {
-            text-center: center;
             text-align: center;
         }
 
         /* --- BUTTONS --- */
         .btn {
             display: inline-block;
-            background-color: var(--forest-green);
-            color: var(--warm-cream);
+            background-color: var(--sunset-orange);
+            color: var(--white);
             padding: 0.8rem 2rem;
             border-radius: 4px;
             font-weight: 500;
-            border: 2px solid var(--forest-green);
+            border: 2px solid var(--sunset-orange);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .btn:hover {
             background-color: transparent;
-            color: var(--forest-green);
+            color: var(--sunset-dark);
+            border-color: var(--sunset-dark);
         }
 
         /* --- NAVIGATION --- */
         header {
-            background-color: var(--warm-cream);
+            background-color: var(--sunset-light);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--light-grey);
+            border-bottom: 1px solid var(--light-peach);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0.5rem 0; /* Slightly reduced padding to accommodate the image logo smoothly */
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--forest-green);
         }
 
-        /* Placeholder style for the generated logo image */
-        .logo-placeholder {
-            width: 50px;
-            height: 50px;
-            background-color: var(--forest-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--soft-gold);
-            font-size: 0.8rem;
-            font-weight: bold;
+        .nav-logo {
+            max-height: 65px; /* Ensures the script logo is large enough to read but fits the nav */
+            width: auto;
+            display: block;
         }
 
         nav ul {
@@ -131,28 +118,25 @@
         }
 
         nav ul a:hover {
-            color: var(--soft-gold);
+            color: var(--sunset-orange);
         }
 
         /* --- HERO SECTION --- */
         .hero {
-            background: linear-gradient(rgba(250, 247, 240, 0.85), rgba(250, 247, 240, 0.85)), 
-                        url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-            padding: 8rem 0;
+            background: linear-gradient(rgba(255, 245, 235, 0.7), rgba(255, 245, 235, 0.7)), 
+                        url('https://images.unsplash.com/photo-1524863479829-916d8e77f114?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            padding: 9rem 0; /* Increased padding slightly since text is reduced */
             text-align: center;
         }
 
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
-            color: #4a4a4a;
+            color: var(--sunset-dark);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* --- ABOUT SECTION --- */
@@ -166,7 +150,7 @@
         .about-image img {
             width: 100%;
             border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
         }
 
         .about-text h2 {
@@ -178,53 +162,89 @@
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
         }
+        
+        .about-text ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .quote-block {
+            background-color: var(--white);
+            border-left: 4px solid var(--sunset-orange);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            border-radius: 0 4px 4px 0;
+        }
 
         .badge {
             display: inline-block;
-            background-color: rgba(45, 74, 62, 0.1);
-            color: var(--forest-green);
+            background-color: rgba(229, 114, 59, 0.15);
+            color: var(--sunset-dark);
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* --- PILLARS FEATURE SECTION --- */
-        .features {
+        /* --- ACROSTIC POEM SECTION --- */
+        .acrostic {
             background-color: var(--white);
         }
 
-        .features h2 {
+        .acrostic h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
         }
 
-        .feature-grid {
+        .acrostic-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
         }
 
-        .feature-card {
-            padding: 2.5rem 2rem;
-            background-color: var(--warm-cream);
-            border-radius: 6px;
-            transition: transform 0.3s ease;
+        .acrostic-block h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            color: var(--sunset-orange);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--light-peach);
+            padding-bottom: 0.5rem;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
+        .acrostic-line {
+            display: flex;
+            margin-bottom: 0.8rem;
+            align-items: flex-start;
         }
 
-        .feature-card h3 {
+        .acrostic-letter {
+            font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-weight: bold;
+            color: var(--sunset-dark);
+            width: 35px;
+            flex-shrink: 0;
+            line-height: 1.2;
+        }
+        
+        .acrostic-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            padding-top: 0.2rem;
         }
 
         /* --- TABLES (CLASSES) SECTION --- */
+        .classes {
+            background-color: var(--sunset-light);
+        }
+        
         .classes h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
@@ -234,7 +254,7 @@
             overflow-x: auto;
             background-color: var(--white);
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         table {
@@ -245,16 +265,23 @@
         }
 
         th, td {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--light-grey);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--light-peach);
         }
 
         th {
-            background-color: var(--forest-green);
-            color: var(--warm-cream);
+            background-color: var(--sunset-dark);
+            color: var(--white);
             font-family: 'Playfair Display', serif;
             font-weight: 400;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+        }
+
+        td small {
+            display: block;
+            margin-top: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
         }
 
         tr:last-child td {
@@ -262,7 +289,7 @@
         }
 
         tr:hover td {
-            background-color: rgba(245, 240, 230, 0.3);
+            background-color: rgba(249, 222, 183, 0.2);
         }
 
         /* --- CONTACT SECTION --- */
@@ -305,13 +332,13 @@
         form label {
             font-size: 0.9rem;
             font-weight: 500;
-            color: var(--forest-green);
+            color: var(--sunset-dark);
         }
 
         form input, form textarea {
             padding: 0.75rem;
-            border: 1px solid var(--light-grey);
-            background-color: var(--warm-cream);
+            border: 1px solid var(--light-peach);
+            background-color: var(--sunset-light);
             border-radius: 4px;
             font-family: inherit;
             font-size: 1rem;
@@ -320,20 +347,20 @@
 
         form input:focus, form textarea:focus {
             outline: none;
-            border-color: var(--forest-green);
+            border-color: var(--sunset-orange);
         }
 
         /* --- FOOTER --- */
         footer {
-            background-color: var(--forest-green);
-            color: var(--warm-cream);
+            background-color: var(--sunset-dark);
+            color: var(--white);
             padding: 3rem 0;
             text-align: center;
             font-size: 0.9rem;
         }
 
         footer p {
-            opacity: 0.8;
+            opacity: 0.9;
             margin-bottom: 0.5rem;
         }
 
@@ -344,7 +371,7 @@
                 gap: 2.5rem;
             }
             nav ul {
-                display: none; /* Simple fallback for mobile spacing without JS */
+                display: none; 
             }
             .hero h1 {
                 font-size: 2.5rem;
@@ -354,107 +381,141 @@
 </head>
 <body>
 
-    <!-- HEADER / NAVIGATION -->
     <header>
         <div class="container nav-container">
             <nav>
                 <div class="logo-area">
-                    <!-- Swap this placeholder div with <img src="15191189663092787308.jpeg" alt="Sound Yoga Logo"> once live -->
-                    <div class="logo-placeholder">LOGO</div>
-                    <span>Sound Yoga with Susan</span>
+                    <img src="text-logo.png" alt="Sound Yoga with Susan Logo" class="nav-logo">
                 </div>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#experience">The Experience</a></li>
-                    <li><a href="#classes">Classes</a></li>
+                    <li><a href="#experience">The Philosophy</a></li>
+                    <li><a href="#classes">Classes & Prices</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
     <section id="home" class="hero">
         <div class="container">
-            <h1>Find Your Inner Resonance</h1>
-            <p>Experience the deeply restorative fusion of classical yoga movement and intentional therapeutic sound healing based right here in Dundee.</p>
-            <a href="#contact" class="btn">Book Your First Class</a>
+            <h1>Discover Your Sanctuary of Sound and Stillness</h1>
+            <a href="#contact" class="btn">Book Your Session</a>
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
     <section id="about" class="about">
         <div class="container">
             <div class="about-grid">
                 <div class="about-image">
-                    <!-- Standard high-quality placeholder image representing nature & meditation -->
-                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Susan teaching meditation outside">
+                    <img src="images/full-logo.png" alt="Sound Yoga Logo">
                 </div>
                 <div class="about-text">
-                    <span class="badge">Fully Certified & Insured</span>
-                    <h2>Meet Your Instructor</h2>
-                    <p>Hello, I’m Susan. My journey is rooted in helping individuals rediscover internal balance, inner peace, and physical vitality through the profound combination of mindful movement and acoustic therapy.</p>
-                    <p>As a <strong>fully qualified yoga instructor</strong> with advanced credentials in acoustic immersion therapy, I carefully curate environments that blend traditional physical postures with therapeutic frequencies. Utilizing beautifully crafted singing bowls, deep gongs, and delicate crystal chimes, my sessions offer a safe, grounding oasis to quiet the mind and rejuvenate the body.</p>
-                    <a href="#classes" class="btn">Explore Sessions</a>
+                    <span class="badge">Tranquil Garden Room Setting</span>
+                    <h2>Meet Susan</h2>
+                    <p>Yoga holds vast knowledge and wisdom with the truly amazing potential to help people improve their overall health and well-being on both a physical and emotional level. Through mindful movement, breathing techniques, and meditation, yoga helps strengthen the body, increase flexibility, reduce stress, and create a deeper sense of balance and inner calm. Rooted in ancient traditions yet widely embraced in modern life, yoga encourages a holistic approach to wellness, supporting not only physical health but also mental clarity, emotional resilience, and a greater connection between mind, body, and spirit.</p>
+                    
+                    <div class="quote-block">
+                        <p>“I can’t compete with all the young super flexible students in class” or “I am far too inflexible to do Yoga”</p>
+                    </div>
+                    <p>These are such common reasons why some people feel intimidated by Yoga, yet this is so far away from what Yoga is all about.</p>
+                    <p>I’m offering an opportunity to explore Yoga in a tranquil garden room setting. Enjoy small, friendly, and informal classes—maybe bring a friend or two. Classes are kept to a maximum of three people to ensure personal guidance.</p>
+                    
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Qualifications</h3>
+                    <ul>
+                        <li><strong>Academy for Yoga Training</strong> – Hatha Yoga Teacher <br><small>(Training accredited by Yoga Alliance Professionals now YogaPros)</small></li>
+                        <li><strong>ITEC Diploma</strong> – Anatomy & Physiology</li>
+                        <li><strong>Experience</strong> – 28 years of personal yoga practice</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- THE EXPERIENCE FEATURE PILLARS -->
-    <section id="experience" class="features">
+    <section id="experience" class="acrostic">
         <div class="container">
-            <h2 class="text-center">What is Sound Yoga?</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Mindful Movement</h3>
-                    <p>Gentle, structural alignment flows designed to deliberately unblock tension, lengthen tight muscular fibers, and physically prepare your body for immersive stillness.</p>
+            <h2 class="text-center">The Philosophy</h2>
+            <div class="acrostic-grid">
+                
+                <div class="acrostic-block">
+                    <h3>Sound</h3>
+                    <div class="acrostic-line"><span class="acrostic-letter">S</span><span class="acrostic-text">space just for you</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">O</span><span class="acrostic-text">one hour of breathwork, postures and relaxation</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">U</span><span class="acrostic-text">understanding and listening to your own body</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">N</span><span class="acrostic-text">new to Yoga? or</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">D</span><span class="acrostic-text">delve deeper into your existing practice.</span></div>
                 </div>
-                <div class="feature-card">
-                    <h3>Vibrational Harmony</h3>
-                    <p>Live, organic soundscapes targeting your sensory systems. These therapeutic resonance tools naturally soothe the nervous system and help lower sustained stress states.</p>
+
+                <div class="acrostic-block">
+                    <h3>Yoga</h3>
+                    <div class="acrostic-line"><span class="acrostic-letter">Y</span><span class="acrostic-text">Yoga welcomes all</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">O</span><span class="acrostic-text">old and young</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">G</span><span class="acrostic-text">grant me the opportunity to guide you</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">A</span><span class="acrostic-text">and simply trust the process</span></div>
                 </div>
-                <div class="feature-card">
-                    <h3>Extended Savasana</h3>
-                    <p>Every class culminates in a prolonged, immersive sound bath relaxation. Rest completely while waves of soothing frequencies carry you into effortless cellular recovery.</p>
+
+                <div class="acrostic-block">
+                    <h3>With</h3>
+                    <div class="acrostic-line"><span class="acrostic-letter">W</span><span class="acrostic-text">with step-by-step instruction</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">I</span><span class="acrostic-text">in a safe non-competitive environment</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">T</span><span class="acrostic-text">taught at a relaxed pace</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">H</span><span class="acrostic-text">Hatha yoga is traditional Yoga – an ancient healing practice</span></div>
                 </div>
+
+                <div class="acrostic-block">
+                    <h3>Susan</h3>
+                    <div class="acrostic-line"><span class="acrostic-letter">S</span><span class="acrostic-text">sound bowls are used to calm the mind, a chance to rebalance with the resonance of Tibetan sound bowls</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">U</span><span class="acrostic-text">ultimate relaxation</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">S</span><span class="acrostic-text">serene tranquil surroundings</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">A</span><span class="acrostic-text">away from today’s busy lifestyle</span></div>
+                    <div class="acrostic-line"><span class="acrostic-letter">N</span><span class="acrostic-text">now let your Yoga journey begin…</span></div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- CLASS SCHEDULE TABLE -->
     <section id="classes" class="classes">
         <div class="container">
-            <h2 class="text-center">Our Current Offerings</h2>
+            <h2 class="text-center">Classes & Pricing</h2>
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
                             <th>Class Session</th>
-                            <th>Focus & Experience</th>
                             <th>Duration</th>
-                            <th>Investment</th>
+                            <th>Pricing</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Introduction to Sound Yoga</strong></td>
-                            <td>An accessible, welcoming foundation. Light structural stretching shifting smoothly into a deeply peaceful acoustic wash.</td>
+                            <td><strong>Yoga (Group)</strong>
+                                <small>Breathing, postures, and relaxation with Sound bowls. Maximum 3 people.</small>
+                            </td>
                             <td>60 Minutes</td>
-                            <td>£12</td>
+                            <td>£10 pp</td>
                         </tr>
                         <tr>
-                            <td><strong>Deep Resonance Flow</strong></td>
-                            <td>A fluid, slightly more physical sequence aimed at releasing mental exhaustion, shifting directly into prolonged sound meditations.</td>
-                            <td>75 Minutes</td>
-                            <td>£15</td>
+                            <td><strong>Yoga (1 to 1)</strong>
+                                <small>Breathing, postures, and relaxation with Sound bowls tailored just for you.</small>
+                            </td>
+                            <td>60 Minutes</td>
+                            <td>£20</td>
                         </tr>
                         <tr>
-                            <td><strong>Private 1:1 Sound Journey</strong></td>
-                            <td>A fully customized wellness profile session targeted meticulously around your individual mental and energetic recovery goals.</td>
-                            <td>90 Minutes</td>
-                            <td>£50</td>
+                            <td><strong>Meditation & Sound Therapy (Group)</strong>
+                                <small>Meditation, Breathwork, Relaxation and full Sound Bowls/Sound Therapy Session. Let the sound bowls wash over you to heal, reset, and restore balance. Maximum 3 people.</small>
+                            </td>
+                            <td>60 Minutes</td>
+                            <td>£15 pp</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Meditation & Sound Therapy (1 to 1)</strong>
+                                <small>Meditation, Breathwork, Relaxation and full Sound Bowls/Sound Therapy Session tailored individually.</small>
+                            </td>
+                            <td>60 Minutes</td>
+                            <td>£25</td>
                         </tr>
                     </tbody>
                 </table>
@@ -462,15 +523,14 @@
         </div>
     </section>
 
-    <!-- CONTACT & BOOKING FORM -->
     <section id="contact" class="contact">
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-info">
                     <h2>Begin Your Journey</h2>
-                    <p>Have questions about sound tracking, specific injury adaptions, or looking to book a dedicated corporate/group private session? Get in touch today.</p>
+                    <p>Ready to start? Whether you want to join a small friendly class or book a private one-to-one session, get in touch today to reserve your spot in the garden room.</p>
                     <div class="info-details">
-                        <p><strong>Location:</strong> Dedicated Studio Spaces, Dundee, Scotland</p>
+                        <p><strong>Location:</strong> Tranquil Garden Room, Dundee, Scotland</p>
                         <p><strong>Email:</strong> info@soundyogawithsusan.co.uk</p>
                     </div>
                 </div>
@@ -495,7 +555,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <p>&copy; 2026 Sound Yoga with Susan. All Rights Reserved.</p>
