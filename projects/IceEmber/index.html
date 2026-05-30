@@ -12,43 +12,63 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F9F6F0; /* Soft oatmeal texture color */
-            color: #2B2521; /* Rich charcoal/ember brown from logo */
+            background-color: #F9F6F0; 
+            color: #2B2521; 
         }
         .font-serif {
             font-family: 'Cinzel', serif;
         }
-        /* Custom smooth scrolling */
         html {
             scroll-behavior: smooth;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
         }
     </style>
 </head>
 <body class="antialiased selection:bg-[#2B2521] selection:text-white">
 
-<header class="fixed w-full top-0 z-50 bg-[#F9F6F0]/90 backdrop-blur-md border-b border-[#2B2521]/10">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+    <header class="fixed w-full top-0 z-50 bg-[#F9F6F0]/95 backdrop-blur-md border-b border-[#2B2521]/10">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
             
-            <a href="#" class="block h-12 md:h-16">
-                <img src="logo-round.png" alt="Ice & Embers Logo" class="h-full w-auto object-contain h-12 md:h-16" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="hidden font-serif text-xl tracking-wider font-bold leading-none">ICE & EMBERS</span>
+            <a href="#" class="block h-12 md:h-16 flex items-center">
+                <img src="images/logo-round.png" alt="Ice & Embers Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                <span class="font-serif text-xl tracking-wider font-bold leading-none hidden">ICE & EMBERS</span>
             </a>
 
-            <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide uppercase">
-                <a href="#experience" class="hover:opacity-60 transition">The Experience</a>
-                <a href="#book" class="hover:opacity-60 transition">Book Now</a>
-                <a href="#benefits" class="hover:opacity-60 transition">Benefits</a>
+            <nav class="hidden lg:flex space-x-6 text-[11px] lg:text-xs font-semibold tracking-widest uppercase items-center">
+                <a href="#about" class="hover:opacity-60 transition">About Us</a>
+                <a href="#faq" class="hover:opacity-60 transition">FAQ's</a>
+                <a href="terms.html" class="hover:opacity-60 transition">Terms</a>
+                <a href="#book" class="bg-[#2B2521] text-[#F9F6F0] px-4 py-2 rounded hover:opacity-90 transition">Book Your Session</a>
+                <a href="#benefits" class="hover:opacity-60 transition">Sauna Benefits</a>
                 <a href="#location" class="hover:opacity-60 transition">Find Us</a>
+                <a href="#contact" class="hover:opacity-60 transition">Contact Us</a>
             </nav>
             
-            <a href="#book" class="bg-[#2B2521] text-[#F9F6F0] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded shadow hover:bg-opacity-90 transition">
-                Book Session
-            </a>
+            <button id="mobile-menu-btn" class="lg:hidden p-2 focus:outline-none focus:ring-2 focus:ring-[#2B2521]/20 rounded">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
         </div>
+
+        <nav id="mobile-menu" class="hidden lg:hidden bg-[#F9F6F0] border-t border-[#2B2521]/10 px-6 py-4 space-y-4 text-xs font-semibold tracking-widest uppercase shadow-lg">
+            <a href="#about" class="block hover:opacity-60 mobile-link">About Us</a>
+            <a href="#faq" class="block hover:opacity-60 mobile-link">FAQ's</a>
+            <a href="terms.html" class="block hover:opacity-60 mobile-link">Terms & Conditions</a>
+            <a href="#book" class="block text-[#2B2521] font-bold mobile-link">Book Your Session</a>
+            <a href="#benefits" class="block hover:opacity-60 mobile-link">Sauna Benefits</a>
+            <a href="#location" class="block hover:opacity-60 mobile-link">Find Us</a>
+            <a href="#contact" class="block hover:opacity-60 mobile-link">Contact Us</a>
+        </nav>
     </header>
 
     <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#2B2521] text-[#F9F6F0]">
-        <div class="absolute inset-0 bg-[url('https://www.saunaplace.com/cdn/shop/files/heritage-6-person-sauna-trailer-686f30ad93381.webp?v=1752117517')] bg-cover bg-center opacity-20 mix-blend-luminosity"></div>
+        <div class="absolute inset-0 bg-[url('images/gallery/3.jpeg')] bg-cover bg-center opacity-20 mix-blend-luminosity"></div>
         
         <div class="relative max-w-4xl mx-auto text-center px-6 py-12 flex flex-col items-center">
             <div class="mb-6 opacity-80 text-2xl">❄</div>
@@ -72,25 +92,34 @@
         </div>
     </section>
 
-    <section id="experience" class="py-24 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <section id="about" class="py-24 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         <div>
-            <span class="text-xs font-semibold uppercase tracking-widest opacity-60 block mb-2">Contrast Therapy</span>
+            <span class="text-xs font-semibold uppercase tracking-widest opacity-60 block mb-2">About Us</span>
             <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">Where the heat meets the chill.</h2>
-            <p class="leading-relaxed opacity-80 mb-4">
+            <p class="leading-relaxed opacity-80 mb-4 text-sm md:text-base">
                 Ice & Embers is a traditional, wood-fired sauna experience designed to pull you away from the noise of daily life. Rooted in Nordic wellness traditions, we pair the intense, comforting heat of a real timber sauna with the grounding clarity of cold exposure.
             </p>
-            <p class="leading-relaxed opacity-80">
+            <p class="leading-relaxed opacity-80 text-sm md:text-base">
                 Whether you are joining our community public slots to connect with like-minded souls or booking out the entire space for a private escape, you'll leave feeling completely recalibrated.
             </p>
         </div>
-        <div class="bg-stone-200 aspect-square rounded-lg shadow-inner overflow-hidden border border-[#2B2521]/10">
-            <img src="https://www.saunaplace.com/cdn/shop/files/heritage-6-person-sauna-trailer-686f30ad93381.webp?v=1752117517" alt="Wood-fired sauna experience" class="w-full h-full object-cover mix-blend-multiply opacity-90">
+        
+        <div class="bg-stone-200 aspect-square rounded-lg shadow-inner overflow-hidden border border-[#2B2521]/10 relative h-[400px]">
+            <div id="gallery-container" class="relative w-full h-full">
+                <img src="images/gallery/1.jpeg" class="gallery-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Sauna Exterior">
+                <img src="images/gallery/2.jpeg" class="gallery-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Inside Sauna">
+                <img src="images/gallery/3.jpeg" class="gallery-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Cold Plunge">
+                <img src="images/gallery/4.jpeg" class="gallery-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Cold Plunge">
+                <img src="images/gallery/5.jpeg" class="gallery-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Cold Plunge">
+                <img src="images/gallery/6.jpeg" class="gallery-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Cold Plunge">
+                <img src="images/gallery/7.jpeg" class="gallery-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Cold Plunge">
+            </div>
         </div>
     </section>
 
     <section id="book" class="py-20 bg-[#2B2521] text-[#F9F6F0]">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Select Your Session</h2>
+            <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Book Your Session</h2>
             <p class="opacity-70 max-w-xl mx-auto mb-12 text-sm">
                 Choose a communal slot to share the warmth, or book a private group session. Bookings are handled securely via Bookwhen.
             </p>
@@ -98,7 +127,6 @@
             <div class="bg-[#F9F6F0] text-[#2B2521] rounded-xl p-8 min-h-[400px] flex flex-col items-center justify-center shadow-2xl border border-white/10">
                 <p class="text-sm font-semibold tracking-wide uppercase opacity-50 mb-2">Bookwhen Live Schedule</p>
                 <p class="text-xs opacity-70 max-w-sm mb-6">Your Bookwhen calendar widget will load seamlessly right here.</p>
-                
                 <a href="https://bookwhen.com" target="_blank" class="border border-[#2B2521] px-6 py-3 rounded text-sm font-semibold uppercase tracking-wider hover:bg-[#2B2521] hover:text-[#F9F6F0] transition">
                     Configure Bookwhen Widget
                 </a>
@@ -109,7 +137,7 @@
     <section id="benefits" class="py-24 bg-stone-100 border-y border-[#2B2521]/5">
         <div class="max-w-5xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="font-serif text-3xl font-bold mb-4">Why We Sauna</h2>
+                <h2 class="font-serif text-3xl font-bold mb-4">Sauna Benefits</h2>
                 <p class="opacity-70 text-sm">The profound physical and mental benefits of regular thermal contrast therapy.</p>
             </div>
             
@@ -130,65 +158,275 @@
                     <p class="text-sm opacity-70 leading-relaxed">Perfect for athletes. Flushes out metabolic waste and relaxes tight joints and muscles instantly.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="mt-16 bg-[#2B2521] text-[#F9F6F0] p-8 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h4 class="font-serif text-xl font-bold mb-2">First time visiting Ice & Embers?</h4>
-                    <p class="text-sm opacity-70 max-w-xl">Remember to bring a large towel to sit on, swimwear, a water bottle to stay hydrated, and a warm change of clothes for afterwards.</p>
+<section id="faq" class="py-24 max-w-4xl mx-auto px-6">
+        <h2 class="font-serif text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
+        
+        <div class="space-y-4">
+            
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    When should I arrive?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>Please arrive 5–10 minutes before your session to allow time for parking and walking to our off-grid sauna location.</p>
+                    <p>There is a short walk from the car park through the top field to the sauna and cold plunge area. We recommend arriving ready in your swimwear and/or dry robe, as we do not currently have changing facilities on site.</p>
+                    <p>Unfortunately, if you arrive late, we are unlikely to be able to extend your session, so please ensure you arrive in plenty of time and ready to enjoy your experience.</p>
                 </div>
-                <div class="text-xs uppercase font-semibold tracking-widest shrink-0 border border-white/20 px-4 py-2 rounded">
-                    🌿 Leave no trace
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    What should I bring?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>Please bring:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Suitable swimwear (avoid metal fastenings, as these may become hot when heated)</li>
+                        <li>Two towels – one to sit on in the sauna for hygiene and one to dry off afterwards</li>
+                        <li>Flip-flops, Crocs or suitable footwear to wear between the sauna and cold plunge area</li>
+                        <li>Water bottle – we provide complimentary fruit-infused water, but it is important to stay hydrated</li>
+                        <li>Warm clothing for after your session</li>
+                    </ul>
+                    <p>Please note that we do not have showers or running water on site.</p>
+                    <p>For your safety, please do not take glass bottles or metal water bottles into the sauna.</p>
+                    <p>We provide a sheltered area for personal belongings and hooks for towels. Please keep belongings to a minimum and avoid bringing valuables, as all items are left at your own risk.</p>
                 </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    How long are sauna and cold plunge sessions?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>Our standard sessions last 55 minutes.</p>
+                    <p>We recommend limiting sauna exposure to a maximum of 20 minutes at a time. If sauna bathing is new to you, start with shorter sessions of 3–5 minutes and gradually increase the duration as you become more comfortable.</p>
+                    <p>Take regular breaks to cool down, spend time in the fresh air, use the cold plunges, or cool off using the buckets provided.</p>
+                    <p>Please use the watering cans to rinse off before entering the cold plunges.</p>
+                    <p>Most importantly, listen to your body and participate at a pace that feels comfortable for you.</p>
+                </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    Will I be sharing the sauna space?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>This depends on the type of session you book.</p>
+                    <p><strong>Community Sessions</strong><br>Our community sessions are shared experiences with up to 6 guests using the sauna and cold plunge area.</p>
+                    <p><strong>Private Sessions</strong><br>Private sessions are available if you would prefer exclusive use of the space for yourself, friends, family or a group. Private bookings can accommodate up to 8 guests.</p>
+                </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    What are your age restrictions?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed">
+                    <p>Unfortunately, due to our insurance requirements, we are unable to admit anyone under 16 years of age.</p>
+                </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    What facilities are available on site?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>As you arrive at the car park, you will pass Denhead Farm Shop, where you will find:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Toilet facilities</li>
+                        <li>Hot drinks</li>
+                        <li>Local produce and refreshments</li>
+                    </ul>
+                    <p>Please note that Ice & Embers currently does not have changing rooms, showers or running water on site.</p>
+                </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    Will you be open all year round?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>Yes.</p>
+                    <p>At Ice & Embers, we embrace every season. Whether it’s sunshine, rain, frost or crisp winter mornings, the sauna experience remains just as enjoyable and beneficial.</p>
+                    <p>In the unlikely event of severe weather conditions, such as high winds or thunderstorms, we may need to cancel or reschedule sessions for safety reasons. If this happens, we will contact you as soon as possible.</p>
+                </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    Is the cold plunge mandatory?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>No. The cold plunge is completely optional.</p>
+                    <p>Many guests enjoy alternating between the sauna and cold water, while others simply relax in the sauna and fresh air. You are welcome to participate in whichever elements of the experience feel right for you.</p>
+                </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    Can I visit if I have never used a sauna before?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>Absolutely.</p>
+                    <p>Our sessions are suitable for both beginners and experienced sauna users. We encourage first-time guests to take things slowly, stay hydrated and listen to their bodies throughout the session.</p>
+                </div>
+            </details>
+
+            <details class="bg-stone-100 p-6 rounded shadow-sm border border-[#2B2521]/5 group cursor-pointer">
+                <summary class="font-serif font-bold text-lg flex justify-between items-center">
+                    What is your cancellation policy?
+                    <span class="transition-transform group-open:rotate-180 opacity-50">▼</span>
+                </summary>
+                <div class="mt-4 text-sm opacity-80 leading-relaxed space-y-3">
+                    <p>We understand that plans can change, and we will always do our best to be fair and flexible.</p>
+                    
+                    <p><strong>Community Sessions</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Cancellations made more than 48 hours before the session start time are eligible for a full refund or transfer to another available session.</li>
+                        <li>Cancellations made within 48 hours of the session start time are non-refundable.</li>
+                    </ul>
+
+                    <p><strong>Private Sessions</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Cancellations made more than 7 days before the booking are eligible for a full refund or transfer to another available date.</li>
+                        <li>Cancellations made within 7 days of the booking are non-refundable.</li>
+                    </ul>
+
+                    <p><strong>Rescheduling</strong><br>Where possible, we may allow bookings to be transferred to another date at our discretion. Requests should be made as early as possible.</p>
+                    
+                    <p><strong>No-Shows and Late Arrivals</strong><br>Guests who do not attend their booking, or who arrive too late to participate, will not be eligible for a refund or transfer.</p>
+                    
+                    <p><strong>Severe Weather</strong><br>In the unlikely event that Ice & Embers needs to cancel a session due to severe weather or unforeseen circumstances, guests will be offered either a full refund or the opportunity to transfer their booking to another available session.</p>
+                </div>
+            </details>
+
+        </div>
+    </section>
+
+    <section id="location" class="py-24 bg-stone-100 border-t border-[#2B2521]/5">
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="font-serif text-3xl font-bold mb-6">Find Us</h2>
+                <div class="space-y-4 text-sm opacity-80 leading-relaxed">
+                    <p>You will find Ice & Embers at:</p>
+                    <address class="not-italic font-semibold bg-[#F9F6F0] p-4 rounded border border-[#2B2521]/10 inline-block">
+                        Denhead Farm<br>Coupar Angus<br>Perthshire<br>PH13 9ES
+                    </address>
+                    <p>Free parking is available on site.</p>
+                    <p>Once you arrive, please make your way to the top of the car park, where you will see the entrance path to our sauna site. Follow the clearly mown path through the field and you will be welcomed by a member of our team on arrival.</p>
+                    <p>As we currently do not have changing facilities on site, we recommend arriving ready in your swimwear and/or dry robe.</p>
+                    <p>Please allow 5–10 minutes before your session start time to park and walk to the sauna location.</p>
+                    <p class="font-serif font-bold italic pt-4">We look forward to welcoming you to your off-grid sauna experience in the heart of rural Perthshire.</p>
+                </div>
+            </div>
+            
+            <div class="bg-stone-200 rounded-lg shadow-md h-80 md:h-[450px] overflow-hidden border border-[#2B2521]/10 w-full">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8796.00096598734!2d-3.256602794624337!3d56.55385204319174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48866bc244f6fc0f%3A0x7a2a51300a9259ea!2sDenhead%20Farms%20Farmstand!5e0!3m2!1sen!2suk!4v1780136224095!5m2!1sen!2suk" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
 
-    <section id="location" class="py-24 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+    <section id="contact" class="py-24 max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-16">
         <div>
-            <h2 class="font-serif text-3xl font-bold mb-4">Find the Embers</h2>
-            <p class="opacity-70 mb-6 text-sm">We are parked up in nature, ready to welcome you. Check your booking confirmation email for specific seasonal parking details.</p>
-            
-            <div class="space-y-4 text-sm">
-                <p class="flex items-center gap-3">
-                    <span class="opacity-50">📍</span> 
-                    <strong>Location:</strong> Dundee, Scotland 
-                </p>
-                <p class="flex items-center gap-3">
-                    <span class="opacity-50">✉️</span> 
-                    <strong>Contact:</strong> hello@iceandemberssauna.co.uk
-                </p>
-            </div>
-
-            <div class="mt-8 pt-8 border-t border-[#2B2521]/10">
-                <p class="text-xs font-semibold uppercase tracking-widest opacity-60 mb-4">Join the Community</p>
-                <div class="flex gap-4">
-                    <a href="https://instagram.com" target="_blank" class="bg-[#2B2521] text-[#F9F6F0] px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded hover:opacity-80 transition">
-                        Instagram
-                    </a>
-                    <a href="https://facebook.com" target="_blank" class="bg-[#2B2521] text-[#F9F6F0] px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded hover:opacity-80 transition">
-                        Facebook
-                    </a>
+            <h2 class="font-serif text-3xl font-bold mb-6">Contact Us</h2>
+            <div class="space-y-4 text-sm opacity-80 leading-relaxed">
+                <p class="font-semibold text-lg font-serif">We’d love to hear from you.</p>
+                <p>Whether you have a question about our sauna sessions, private bookings, group experiences, or simply want to find out more about Ice & Embers, please get in touch.</p>
+                
+                <div class="py-4 space-y-3">
+                    <p class="flex items-center gap-3">
+                        <span class="opacity-50">✉️</span> 
+                        <a href="mailto:iceandembers@outlook.com" class="hover:underline">iceandembers@outlook.com</a>
+                    </p>
+                    <p class="flex items-center gap-3">
+                        <span class="opacity-50">📞</span> 
+                        <a href="tel:07385826246" class="hover:underline">07385 826246</a>
+                    </p>
+                    <p class="flex items-center gap-3">
+                        <span class="opacity-50 pl-7"></span>
+                        <a href="tel:07850533369" class="hover:underline">07850 533369</a>
+                    </p>
                 </div>
+                <p>If we’re unable to answer your call, please leave a voicemail or send us a text message and we’ll get back to you as soon as possible.</p>
+                <p>You can also connect with us through our social media channels for updates, announcements and behind-the-scenes content.</p>
+                <p class="font-serif font-bold italic pt-4">We look forward to welcoming you to Ice & Embers.</p>
             </div>
         </div>
-        
-        <div class="bg-stone-200 rounded-lg shadow-inner h-64 md:h-auto min-h-[250px] relative overflow-hidden border border-[#2B2521]/10">
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1000')] opacity-10 bg-cover"></div>
-            <div class="absolute inset-0 flex items-center justify-center text-xs uppercase tracking-widest font-semibold text-[#2B2521]/50">
-                [ Google Map Embed Area ]
-            </div>
+
+        <div class="bg-[#F9F6F0] p-8 rounded-lg shadow-sm border border-[#2B2521]/5 h-fit">
+            <form action="#" method="POST" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-xs font-semibold uppercase tracking-wider mb-2">Name</label>
+                    <input type="text" id="name" name="name" required class="w-full bg-stone-100 border border-[#2B2521]/10 rounded px-4 py-3 text-sm focus:outline-none focus:border-[#2B2521]/50 transition">
+                </div>
+                <div>
+                    <label for="email" class="block text-xs font-semibold uppercase tracking-wider mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" required class="w-full bg-stone-100 border border-[#2B2521]/10 rounded px-4 py-3 text-sm focus:outline-none focus:border-[#2B2521]/50 transition">
+                </div>
+                <div>
+                    <label for="message" class="block text-xs font-semibold uppercase tracking-wider mb-2">Message</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full bg-stone-100 border border-[#2B2521]/10 rounded px-4 py-3 text-sm focus:outline-none focus:border-[#2B2521]/50 transition resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-[#2B2521] text-[#F9F6F0] px-6 py-4 text-xs font-semibold uppercase tracking-wider rounded shadow hover:bg-opacity-90 transition">
+                    Send Message
+                </button>
+            </form>
         </div>
     </section>
 
     <footer class="bg-[#2B2521] text-[#F9F6F0]/60 text-xs py-8 border-t border-white/5">
         <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 Ice & Embers Wood Fired Sauna. All rights reserved.</p>
+            <p>© 2026 Ice & Embers Wood Fired Sauna. All rights reserved.</p>
             <div class="flex gap-6 uppercase tracking-wider text-[10px]">
-                <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition">Terms of Service</a>
+                <a href="privacy.html" class="hover:text-white transition">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-white transition">Terms & Conditions</a>
             </div>
         </div>
     </footer>
 
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const images = document.querySelectorAll('.gallery-img');
+        let currentImageIndex = 0;
+
+        function nextImage() {
+            images[currentImageIndex].classList.remove('opacity-100');
+            images[currentImageIndex].classList.add('opacity-0');
+            
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            
+            images[currentImageIndex].classList.remove('opacity-0');
+            images[currentImageIndex].classList.add('opacity-100');
+        }
+
+        if(images.length > 1) {
+            setInterval(nextImage, 4000);
+        }
+    </script>
 </body>
 </html>
