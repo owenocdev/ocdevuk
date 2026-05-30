@@ -12,6 +12,17 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F9F6F0; color: #2B2521; }
         .font-serif { font-family: 'Cinzel', serif; }
+        .view-panel { display: none; }
+        .view-panel.active { display: block; }
+        .tab-btn.active { background-color: #2B2521; color: #F9F6F0; }
+        .terms-text h2 { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.1em; font-weight: 700; margin-top: 1.75rem; margin-bottom: 0.5rem; text-transform: uppercase; border-bottom: 1px solid rgba(43,37,33,0.15); padding-bottom: 0.35rem; }
+        .terms-text p { font-size: 0.875rem; line-height: 1.7; margin-bottom: 0.5rem; opacity: 0.85; }
+        .terms-text ul { list-style: none; padding: 0; margin-bottom: 0.75rem; }
+        .terms-text ul li { font-size: 0.875rem; line-height: 1.7; opacity: 0.85; padding-left: 1.25rem; position: relative; margin-bottom: 0.2rem; }
+        .terms-text ul li::before { content: '—'; position: absolute; left: 0; opacity: 0.4; }
+        .signature-block { border: 1px solid rgba(43,37,33,0.2); border-radius: 6px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; background: rgba(43,37,33,0.03); }
+        .signature-block p { margin: 0.3rem 0; }
+        .sig-line { display: inline-block; width: 220px; border-bottom: 1px solid #2B2521; margin-left: 0.5rem; }
     </style>
 </head>
 <body class="antialiased selection:bg-charcoal selection:text-white flex flex-col min-h-screen">
@@ -31,13 +42,23 @@
                 <h1 class="font-serif text-3xl font-bold mb-1">Participant Agreement</h1>
                 <p class="text-sm opacity-80 leading-relaxed">Terms, Conditions & Waiver</p>
             </div>
-            
             <a href="Terms_and_conditions.pdf" download class="bg-charcoal text-oatmeal px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded shadow hover:bg-opacity-90 transition shrink-0">
-                Download PDF
+                ↓ Download PDF
             </a>
         </div>
 
-        <div class="flex-grow w-full bg-stone-200 rounded-lg border border-charcoal/10 overflow-hidden shadow-inner h-[65vh] min-h-[500px]">
+        <!-- View Toggle -->
+        <div class="flex gap-2 mb-4">
+            <button onclick="switchTab('pdf')" id="tab-pdf" class="tab-btn active px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded border border-charcoal/20 transition">
+                PDF View
+            </button>
+            <button onclick="switchTab('text')" id="tab-text" class="tab-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded border border-charcoal/20 transition">
+                Text View
+            </button>
+        </div>
+
+        <!-- PDF Panel -->
+        <div id="panel-pdf" class="view-panel active flex-grow w-full bg-stone-200 rounded-lg border border-charcoal/10 overflow-hidden shadow-inner h-[65vh] min-h-[500px]">
             <iframe 
                 src="Terms_and_conditions.pdf" 
                 width="100%" 
@@ -50,6 +71,129 @@
                     </div>
             </iframe>
         </div>
+
+        <!-- Text Panel -->
+        <div id="panel-text" class="view-panel w-full rounded-lg border border-charcoal/10 bg-white shadow-inner overflow-y-auto" style="height:65vh;min-height:500px;">
+            <div class="terms-text px-8 py-8 max-w-3xl mx-auto">
+
+                <p class="text-xs uppercase tracking-widest opacity-50 mb-1">Wester Denhead Farm, Coupar Angus</p>
+                <p class="text-xs opacity-40 mb-6">Last Updated: 21/05/2026</p>
+
+                <p>This Agreement sets out the terms and conditions governing the use of the sauna, cold plunge and associated facilities at Wester Denhead Farm, Coupar Angus ("the Facility").</p>
+                <p>By booking, attending, participating in, or using the Facility, participants confirm that they have read, understood and agreed to the terms contained within this Agreement.</p>
+
+                <h2>Health Declaration</h2>
+                <p>I confirm that:</p>
+                <ul>
+                    <li>I am aged 16 years or over.</li>
+                    <li>I am physically and medically fit to participate in sauna bathing, cold-water immersion and contrast therapy activities.</li>
+                    <li>I am not under the influence of alcohol or drugs.</li>
+                    <li>I do not have any illness, infection, open wound or contagious condition that could place myself or others at risk.</li>
+                    <li>I understand that sauna use and cold-water immersion may not be suitable for individuals with certain medical conditions including, but not limited to, cardiovascular conditions, high blood pressure, epilepsy, respiratory conditions or other health concerns.</li>
+                </ul>
+                <p>I further acknowledge that if I have any existing medical condition, am taking prescription medication, have recently undergone surgery or medical treatment, am pregnant or believe I may be pregnant, or have any doubt whatsoever regarding my suitability to participate, I must consult my GP or another suitably qualified healthcare professional before using the Facility.</p>
+                <p>I understand that the Facility does not provide medical advice and that participation is entirely at my own risk.</p>
+
+                <h2>Acknowledgement of Risk</h2>
+                <p>I understand and accept that participation in sauna bathing, cold-water immersion, contrast therapy and associated activities carries inherent risks including but not limited to:</p>
+                <ul>
+                    <li>Heat exhaustion</li>
+                    <li>Heat stroke</li>
+                    <li>Dehydration</li>
+                    <li>Burns from hot surfaces</li>
+                    <li>Dizziness or fainting</li>
+                    <li>Adverse reactions to cold-water immersion</li>
+                    <li>Slips, trips and falls</li>
+                    <li>Aggravation of existing medical conditions</li>
+                    <li>Serious injury or death in rare circumstances</li>
+                </ul>
+                <p>I voluntarily choose to participate despite these risks. I accept responsibility for monitoring my own physical condition throughout my visit and agree to leave the sauna or cold plunge immediately if I feel unwell, dizzy, faint, nauseous or otherwise uncomfortable.</p>
+
+                <h2>Conditions of Use</h2>
+                <p>To ensure the safety and enjoyment of all users, I agree to:</p>
+                <ul>
+                    <li>Follow all instructions given by staff</li>
+                    <li>Respect other participants and staff at all times</li>
+                    <li>Wear appropriate swimwear</li>
+                    <li>Use all facilities responsibly</li>
+                    <li>Enter and exit the sauna and cold plunge facilities with care</li>
+                    <li>Report any accident, injury, hazard or unsafe condition immediately</li>
+                </ul>
+                <p>I understand that I must not:</p>
+                <ul>
+                    <li>Run within the facility area</li>
+                    <li>Engage in unsafe or reckless behaviour</li>
+                    <li>Tamper with equipment</li>
+                    <li>Bring glass containers into the sauna area</li>
+                    <li>Use the facilities whilst intoxicated</li>
+                    <li>Enter restricted areas</li>
+                </ul>
+
+                <h2>Site Rules</h2>
+                <p>I acknowledge that:</p>
+                <ul>
+                    <li>Vehicles must be parked only within the designated customer parking area</li>
+                    <li>Parking on grass fields or other undesignated areas is prohibited</li>
+                    <li>The agricultural field situated immediately north of the sauna area is strictly out of bounds</li>
+                    <li>Customers must remain within designated visitor areas at all times</li>
+                    <li>Failure to comply with these requirements may result in immediate removal from the premises</li>
+                </ul>
+
+                <h2>Age Restrictions</h2>
+                <p>No person under the age of 16 years may use the sauna, cold plunge facilities or participate in any activities provided by the Facility. Proof of age may be requested. The Facility reserves the right to refuse entry where age cannot be verified.</p>
+
+                <h2>Personal Property</h2>
+                <p>I understand that any personal belongings brought onto the premises remain entirely at my own risk. The Facility accepts no responsibility for loss, theft or damage to personal property except where caused by negligence on the part of the Facility.</p>
+
+                <h2>Bookings, Cancellations and Weather</h2>
+                <p>I acknowledge that:</p>
+                <ul>
+                    <li>Bookings are subject to availability</li>
+                    <li>Sessions may be amended, postponed or cancelled due to weather conditions, operational issues or safety concerns</li>
+                    <li>The Facility reserves the right to alter schedules where necessary</li>
+                    <li>Cancellation and refund policies apply as published at the time of booking</li>
+                </ul>
+
+                <h2>Right to Refuse Entry</h2>
+                <p>The Facility reserves the right to refuse entry, terminate participation or require a participant to leave where:</p>
+                <ul>
+                    <li>Safety rules are not followed</li>
+                    <li>Staff instructions are ignored</li>
+                    <li>A participant appears intoxicated</li>
+                    <li>Behaviour is abusive, threatening, inappropriate or unsafe</li>
+                    <li>A participant presents a risk to themselves or others</li>
+                </ul>
+                <p>No refund will be provided in such circumstances.</p>
+
+                <h2>Liability Waiver</h2>
+                <p>I acknowledge that participation in sauna bathing, cold-water immersion and associated wellness activities is voluntary. I understand and accept the inherent risks associated with participation. To the fullest extent permitted by law, I agree that I am responsible for my own participation and personal wellbeing whilst using the Facility.</p>
+                <p>Nothing within this Agreement excludes or limits liability for:</p>
+                <ul>
+                    <li>Death or personal injury caused by negligence</li>
+                    <li>Fraud or fraudulent misrepresentation</li>
+                    <li>Any liability which cannot lawfully be excluded under Scottish law</li>
+                </ul>
+
+                <h2>Participant Agreement</h2>
+                <p>By signing below, I confirm that:</p>
+                <ul>
+                    <li>I have read and understood this Agreement in full</li>
+                    <li>I am aged 16 years or over</li>
+                    <li>I understand the risks associated with sauna and cold-water immersion activities</li>
+                    <li>I have consulted, or will consult, my GP or another suitably qualified healthcare professional if I have any health concerns or uncertainty regarding my participation</li>
+                    <li>I voluntarily accept the risks associated with participation</li>
+                    <li>I agree to comply with all terms, conditions and safety instructions</li>
+                </ul>
+
+                <div class="signature-block">
+                    <p class="text-xs uppercase tracking-widest opacity-50 mb-3">Signature</p>
+                    <p class="text-sm mb-3">Participant Name: <span class="sig-line">&nbsp;</span></p>
+                    <p class="text-sm mb-3">Signature: <span class="sig-line">&nbsp;</span></p>
+                    <p class="text-sm">Date: <span class="sig-line">&nbsp;</span></p>
+                </div>
+
+            </div>
+        </div>
         
     </main>
 
@@ -58,5 +202,16 @@
             <p>© 2026 Ice & Embers Wood Fired Sauna. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function switchTab(tab) {
+            document.getElementById('panel-pdf').classList.remove('active');
+            document.getElementById('panel-text').classList.remove('active');
+            document.getElementById('tab-pdf').classList.remove('active');
+            document.getElementById('tab-text').classList.remove('active');
+            document.getElementById('panel-' + tab).classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+        }
+    </script>
 </body>
 </html>
