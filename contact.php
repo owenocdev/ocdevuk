@@ -8,12 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $project_type = strip_tags(trim($_POST["projectType"]));
     $message = trim($_POST["message"]);
 
-    // The official domain email hosted on IONOS
+    // The official domain email hosted on Hostinger
     $owen_email = "owen@ocdev.uk"; 
 
     // Basic validation
     if (empty($name) || empty($message) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: index.html?status=error#contact");
+        http_response_code(400);
+        echo "Please complete all required fields.";
         exit;
     }
 
@@ -28,9 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $body_owen .= "Project Type: $project_type\n\n";
     $body_owen .= "Message:\n$message\n";
 
-    // 'From' MUST be the hosted domain email for IONOS
     $headers_owen = "From: $owen_email\r\n";
-    // 'Reply-To' allows you to directly reply to the client's email address
     $headers_owen .= "Reply-To: $email\r\n"; 
 
     // ==========================================
@@ -50,14 +49,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $send_to_owen = mail($owen_email, $subject_owen, $body_owen, $headers_owen);
     $send_to_customer = mail($email, $subject_customer, $body_customer, $headers_customer);
 
-    // Redirect back to the website with a success or error flag
+    // Return a success or error response to the JavaScript
     if ($send_to_owen && $send_to_customer) {
-        header("Location: index.html?status=success#contact");
+        http_response_code(200);
+        echo "Success";
     } else {
-        header("Location: index.html?status=error#contact");
+        http_response_code(500);
+        echo "Error sending email.";
     }
 } else {
-    // If accessed directly without submitting the form, send them back
-    header("Location: index.html");
+    // If accessed directly without submitting the form
+    http_response_code(403);
+    echo "Forbidden";
 }
 ?>
