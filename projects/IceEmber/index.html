@@ -31,52 +31,56 @@
 </head>
 <body class="antialiased selection:bg-[#2B2521] selection:text-white">
 
-    <header class="fixed w-full top-0 z-50 bg-[#F9F6F0]/95 backdrop-blur-md border-b border-[#2B2521]/10">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
-            
-            <a href="#" class="block h-12 md:h-16 flex items-center">
-                <img src="images/logo-round.png" alt="Ice & Embers Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
-                <span class="font-serif text-xl tracking-wider font-bold leading-none hidden">ICE & EMBERS</span>
-            </a>
-
-            <nav class="hidden lg:flex space-x-6 text-[11px] lg:text-xs font-semibold tracking-widest uppercase items-center">
-                <a href="#about" class="hover:opacity-60 transition">About Us</a>
-                <a href="#faq" class="hover:opacity-60 transition">FAQ's</a>
-                <a href="terms.html" class="hover:opacity-60 transition">Terms</a>
-                <a href="#book" class="bg-[#2B2521] text-[#F9F6F0] px-4 py-2 rounded hover:opacity-90 transition">Book Your Session</a>
-                <a href="#benefits" class="hover:opacity-60 transition">Sauna Benefits</a>
-                <a href="#location" class="hover:opacity-60 transition">Find Us</a>
-                <a href="#contact" class="hover:opacity-60 transition">Contact Us</a>
-            </nav>
-            
-            <button id="mobile-menu-btn" class="lg:hidden p-2 focus:outline-none focus:ring-2 focus:ring-[#2B2521]/20 rounded">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+    <header class="fixed w-full top-0 z-50 flex flex-col">
+        <div class="w-full bg-[#F9F6F0] py-2 px-6 flex justify-end items-center gap-4 border-b border-[#2B2521]/10">
+            <a href="https://m.facebook.com/profile.php?id=61582286422405" target="_blank" rel="noopener noreferrer" class="text-xl hover:opacity-70 transition-opacity drop-shadow-sm" aria-label="Visit our Facebook page">📘</a>
+            <a href="https://www.instagram.com/ice_and_embers" target="_blank" rel="noopener noreferrer" class="text-xl hover:opacity-70 transition-opacity drop-shadow-sm" aria-label="Visit our Instagram page">📸</a>
         </div>
+        
+        <div class="bg-[#F9F6F0]/95 backdrop-blur-md border-b border-[#2B2521]/10 w-full">
+            <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+                <a href="#" class="block h-12 md:h-16 flex items-center">
+                    <img src="images/logo-round.png" alt="Ice & Embers Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                    <span class="font-serif text-xl tracking-wider font-bold leading-none hidden">ICE & EMBERS</span>
+                </a>
 
-        <nav id="mobile-menu" class="hidden lg:hidden bg-[#F9F6F0] border-t border-[#2B2521]/10 px-6 py-4 space-y-4 text-xs font-semibold tracking-widest uppercase shadow-lg">
-            <a href="#about" class="block hover:opacity-60 mobile-link">About Us</a>
-            <a href="#faq" class="block hover:opacity-60 mobile-link">FAQ's</a>
-            <a href="terms.html" class="block hover:opacity-60 mobile-link">Terms & Conditions</a>
-            <a href="#book" class="block text-[#2B2521] font-bold mobile-link">Book Your Session</a>
-            <a href="#benefits" class="block hover:opacity-60 mobile-link">Sauna Benefits</a>
-            <a href="#location" class="block hover:opacity-60 mobile-link">Find Us</a>
-            <a href="#contact" class="block hover:opacity-60 mobile-link">Contact Us</a>
-        </nav>
+                <nav class="hidden lg:flex space-x-6 text-[11px] lg:text-xs font-semibold tracking-widest uppercase items-center">
+                    <a href="#about" class="hover:opacity-60 transition">About Us</a>
+                    <a href="#faq" class="hover:opacity-60 transition">FAQ's</a>
+                    <a href="terms.html" class="hover:opacity-60 transition">Terms</a>
+                    <a href="#book" class="bg-[#2B2521] text-[#F9F6F0] px-4 py-2 rounded hover:opacity-90 transition">Book Your Session</a>
+                    <a href="#benefits" class="hover:opacity-60 transition">Sauna Benefits</a>
+                    <a href="#location" class="hover:opacity-60 transition">Find Us</a>
+                    <a href="#contact" class="hover:opacity-60 transition">Contact Us</a>
+                </nav>
+                
+                <button id="mobile-menu-btn" class="lg:hidden p-2 focus:outline-none focus:ring-2 focus:ring-[#2B2521]/20 rounded">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav id="mobile-menu" class="hidden lg:hidden bg-[#F9F6F0] border-t border-[#2B2521]/10 px-6 py-4 space-y-4 text-xs font-semibold tracking-widest uppercase shadow-lg">
+                <a href="#about" class="block hover:opacity-60 mobile-link">About Us</a>
+                <a href="#faq" class="block hover:opacity-60 mobile-link">FAQ's</a>
+                <a href="terms.html" class="block hover:opacity-60 mobile-link">Terms & Conditions</a>
+                <a href="#book" class="block text-[#2B2521] font-bold mobile-link">Book Your Session</a>
+                <a href="#benefits" class="block hover:opacity-60 mobile-link">Sauna Benefits</a>
+                <a href="#location" class="block hover:opacity-60 mobile-link">Find Us</a>
+                <a href="#contact" class="block hover:opacity-60 mobile-link">Contact Us</a>
+            </nav>
+        </div>
     </header>
 
-    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#2B2521] text-[#F9F6F0]">
+    <section class="relative min-h-screen flex items-center justify-center pt-28 overflow-hidden bg-[#2B2521] text-[#F9F6F0]">
         <div class="absolute inset-0 bg-[url('images/gallery/3.jpeg')] bg-cover bg-center opacity-20 mix-blend-luminosity"></div>
-        
         <div class="absolute inset-0 bg-[url('images/gallery/4.png')] bg-cover bg-center opacity-20 mix-blend-luminosity"></div>
         
         <div class="relative max-w-4xl mx-auto text-center px-6 py-12 flex flex-col items-center">
             <h1 class="font-serif text-5xl md:text-7xl tracking-widest font-bold mb-3">ICE & EMBERS</h1>
             <p class="font-serif text-lg md:text-2xl tracking-widest uppercase opacity-80 mb-8 border-b border-[#F9F6F0]/20 pb-4 w-48 mx-auto">Wood Fired Sauna</p>
             
-            <!-- Removed the extra unclosed div here -->
             <div class="flex items-center space-x-4 md:space-x-8 mb-10 text-sm md:text-lg font-serif tracking-widest uppercase text-[#F9F6F0]/90">
                 <span>Slow Down</span>
                 <span class="opacity-30">|</span>
@@ -87,7 +91,6 @@
             <a href="#book" class="bg-[#F9F6F0] text-[#2B2521] px-8 py-4 font-semibold uppercase tracking-wider text-sm rounded shadow-lg hover:bg-opacity-90 transition transform hover:-translate-y-0.5">
                 Reserve Your Bench
             </a>
-            
         </div>
     </section>
 
@@ -119,41 +122,103 @@
     <section id="book" class="py-20 bg-[#2B2521] text-[#F9F6F0]">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Book Your Session</h2>
-            <!-- ... -->
-            <div class="bg-[#F9F6F0] text-[#2B2521] rounded-xl p-8 min-h-[400px] flex flex-col items-center justify-center shadow-2xl border border-white/10">
+            <div class="bg-[#F9F6F0] text-[#2B2521] rounded-xl p-8 mt-10 min-h-[400px] flex flex-col items-center justify-center shadow-2xl border border-white/10">
                 <iframe src="https://bookwhen.com/iceandembers/iframe" frameborder="0" scrolling="yes" seamless="seamless" style="display:block;border:none;width:100%;height:400px;"></iframe>
             </div>
         </div>
     </section>
 
     <section id="benefits" class="py-24 bg-stone-100 border-y border-[#2B2521]/5">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="font-serif text-3xl font-bold mb-4">Sauna Benefits</h2>
-                <p class="opacity-70 text-sm">The profound physical and mental benefits of regular thermal contrast therapy.</p>
-            </div>
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-serif text-center mb-16 text-[#2B2521] font-bold">Benefits of Sauna & Cold Water Therapy</h2>
             
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-[#F9F6F0] p-6 rounded shadow-sm border border-[#2B2521]/5">
-                    <div class="text-xl mb-3">🫀</div>
-                    <h3 class="font-serif font-bold text-lg mb-2">Cardiovascular Health</h3>
-                    <p class="text-sm opacity-70 leading-relaxed">The deep heat mimics moderate exercise, improving circulation, blood flow, and overall heart function.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">🔥</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Reduces Stress & Promotes Relaxation</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">The combination of heat and cold helps calm the mind, release tension and encourage deep relaxation.</p>
+                    </div>
                 </div>
-                <div class="bg-[#F9F6F0] p-6 rounded shadow-sm border border-[#2B2521]/5">
-                    <div class="text-xl mb-3">🧘</div>
-                    <h3 class="font-serif font-bold text-lg mb-2">Deep Nervous Reset</h3>
-                    <p class="text-sm opacity-70 leading-relaxed">Shifting from hot to cold forces your mind into the absolute present, drastically lowering cortisol and stress levels.</p>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">😴</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Supports Better Sleep</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Many people report improved sleep quality after sauna sessions thanks to the body’s natural cooling and recovery process.</p>
+                    </div>
                 </div>
-                <div class="bg-[#F9F6F0] p-6 rounded shadow-sm border border-[#2B2521]/5">
-                    <div class="text-xl mb-3">💪</div>
-                    <h3 class="font-serif font-bold text-lg mb-2">Muscle Recovery</h3>
-                    <p class="text-sm opacity-70 leading-relaxed">Perfect for athletes. Flushes out metabolic waste and relaxes tight joints and muscles instantly.</p>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">❤️</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Supports Cardiovascular Health</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Regular sauna use can increase circulation and gently challenge the cardiovascular system in a similar way to light exercise.</p>
+                    </div>
                 </div>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">💪</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Aids Muscle Recovery</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Heat helps relax muscles and joints, while cold water immersion may help reduce post-exercise soreness.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">🧠</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Improves Mental Wellbeing</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Taking time away from daily distractions can help improve mood, mental clarity and overall wellbeing.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">🌿</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Encourages Mindfulness & Presence</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">The contrast of heat and cold naturally draws attention to the present moment, helping you reconnect with yourself and nature.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">⚡</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Boosts Energy Levels</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Many guests leave feeling refreshed, invigorated and recharged after a hot-cold contrast session.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">🩸</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Enhances Circulation</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Alternating between heat and cold encourages blood vessels to expand and contract, supporting healthy circulation.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">🤝</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Builds Community & Connection</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Shared sauna experiences create opportunities to slow down, connect and enjoy meaningful conversations with others.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-1">🌲</span>
+                    <div>
+                        <h3 class="font-bold font-serif text-lg text-[#2B2521] mb-1">Reconnects You With Nature</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Surrounded by the Perthshire countryside, our sauna offers a chance to step away from screens, breathe deeply and immerse yourself in the natural world.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-<section id="faq" class="py-24 max-w-4xl mx-auto px-6">
+    <section id="faq" class="py-24 max-w-4xl mx-auto px-6">
         <h2 class="font-serif text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
         
         <div class="space-y-4">
@@ -339,25 +404,25 @@
                 
                 <div class="py-4 space-y-3">
                     <p class="flex items-center gap-3">
-                        <span class="opacity-50">✉️</span> 
+                        <span class="opacity-50 text-lg">✉️</span> 
                         <a href="mailto:iceandembers@outlook.com" class="hover:underline">iceandembers@outlook.com</a>
                     </p>
-                    <p class="flex items-center gap-3">
-                        <span class="opacity-50">📞</span> 
+                    <p class="flex items-center gap-3 mt-2">
+                        <span class="opacity-50 text-lg">📞</span> 
                         <a href="tel:07385826246" class="hover:underline">07385 826246</a>
                     </p>
-                    <p class="flex items-center gap-3">
-                        <span class="opacity-50 pl-7"></span>
+                    <p class="flex items-center gap-3 mt-2">
+                        <span class="opacity-50 pl-7 text-lg"></span>
                         <a href="tel:07850533369" class="hover:underline">07850 533369</a>
                     </p>
-                    <p class="flex items-center gap-3">
-                    <span class="opacity-50 pl-7"></span>
-                    <a href="https://m.facebook.com/profile.php?id=61582286422405" target="_blank" rel="noopener noreferrer" class="hover:underline">Facebook</a>
-                </p>
-                <p class="flex items-center gap-3">
-                    <span class="opacity-50 pl-7"></span>
-                    <a href="https://www.instagram.com/ice_and_embers" target="_blank" rel="noopener noreferrer" class="hover:underline">@ice_and_embers</a>
-                </p>
+                    <p class="flex items-center gap-3 mt-2">
+                        <span class="opacity-50 pl-7 text-lg">📘</span>
+                        <a href="https://m.facebook.com/profile.php?id=61582286422405" target="_blank" rel="noopener noreferrer" class="hover:underline">Facebook</a>
+                    </p>
+                    <p class="flex items-center gap-3 mt-2">
+                        <span class="opacity-50 pl-7 text-lg">📸</span>
+                        <a href="https://www.instagram.com/ice_and_embers" target="_blank" rel="noopener noreferrer" class="hover:underline">@ice_and_embers</a>
+                    </p>
                 </div>
                 <p>If we’re unable to answer your call, please leave a voicemail or send us a text message and we’ll get back to you as soon as possible.</p>
                 <p>You can also connect with us through our social media channels for updates, announcements and behind-the-scenes content.</p>
