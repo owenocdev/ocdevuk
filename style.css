@@ -322,6 +322,30 @@ h1, h2, h3, h4 {
     color: var(--text-light);
 }
 
+/* Hero Section Load Animations (Staggered) */
+.hero-section .badge,
+.hero-section h1,
+.hero-section .hero-lead,
+.hero-section .hero-cta,
+.hero-section .hero-stats {
+    animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero-section .badge { animation-delay: 0.1s; }
+.hero-section h1 { animation-delay: 0.2s; }
+.hero-section .hero-lead { animation-delay: 0.3s; }
+.hero-section .hero-cta { animation-delay: 0.4s; }
+.hero-section .hero-stats { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (min-width: 768px) {
     .hero-section {
         padding: 100px 0 60px 0;
@@ -378,6 +402,13 @@ h1, h2, h3, h4 {
     padding: 20px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.03);
+    border-color: var(--primary);
 }
 
 .feature-icon {
@@ -536,6 +567,7 @@ h1, h2, h3, h4 {
     background: var(--primary);
     height: 100%;
     border-radius: 4px;
+    transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @media (min-width: 768px) {
@@ -924,4 +956,16 @@ a.project-card:hover {
     100% {
         transform: scale(1);
     }
+}
+
+/* --- Scroll Reveal Animations --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }

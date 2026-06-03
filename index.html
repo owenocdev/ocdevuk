@@ -444,6 +444,50 @@
         
         // Run the function as soon as the page loads
         updateTimeInIndustry();
+
+        document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Prepare elements for scroll reveal
+        const elementsToReveal = document.querySelectorAll('.feature-card, .service-card, .review-card, .project-card, .section-title, .section-subtitle');
+        elementsToReveal.forEach(el => el.classList.add('reveal'));
+
+        // 2. Intersection Observer for Fade-ins
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, {
+            threshold: 0.1, // Triggers when 10% of the element is visible
+            rootMargin: "0px 0px -50px 0px" // Triggers slightly before it enters the viewport
+        });
+
+        elementsToReveal.forEach(el => revealObserver.observe(el));
+
+        // 3. Intersection Observer for Skill Bars
+        const skillBars = document.querySelectorAll('.skill-progress');
+        
+        // Temporarily set widths to 0, storing the real width in a data attribute
+        skillBars.forEach(bar => {
+            bar.dataset.width = bar.style.width; 
+            bar.style.width = '0'; 
+        });
+
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    bar.style.width = bar.dataset.width; // Animate to the target percentage
+                    skillObserver.unobserve(bar);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillBars.forEach(bar => skillObserver.observe(bar));
+    });
+
     </script>
 </body>
 </html>
