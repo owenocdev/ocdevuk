@@ -41,7 +41,8 @@
             <div class="hero-stats">
                 <div class="stat-item"><strong>3+</strong> <span>Projects Built</span></div>
                 <div class="stat-item"><strong>5★</strong> <span>Client Rating</span></div>
-                <div class="stat-item"><strong>5 months</strong> <span>In the Industry</span></div>
+                <!-- Added an ID here so JavaScript can target it -->
+                <div class="stat-item"><strong id="time-in-industry">5 months</strong> <span>In the Industry</span></div>
             </div>
         </div>
     </section>
@@ -406,6 +407,43 @@
             btn.innerHTML = 'Error. Try Again &rarr;';
         });
     });
+
+    function updateTimeInIndustry() {
+            // Set start date to January 2026 (Month 0 in JavaScript)
+            const startYear = 2026;
+            const startMonth = 0; 
+            
+            // Get current date
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth();
+            
+            // Calculate total months passed
+            let totalMonths = (currentYear - startYear) * 12 + (currentMonth - startMonth);
+            
+            // Failsafe in case the user's clock is somehow behind
+            if (totalMonths < 1) totalMonths = 1; 
+
+            const timeElement = document.getElementById('time-in-industry');
+            
+            // Format the text nicely
+            if (totalMonths < 12) {
+                timeElement.innerText = totalMonths + " months";
+            } else {
+                const years = Math.floor(totalMonths / 12);
+                const extraMonths = totalMonths % 12;
+                
+                if (extraMonths === 0) {
+                    timeElement.innerText = years + (years === 1 ? " year" : " years");
+                } else {
+                    // E.g., "1 yr 2 mo"
+                    timeElement.innerText = years + (years === 1 ? " yr " : " yrs ") + extraMonths + " mo";
+                }
+            }
+        }
+        
+        // Run the function as soon as the page loads
+        updateTimeInIndustry();
     </script>
 </body>
 </html>
