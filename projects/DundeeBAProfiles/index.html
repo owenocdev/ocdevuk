@@ -22,7 +22,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Nunito Sans', sans-serif;
-    background-color: var(--white); /* Match the card background */
+    background-color: var(--white);
     color: var(--dark-text);
     /* Prevent body scroll bounce on iOS */
     overscroll-behavior-y: none; 
@@ -31,7 +31,7 @@
   /* Full Screen Container */
   .card-container {
     width: 100%;
-    min-height: 100dvh; /* Dynamically fills 100% of the screen height */
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -78,9 +78,13 @@
     cursor: pointer;
   }
 
-  /* Profile Info Section */
-  .profile-section {
-    flex-shrink: 0;
+  /* Main Content Layout (Flows Naturally) */
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start; /* Prevents the massive gaps */
+    padding-bottom: 40px;
   }
 
   .profile-pic {
@@ -90,7 +94,7 @@
     border: 5px solid var(--white);
     background-color: #eee;
     position: relative;
-    margin: -50px auto 5px auto; /* Pulls up perfectly into the header's safe zone */
+    margin: -50px auto 5px auto;
     object-fit: cover;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     z-index: 10;
@@ -114,47 +118,44 @@
     margin: 4px;
   }
 
-  .unit-text, .sub-unit-text, .age-text {
-    margin-top: 2px;
-    margin-bottom: 2px;
-  }
-
   .unit-text {
     font-size: 1rem;
     font-weight: 400;
     color: #444;
+    margin-top: 10px;
+    margin-bottom: 2px;
   }
 
   .sub-unit-text {
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--scout-blue);
+    margin-top: 2px;
+    margin-bottom: 2px;
   }
 
   .age-text {
     font-size: 0.9rem;
     font-weight: 700;
     color: #666;
+    margin-top: 2px;
+    margin-bottom: 5px;
   }
 
-  /* Dynamic Flexible Bottom Section */
-  .bottom-section {
-    flex-grow: 1; /* Automatically takes up all remaining screen space */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centers the buttons vertically in the empty space */
-    padding: 10px 0 20px 0;
-  }
-
+  /* Links Layout */
   .links-container {
     padding: 0 25px;
     display: flex;
     flex-direction: column;
-    gap: 1.5vh; /* Gap dynamically shrinks on smaller screens */
+    gap: 12px; 
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
     box-sizing: border-box;
+  }
+
+  #dynamic-links-container, #static-links-container {
+    margin-top: 15px; /* Spaces buttons nicely from the profile text */
   }
 
   .btn {
@@ -162,7 +163,7 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    padding: 1.8vh 10px; /* Padding scales based on screen height */
+    padding: 1.8vh 10px;
     min-height: 44px;
     border-radius: 10px;
     font-weight: 700;
@@ -196,14 +197,15 @@
   .divider {
     height: 1px;
     background: #e1e3e6;
-    margin: 2vh 30px; 
+    margin: 20px 30px; 
   }
 </style>
 </head>
 <body>
 
 <div class="card-container" id="profile-card">
-  <!-- Top Header Section -->
+  
+  <!-- Header -->
   <div class="header-bg">
     <img src="./assets/ScoutScotland.png" alt="Scouts Scotland" class="scout-scotland-logo">
     <div class="dropdown-container">
@@ -211,19 +213,18 @@
     </div>
   </div>
   
-  <!-- Profile Information Section -->
-  <div class="profile-section">
+  <!-- Content Body -->
+  <div class="main-content">
+    
     <img src="" alt="Profile Photo" class="profile-pic" id="user-photo">
     <h1 id="user-name">Name</h1>
     <div><span class="badge" id="user-patrol">Patrol</span></div>
     <p class="unit-text" id="user-unit">Explorer Unit</p>
     <p class="sub-unit-text" id="user-sub-unit">Sub Unit</p>
     <p class="age-text" id="user-age" style="display: none;">Age: <span id="user-age-val"></span></p>
-  </div>
 
-  <!-- Bottom Buttons Section (Flexibly spaces itself out) -->
-  <div class="bottom-section">
-    <div class="links-container">
+    <!-- Dynamic Personal Links -->
+    <div class="links-container" id="dynamic-links-container" style="display: none;">
       <a href="#" class="btn btn-snapchat" id="link-snapchat" target="_blank" style="display: none;">
         <svg class="btn-icon" fill="#000000" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M21.79755,16.98718c-2.86621-.47223-4.15094-3.40149-4.204-3.52588l-.00544-.01172a1.07048,1.07048,0,0,1-.10223-.89758c.19251-.45361.82935-.6557,1.25134-.78967.10535-.03339.205-.065.28315-.096.76275-.30127.91784-.61316.91406-.8219a.66226.66226,0,0,0-.50134-.54358l-.00568-.00213a.9462.9462,0,0,0-.35632-.06824.7546.7546,0,0,0-.31287.06207,2.54,2.54,0,0,1-.95526.26612.82134.82134,0,0,1-.52954-.17725c.00915-.16992.02-.34522.0318-.53046l.004-.0653a10.10231,10.10231,0,0,0-.24091-4.03449,5.2482,5.2482,0,0,0-4.87311-3.1394q-.20114.0021-.4024.00378A5.23959,5.23959,0,0,0,6.92853,5.75293,10.08988,10.08988,0,0,0,6.68726,9.784q.01941.29872.036.59771a.8483.8483,0,0,1-.5838.17841,2.45322,2.45322,0,0,1-1.014-.26776.57538.57538,0,0,0-.2453-.04895.83387.83387,0,0,0-.81061.53265c-.08191.43061.5329.74256.90668.8902.079.03137.17822.0628.28308.096.42169.13385,1.05908.33606,1.25152.78985a1.07171,1.07171,0,0,1-.10223.89783l-.00537.01154a7.02828,7.02828,0,0,1-1.06915,1.66211,5.21488,5.21488,0,0,1-3.13483,1.86389.23978.23978,0,0,0-.20044.25006.38046.38046,0,0,0,.031.12964c.17578.41113,1.05822.75061,2.55182.981.13964.02161.19873.24927.28027.6222.03259.14929.06634.30426.1134.46423a.29261.29261,0,0,0,.31922.22876,2.48528,2.48528,0,0,0,.42492-.06091,5.52912,5.52912,0,0,1,1.12036-.12677,4.95367,4.95367,0,0,1,.8078.0683,3.87725,3.87725,0,0,1,1.535.78417,4.443,4.443,0,0,0,2.6897,1.06006c.03375,0,.06744-.00122.10009-.004.04114.00195.09522.004.15192.004a4.44795,4.44795,0,0,0,2.69122-1.06079,3.87269,3.87269,0,0,1,1.53351-.78332,4.97275,4.97275,0,0,1,.808-.0683,5.59252,5.59252,0,0,1,1.12037.11871,2.39142,2.39142,0,0,0,.425.05371h.02338a.279.279,0,0,0,.29547-.221c.04645-.15784.08045-.308.11389-.46131.08081-.371.1399-.59759.28009-.61926,1.494-.23078,2.37641-.56976,2.551-.97858a.38487.38487,0,0,0,.03174-.13086A.24.24,0,0,0,21.79755,16.98718Z"></path></g></svg>
         Snapchat
@@ -240,9 +241,11 @@
       </a>
     </div>
 
-    <div class="divider"></div>
+    <!-- Hidden dynamically if no personal links exist -->
+    <div class="divider" id="link-divider" style="display: none;"></div>
 
-    <div class="links-container">
+    <!-- Static Region Links -->
+    <div class="links-container" id="static-links-container">
       <a href="https://www.instagram.com/dundeescouts/" class="btn btn-region" target="_blank">
         <svg class="btn-icon" style="fill: #ffffff;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
         Dundee Scouts
@@ -308,6 +311,7 @@
     document.getElementById('user-patrol').textContent = user.patrol;
     document.getElementById('user-unit').textContent = user.unit;
     
+    // Toggle Sub Unit
     const subUnitElement = document.getElementById('user-sub-unit');
     if (user.subUnit) {
       subUnitElement.textContent = user.subUnit;
@@ -316,6 +320,7 @@
       subUnitElement.style.display = "none";
     }
 
+    // Toggle Age
     const ageElement = document.getElementById('user-age');
     if (user.age) {
       document.getElementById('user-age-val').textContent = user.age;
@@ -324,17 +329,24 @@
       ageElement.style.display = "none";
     }
     
+    // Check if any personal links exist
+    let hasDynamicLinks = false;
+    
     const snapBtn = document.getElementById('link-snapchat');
-    if (user.snapchat) { snapBtn.href = user.snapchat; snapBtn.style.display = "flex"; } 
+    if (user.snapchat) { snapBtn.href = user.snapchat; snapBtn.style.display = "flex"; hasDynamicLinks = true; } 
     else { snapBtn.style.display = "none"; }
 
     const instaBtn = document.getElementById('link-instagram');
-    if (user.instagram) { instaBtn.href = user.instagram; instaBtn.style.display = "flex"; } 
+    if (user.instagram) { instaBtn.href = user.instagram; instaBtn.style.display = "flex"; hasDynamicLinks = true; } 
     else { instaBtn.style.display = "none"; }
 
     const waBtn = document.getElementById('link-whatsapp');
-    if (user.whatsapp) { waBtn.href = user.whatsapp; waBtn.style.display = "flex"; } 
+    if (user.whatsapp) { waBtn.href = user.whatsapp; waBtn.style.display = "flex"; hasDynamicLinks = true; } 
     else { waBtn.style.display = "none"; }
+
+    // Toggle the containers and the divider based on link existence
+    document.getElementById('dynamic-links-container').style.display = hasDynamicLinks ? "flex" : "none";
+    document.getElementById('link-divider').style.display = hasDynamicLinks ? "block" : "none";
 
     dropdown.value = id;
 
