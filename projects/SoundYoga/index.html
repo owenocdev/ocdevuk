@@ -97,7 +97,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem 0; /* Slightly reduced padding to accommodate the image logo smoothly */
+            padding: 0.5rem 0; 
         }
 
         .logo-area {
@@ -106,7 +106,7 @@
         }
 
         .nav-logo {
-            max-height: 65px; /* Ensures the script logo is large enough to read but fits the nav */
+            max-height: 65px; 
             width: auto;
             display: block;
         }
@@ -125,7 +125,7 @@
         .hero {
             background: linear-gradient(rgba(255, 245, 235, 0.7), rgba(255, 245, 235, 0.7)), 
                         url('https://images.unsplash.com/photo-1524863479829-916d8e77f114?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-            padding: 9rem 0; /* Increased padding slightly since text is reduced */
+            padding: 9rem 0; 
             text-align: center;
         }
 
@@ -292,6 +292,50 @@
             background-color: rgba(249, 222, 183, 0.2);
         }
 
+        /* --- REVIEWS SECTION --- */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .review-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--sunset-orange);
+        }
+
+        .review-card h4 {
+            color: var(--sunset-dark);
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 0.8rem;
+        }
+
+        .review-stars {
+            color: #e5723b; 
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .review-form-wrapper {
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
         /* --- CONTACT SECTION --- */
         .contact {
             background-color: var(--white);
@@ -392,6 +436,7 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#experience">The Philosophy</a></li>
                     <li><a href="#classes">Classes & Prices</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -523,6 +568,36 @@
         </div>
     </section>
 
+    <!-- NEW REVIEWS SECTION -->
+    <section id="reviews" class="classes" style="background-color: var(--sunset-light);">
+        <div class="container">
+            <h2 class="text-center" style="margin-bottom: 3rem;">Client Experiences</h2>
+            
+            <!-- The grid where reviews will automatically load -->
+            <div id="reviews-container" class="reviews-grid"></div>
+
+            <!-- The Submission Form -->
+            <div class="review-form-wrapper">
+                <h3 style="color: var(--sunset-dark); margin-bottom: 1rem; font-family: 'Playfair Display', serif;">Leave a Review</h3>
+                <form id="review-form">
+                    <div class="form-group">
+                        <label for="reviewer-name">Your Name</label>
+                        <input type="text" id="reviewer-name" name="name" required placeholder="e.g. Jane Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="review-rating">Rating (1-5)</label>
+                        <input type="number" id="review-rating" name="rating" min="1" max="5" value="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-text">Your Experience</label>
+                        <textarea id="review-text" name="review_text" rows="4" required placeholder="How was your session in the garden room?"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="contact">
         <div class="container">
             <div class="contact-grid">
@@ -562,5 +637,64 @@
         </div>
     </footer>
 
+    <!-- REVIEWS SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load reviews as soon as the page opens
+            fetchReviews();
+
+            // Handle the form submission
+            document.getElementById('review-form').addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                
+                const formData = new FormData(this);
+
+                fetch('reviews.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success) {
+                        this.reset(); // Clear the form fields
+                        fetchReviews(); // Reload the updated review grid instantly
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+
+        function fetchReviews() {
+            fetch('reviews.php')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('reviews-container');
+                    container.innerHTML = ''; // Clear out the loading state
+
+                    if (data.length === 0) {
+                        container.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">No reviews yet. Be the first!</p>';
+                        return;
+                    }
+
+                    // Build a card for each review in the JSON file
+                    data.forEach(review => {
+                        const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                        const card = document.createElement('div');
+                        card.className = 'review-card';
+                        
+                        card.innerHTML = `
+                            <h4>${review.client_name}</h4>
+                            <div class="review-date">${review.date}</div>
+                            <div class="review-stars">${stars}</div>
+                            <p>"${review.review_text}"</p>
+                        `;
+                        container.appendChild(card);
+                    });
+                })
+                .catch(error => console.error('Error fetching reviews:', error));
+        }
+    </script>
 </body>
 </html>
